@@ -298,3 +298,4 @@ dist
 ### Obsidian ###
 # config dir
 .obsidian/
+.obsidian/workspace.json
