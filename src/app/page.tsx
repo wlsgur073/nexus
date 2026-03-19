@@ -1,65 +1,120 @@
-import Image from "next/image";
+import Link from "next/link";
+import { ArrowRight, Package, Activity, Server } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { DynamicIcon } from "@/lib/icons";
+import { solutions } from "@/config/solutions";
 
-export default function Home() {
+const statusLabel: Record<string, string> = {
+  active: "활성",
+  beta: "베타",
+  "coming-soon": "준비 중",
+};
+
+const statusVariant: Record<string, "default" | "secondary" | "outline"> = {
+  active: "default",
+  beta: "secondary",
+  "coming-soon": "outline",
+};
+
+export default function DashboardPage() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+    <div className="p-6">
+      {/* Welcome */}
+      <div className="mb-8">
+        <h1 className="text-2xl font-bold tracking-tight">
+          Nexus Command Center
+        </h1>
+        <p className="mt-1 text-muted-foreground">
+          솔루션을 연결하고 전체 현황을 한눈에 파악하세요.
+        </p>
+      </div>
+
+      {/* Quick Access Solutions */}
+      <section className="mb-8">
+        <div className="mb-4 flex items-center justify-between">
+          <h2 className="text-lg font-semibold">솔루션 빠른 접근</h2>
+          <Button
+            variant="ghost"
+            size="sm"
+            nativeButton={false}
+            render={<Link href="/solutions" />}
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+            전체 보기 <ArrowRight className="ml-1 h-4 w-4" />
+          </Button>
         </div>
-      </main>
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {solutions.slice(0, 3).map((solution) => (
+            <Link key={solution.id} href={solution.route}>
+              <Card className="transition-shadow hover:shadow-md">
+                <CardHeader className="flex flex-row items-center gap-3 space-y-0 pb-2">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10">
+                    <DynamicIcon
+                      name={solution.icon}
+                      className="h-5 w-5 text-primary"
+                    />
+                  </div>
+                  <div className="flex-1">
+                    <CardTitle className="text-base">{solution.name}</CardTitle>
+                  </div>
+                  <Badge variant={statusVariant[solution.status]}>
+                    {statusLabel[solution.status]}
+                  </Badge>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-sm text-muted-foreground">
+                    {solution.description}
+                  </p>
+                </CardContent>
+              </Card>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* Platform Stats Placeholder */}
+      <section>
+        <h2 className="mb-4 text-lg font-semibold">플랫폼 현황</h2>
+        <div className="grid gap-4 sm:grid-cols-3">
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">
+                등록된 솔루션
+              </CardTitle>
+              <Package className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">{solutions.length}</div>
+              <p className="text-xs text-muted-foreground">
+                {solutions.filter((s) => s.status === "active").length} 활성
+              </p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">시스템 상태</CardTitle>
+              <Activity className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold text-green-600">정상</div>
+              <p className="text-xs text-muted-foreground">
+                모든 서비스 가동 중
+              </p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">API 호출</CardTitle>
+              <Server className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">—</div>
+              <p className="text-xs text-muted-foreground">준비 중</p>
+            </CardContent>
+          </Card>
+        </div>
+      </section>
     </div>
   );
 }
