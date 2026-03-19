@@ -1,4 +1,4 @@
-import type { Category, Solution } from "@/types/solution";
+import type { Category, Solution } from "@nexus/types";
 
 export const categories: Category[] = [
   { id: "ai-ml", name: "AI / ML", icon: "Brain" },
