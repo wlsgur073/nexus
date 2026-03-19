@@ -1,0 +1,12 @@
+{
+  "name": "@nexus/codex-shared",
+  "version": "0.0.0",
+  "private": true,
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "@nexus/types": "workspace:*",
+    "@nexus/codex-models": "workspace:*"
+  }
+}
