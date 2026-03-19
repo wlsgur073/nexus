@@ -74,6 +74,7 @@ $RECYCLE.BIN/
 
 # Claude local settings
 .claude/settings.local.json
+.claude.local.md
 
 # Obsidian editor
 .obsidian/
@@ -94,11 +95,14 @@ $RECYCLE.BIN/
 /coverage
 
 # next.js
-/.next/
+.next/
 /out/
 
 # production
 /build
+
+# turbo
+.turbo
 
 # misc
 .DS_Store
@@ -290,3 +294,7 @@ dist
 
 # SvelteKit build / generate output
 .svelte-kit
+
+### Obsidian ###
+# config dir
+.obsidian/
