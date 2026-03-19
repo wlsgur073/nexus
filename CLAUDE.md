@@ -1,9 +1,9 @@
-# Nexus Command Center
+# Nexus
 
 ## 프로젝트 개요
 
-- **프로젝트명**: nexus-command-center
-- **설명**: 멀티 솔루션 클라우드 플랫폼 (Azure/AWS/GCP 스타일). "Nexus"라는 이름으로 여러 솔루션을 연결하는 플랫폼 셸 위에 솔루션을 추가하는 구조. "Command Center"는 대시보드 허브 역할
+- **프로젝트명**: Nexus
+- **설명**: 멀티 솔루션 클라우드 플랫폼 (Azure/AWS/GCP 스타일). "Nexus"는 여러 솔루션을 연결하는 플랫폼 셸이며, 그 안의 "Command Center"는 솔루션 현황을 확인하는 대시보드 허브. 각 솔루션(Codex 등)은 독립적으로 명명
 - **기술 스택**: Next.js 16 (App Router), React 19, TypeScript 5.x, Tailwind CSS v4, shadcn/ui (base-nova)
 - **주요 의존성**: lucide-react (아이콘), @base-ui/react (UI 프리미티브), class-variance-authority, tailwind-merge
 - **아키텍처**: Turborepo 모노레포 — 플랫폼 셸 + 솔루션 플러그인 구조 (Backstage 참고)
