@@ -101,7 +101,7 @@
 
 ### 5.1 테마
 
-- 다크 모드 기본
+- 시스템 모드 기본 (OS 설정 따름), 사용자가 라이트/다크 모드 전환 가능
 - Tailwind CSS v4 `@theme inline` 블록으로 커스텀 색상 정의
 - shadcn/ui `base-nova` 스타일 사용
 
