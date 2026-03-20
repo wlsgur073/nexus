@@ -32,7 +32,7 @@
 
 ### 1.3 Codex 도메인 모델
 
-> 상세 도메인 모델은 `solutions/codex/docs/codex-개발지시서.md` 참조
+> 상세 도메인 모델은 `solutions/codex/docs/codex-product-spec.md` 참조
 
 ---
 
