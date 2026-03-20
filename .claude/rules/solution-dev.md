@@ -18,7 +18,8 @@ solutions/{id}/
 ├── web/          # Next.js 앱 (@nexus/{id}-web)
 ├── models/       # 데이터 모델 (@nexus/{id}-models)
 ├── shared/       # 내부 공유 유틸 (@nexus/{id}-shared)
-└── docs/         # 솔루션 문서
+└── docs/
+    └── release/  # 릴리즈 노트 (yyyy-MM-dd-topic.md)
 ```
 
 ## 솔루션 등록
@@ -43,3 +44,29 @@ solutions/{id}/
 
 - platform: 3000, codex: 3001, 이후 솔루션: 3002~
 - `web/package.json`의 `dev` 스크립트에 `--port {port}` 지정
+
+## 릴리즈 노트
+
+기능 추가, 버그 수정 등 의미 있는 변경을 완료하면 릴리즈 노트를 작성한다.
+
+- **위치**: `solutions/{id}/docs/release/yyyy-MM-dd-topic.md`
+- **파일명 예시**: `2026-03-20-standard-term-crud.md`
+- **형식**:
+
+```markdown
+---
+version: 0.1.0
+summary: 한 줄 요약
+---
+
+## 변경 사항
+
+- 추가된 기능, 수정된 버그, 개선 사항을 항목별로 기술
+
+## 영향 범위
+
+- 변경에 영향받는 패키지 또는 페이지 목록
+```
+
+- 한 커밋에 여러 주제가 포함되어도 릴리즈 노트는 **주제별로 1개 파일**
+- 사소한 변경(오타, 포맷팅)은 릴리즈 노트 불필요
