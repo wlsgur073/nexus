@@ -2,6 +2,7 @@
 
 import { Waypoints, Menu, Search, User } from "lucide-react";
 import { Button, Input } from "@nexus/ui";
+import { ThemeToggle } from "./theme-toggle";
 
 type HeaderProps = {
   onToggleSidebar: () => void;
@@ -36,6 +37,8 @@ export function Header({ onToggleSidebar }: HeaderProps) {
             className="w-64 pl-8"
           />
         </div>
+
+        <ThemeToggle />
 
         <Button variant="ghost" size="icon">
           <User className="h-5 w-5" />

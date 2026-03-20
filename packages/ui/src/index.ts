@@ -29,3 +29,4 @@ export {
   TooltipContent,
   TooltipProvider,
 } from "./tooltip";
+export { ThemeProvider } from "./theme-provider";
