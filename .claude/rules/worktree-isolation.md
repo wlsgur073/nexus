@@ -11,6 +11,7 @@ Agent Team으로 병렬 작업 시 충돌을 방지하기 위한 규칙.
 | `package-developer`  | `packages/`        | 없음 (최하위)                                                    |
 | `test-engineer`      | 전체 (테스트 파일) | 테스트 대상 소스 파일                                            |
 | `code-reviewer`      | 전체 (읽기 전용)   | 없음                                                             |
+| `a11y-reviewer`      | 전체 (읽기 전용)   | 없음                                                             |
 | `team-leader`        | 전체 (읽기 + 문서) | 모든 파일 (읽기), `docs/` (쓰기)                                 |
 
 ## 충돌 매트릭스
@@ -23,6 +24,7 @@ Agent Team으로 병렬 작업 시 충돌을 방지하기 위한 규칙.
 | `package-developer` A + `package-developer` B | **높음**  | 서로 다른 패키지라도 `packages/` 내 의존 체인으로 충돌 가능 |
 | `test-engineer` + 다른 에이전트               | **중간**  | 테스트 대상 파일이 동시에 수정되면 테스트가 깨질 수 있음    |
 | `code-reviewer` + 다른 에이전트               | **없음**  | 읽기 전용 — 파일 수정 안 함                                 |
+| `a11y-reviewer` + 다른 에이전트               | **없음**  | 읽기 전용 — 파일 수정 안 함                                 |
 | `team-leader` + 모든 에이전트                 | **낮음**  | 소스 코드 수정 안 함. `docs/` 동시 수정 시 충돌 가능성 있음 |
 
 ## 공유 충돌 파일 (동시 수정 금지)
@@ -48,6 +50,7 @@ Agent Team으로 병렬 작업 시 충돌을 방지하기 위한 규칙.
 
 - `platform-developer` + `solution-developer` (서로 다른 디렉토리)
 - `code-reviewer` + 모든 에이전트 (읽기 전용)
+- `a11y-reviewer` + 모든 에이전트 (읽기 전용)
 - `team-leader` + 모든 에이전트 (소스 코드 미수정, `docs/` 충돌만 주의)
 - 같은 솔루션 내에서 `web/` + `models/` + `shared/` 각각 다른 에이전트가 작업 (파일 중복 없음)
 
