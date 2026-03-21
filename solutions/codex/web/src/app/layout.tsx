@@ -1,7 +1,12 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { Toaster } from "sonner";
+
 import { TooltipProvider, ThemeProvider } from "@nexus/ui";
-import { PlatformShell } from "@nexus/shell";
+
+import { QueryProvider } from "@/components/providers/query-provider";
+import { AuthProvider } from "@/components/providers/auth-provider";
+import { CodexLayout } from "@/components/layout/codex-layout";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -33,9 +38,14 @@ export default function RootLayout({
     >
       <body className="flex min-h-full flex-col">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <TooltipProvider>
-            <PlatformShell>{children}</PlatformShell>
-          </TooltipProvider>
+          <QueryProvider>
+            <AuthProvider>
+              <TooltipProvider>
+                <CodexLayout>{children}</CodexLayout>
+              </TooltipProvider>
+              <Toaster richColors position="top-right" />
+            </AuthProvider>
+          </QueryProvider>
         </ThemeProvider>
       </body>
     </html>

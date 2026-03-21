@@ -30,3 +30,43 @@ export {
   TooltipProvider,
 } from "./tooltip";
 export { ThemeProvider } from "./theme-provider";
+export { Tabs, TabsList, TabsTrigger, TabsContent, tabsListVariants } from "./tabs";
+export {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectScrollDownButton,
+  SelectScrollUpButton,
+  SelectSeparator,
+  SelectTrigger,
+  SelectValue,
+} from "./select";
+export { Textarea } from "./textarea";
+export {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogOverlay,
+  DialogPortal,
+  DialogTitle,
+  DialogTrigger,
+} from "./dialog";
+export { Alert, AlertTitle, AlertDescription, AlertAction } from "./alert";
+export { Checkbox } from "./checkbox";
+export {
+  Table,
+  TableHeader,
+  TableBody,
+  TableFooter,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableCaption,
+} from "./table";
+export { Label } from "./label";
+export { Skeleton } from "./skeleton";
