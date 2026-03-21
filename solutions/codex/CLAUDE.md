@@ -31,9 +31,24 @@
 
 ## 현재 구현 상태
 
-- **web**: 플레이스홀더만 존재 (layout + 홈 page)
-- **models**: 빈 상태 (엔티티 타입, API 클라이언트 미구현)
-- **shared**: 빈 상태 (상수, 유틸 미구현)
+### Phase 1 (MVP) — 완료 (2026-03-21)
+
+- **models**: 19개 엔티티 타입 + 14개 API 모듈 (Mock 데이터) 구현 완료
+  - entities/: base, enums(17종), standard, governance, validation, common-code, system, db-connection
+  - api/: auth, dashboard, explorer, standard-words/domains/terms, requests, approvals, inline-governance, drafts, comments, ai
+- **shared**: 상수 4개 + 유틸 4개 구현 완료
+  - constants/: routes, menu(역할별 접근 매트릭스), status(3종 라벨+색상), query-keys
+  - utils/: physical-name, status-color, role-check, request-no
+- **web**: Phase 1 화면 전체 구현 완료 (41개 파일)
+  - 기반: providers(Query, Auth), hooks(useAuth, useDebounce, useDraftAutosave), lib(api, validators), middleware
+  - 컴포넌트: dashboard(5), standards(8), approvals(4), ui(7), layout(1) = 25개
+  - 라우트: login, dashboard(역할분기), standards(탐색기+Sheet), standards/new, approvals, error, not-found = 7개
+  - 신규 의존성: @tanstack/react-query, react-hook-form, zod, @hookform/resolvers, sonner, nuqs
+
+### 미구현 (Phase 2~3)
+
+- Phase 2: 거버넌스 포털, 검증 대시보드/상세, 감사 추적, 공통코드 조회, Command Palette, 알림 센터, AI Data Butler 고도화
+- Phase 3: admin/* (공통코드 관리, 사용자/권한/코드 관리, DB 연결 설정), Skeleton/Error Boundary 완성도, 반응형, prefetch
 
 ## 구현 Phase
 
