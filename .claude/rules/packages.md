@@ -34,7 +34,7 @@ paths:
 
 ## UI 컴포넌트 추가
 
-- `@nexus/ui`에 새 컴포넌트 추가: `pnpm dlx shadcn@latest add <component>`
+- `@nexus/ui`에 새 컴포넌트 추가: `add-ui-component` 스킬을 사용 (내부적으로 `pnpm dlx shadcn@latest add <component>` 실행 + base-nova 검증 + export 확인)
 - 스타일: `base-nova` (@base-ui/react 기반)
 - `asChild` 패턴 사용 금지 — `render` prop + `nativeButton={false}` 사용
 

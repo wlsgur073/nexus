@@ -39,14 +39,21 @@ model: sonnet
 | 코드 정리/리팩터링                      | `simplify`                                   | 복잡한 코드를 간결하게 정리    |
 | 작업 완료 선언 전                       | `superpowers:verification-before-completion` | 빌드/린트 통과 확인            |
 | 최신 라이브러리 API 확인                | context7 MCP                                 | 의존성 문서 실시간 조회        |
+| 새 솔루션 추가                          | `add-solution`                               | 솔루션 스캐폴딩 전체 자동화 (디렉토리 생성 → 패키지 설정 → 레지스트리 등록 → 검증) |
 
 ## 솔루션 등록 절차
 
-새 솔루션을 추가할 때:
+새 솔루션을 추가할 때 **`add-solution` 스킬을 호출**합니다. 스킬이 아래 절차를 자동으로 수행합니다:
 
-1. `packages/config/src/solutions.ts`의 `solutions` 배열에 항목 추가
-2. `solutions/<name>/` 디렉토리 스캐폴딩
-3. 카탈로그, 사이드바, 상세 페이지에 자동 반영됨
+1. 사용자에게 id, name, description, icon, category, status, port 수집
+2. `solutions/{id}/` 디렉토리 구조 생성 (web, models, shared, docs/release)
+3. Internal Packages 설정 (models, shared의 package.json, tsconfig.json, index.ts)
+4. Web 앱 설정 (next.config.ts, tsconfig.json, eslint.config.mjs, package.json)
+5. 앱 진입점 작성 (layout.tsx, page.tsx, globals.css)
+6. `packages/config/src/solutions.ts`의 `solutions` 배열에 항목 추가
+7. `pnpm install && pnpm build && pnpm lint` 검증
+
+> 스킬의 상세 절차는 `docs/solution-development-guide.md`를 기반으로 합니다.
 
 ## 규칙
 

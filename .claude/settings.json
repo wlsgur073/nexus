@@ -30,5 +30,31 @@
     "typescript-lsp@claude-plugins-official": true,
     "security-guidance@claude-plugins-official": true,
     "playwright@claude-plugins-official": true
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "pnpm exec eslint --fix \"$CLAUDE_FILE_PATH\" 2>/dev/null || true",
+            "statusMessage": "Auto-linting edited file"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo \"$CLAUDE_FILE_PATH\" | grep -qE '(pnpm-lock\\.yaml|(^|/)\\.env($|\\.))' && echo 'BLOCK: Do not directly edit lock files or .env' && exit 1 || true",
+            "statusMessage": "Checking for protected files"
+          }
+        ]
+      }
+    ]
   }
 }
