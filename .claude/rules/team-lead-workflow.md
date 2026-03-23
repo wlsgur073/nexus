@@ -40,19 +40,20 @@
 4. 리뷰 결과 수령:
    - critical 이슈 → 해당 teammate에게 수정 지시 (최대 2 사이클)
    - warning/suggestion → 사용자에게 보고하여 판단 위임
-5. 최종 결과 보고 (변경 요약, 파일 목록, 남은 이슈)
+5. `/compound` 실행 — 세션에서 배운 것을 memory에 축적
+6. 최종 결과 보고 (변경 요약, 파일 목록, 남은 이슈)
 
 ## Teammate 관리
 
 ### Teammate 매핑
 
-| 변경 대상 | Teammate | subagent_type |
-| --- | --- | --- |
-| `apps/platform/`, `solutions/*/web/` | frontend-developer | `frontend-developer` |
-| `solutions/*/api/` | backend-developer | `backend-developer` |
-| `packages/*`, `solutions/*/models/`, `solutions/*/shared/` | package-developer | `package-developer` |
-| 테스트 파일 (`*.test.*`, `*.spec.*`) | test-engineer | `test-engineer` |
-| 리뷰 요청 | code-reviewer | `code-reviewer` |
+| 변경 대상                                                  | Teammate           | subagent_type        |
+| ---------------------------------------------------------- | ------------------ | -------------------- |
+| `apps/platform/`, `solutions/*/web/`                       | frontend-developer | `frontend-developer` |
+| `solutions/*/api/`                                         | backend-developer  | `backend-developer`  |
+| `packages/*`, `solutions/*/models/`, `solutions/*/shared/` | package-developer  | `package-developer`  |
+| 테스트 파일 (`*.test.*`, `*.spec.*`)                       | test-engineer      | `test-engineer`      |
+| 리뷰 요청                                                  | code-reviewer      | `code-reviewer`      |
 
 ### Dispatch 프롬프트 구조
 
@@ -75,22 +76,22 @@ Teammate에게 작업을 전달할 때 다음 형식을 따른다:
 
 ### 순차 vs 병렬 판단
 
-| 조건 | 판단 |
-| --- | --- |
+| 조건                             | 판단                                  |
+| -------------------------------- | ------------------------------------- |
 | packages/models/shared 변경 포함 | 순차: package-developer 먼저 → 나머지 |
-| frontend + backend 동시 변경 | 병렬 가능 (web/ vs api/ 충돌 낮음) |
-| 같은 패키지 내 다수 변경 | 순차 또는 worktree 격리 |
-| test + 개발 에이전트 | 순차: 개발 완료 후 테스트 |
+| frontend + backend 동시 변경     | 병렬 가능 (web/ vs api/ 충돌 낮음)    |
+| 같은 패키지 내 다수 변경         | 순차 또는 worktree 격리               |
+| test + 개발 에이전트             | 순차: 개발 완료 후 테스트             |
 
 ### 실패 처리
 
-| 상황 | 행동 |
-| --- | --- |
-| Teammate 빌드 실패 | 에러 로그 읽고, 같은 teammate에게 수정 메시지 전송 (에러 컨텍스트 포함) |
-| Teammate 재실패 (2회) | 사용자에게 보고, 판단 위임 |
-| code-reviewer critical 이슈 | 해당 teammate에게 수정 지시 |
-| review-fix 사이클 2회 초과 | 사용자에게 양쪽 의견 제시, 판단 위임 |
-| 병렬 Phase 중 일부만 실패 | 성공한 변경은 유지, 실패한 teammate만 재시도 |
+| 상황                        | 행동                                                                    |
+| --------------------------- | ----------------------------------------------------------------------- |
+| Teammate 빌드 실패          | 에러 로그 읽고, 같은 teammate에게 수정 메시지 전송 (에러 컨텍스트 포함) |
+| Teammate 재실패 (2회)       | 사용자에게 보고, 판단 위임                                              |
+| code-reviewer critical 이슈 | 해당 teammate에게 수정 지시                                             |
+| review-fix 사이클 2회 초과  | 사용자에게 양쪽 의견 제시, 판단 위임                                    |
+| 병렬 Phase 중 일부만 실패   | 성공한 변경은 유지, 실패한 teammate만 재시도                            |
 
 ## 쓰기 범위
 
@@ -107,12 +108,13 @@ Teammate에게 작업을 전달할 때 다음 형식을 따른다:
 
 ## 활용할 Skills
 
-| 상황 | Skill |
-| --- | --- |
-| 새로운 기능 요구사항 수신 | `superpowers:brainstorming` |
-| 다단계 구현 계획 수립 | `superpowers:writing-plans` |
-| 최종 완료 전 | `superpowers:verification-before-completion` |
-| 작업 완료 후 통합 | `superpowers:finishing-a-development-branch` |
+| 상황                      | Skill                                        |
+| ------------------------- | -------------------------------------------- |
+| 새로운 기능 요구사항 수신 | `superpowers:brainstorming`                  |
+| 다단계 구현 계획 수립     | `superpowers:writing-plans`                  |
+| 최종 완료 전              | `superpowers:verification-before-completion` |
+| 작업 완료 후 통합         | `superpowers:finishing-a-development-branch` |
+| 세션 종료 전 학습 축적    | `compound`                                   |
 
 ## 규칙
 
