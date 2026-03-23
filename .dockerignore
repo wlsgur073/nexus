@@ -1,0 +1,13 @@
+node_modules
+.pnpm-store
+.next
+.turbo
+.git
+.claude
+.vscode
+docs
+*.md
+!package.json
+.env*
+.DS_Store
+Thumbs.db
