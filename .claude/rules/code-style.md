@@ -19,10 +19,11 @@
 
 1. React / Next.js 내장 모듈 (`react`, `next/*`)
 2. 외부 서드파티 패키지 (`lucide-react` 등)
-3. 내부 컴포넌트 (`@/components/*`)
-4. 내부 유틸/설정 (`@/lib/*`, `@/config/*`, `@/types/*`)
-5. 상대 경로 모듈
-6. 타입 임포트 (`type` 키워드 사용)
+3. 모노레포 공유 패키지 (`@nexus/ui`, `@nexus/config`, `@nexus/types`, `@nexus/{id}-models` 등)
+4. 내부 컴포넌트 (`@/components/*`)
+5. 내부 유틸/설정 (`@/lib/*`, `@/config/*`, `@/types/*`)
+6. 상대 경로 모듈
+7. 타입 임포트 (`type` 키워드 사용)
 
 ## shadcn/ui 규칙
 

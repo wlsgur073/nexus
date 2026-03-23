@@ -47,8 +47,6 @@
 | `/solutions/[id]` | Solution Detail  | 솔루션 상세 — 설명, 상태, 진입         | 구현됨       |
 | `/settings`       | Settings         | 플랫폼 설정                            | 플레이스홀더 |
 
-<!-- TODO: 각 페이지의 상세 요구사항 추가 -->
-
 ### 2.2 Codex (solutions/codex/web)
 
 | 경로                             | 페이지명           | 설명                      | 상태   |
@@ -114,9 +112,7 @@
 - PlatformShell: Platform 앱(Command Center) 전용 레이아웃 — Header + Sidebar + Main Content 구조
 - 각 솔루션은 독립 레이아웃을 소유 — PlatformShell을 사용하지 않으며, 자체 Header/Sidebar/네비게이션을 구현
 
-<!-- TODO: 와이어프레임 또는 Figma 링크 추가 -->
-
-### 5.3 테마 전환 (설계 완료, 미구현)
+### 5.3 테마 전환 (Provider 구현 완료, ThemeToggle UI 미구현)
 
 > 설계서: `docs/superpowers/specs/2026-03-20-theme-switching-design.md`
 
@@ -128,7 +124,7 @@
 
 ## 6. 향후 계획
 
-| 설계서               | 상태              | 대상                                 |
-| -------------------- | ----------------- | ------------------------------------ |
-| 테마 전환            | 설계 완료, 미구현 | Platform + 전체 솔루션               |
-| Team Leader 에이전트 | 설계 완료, 미구현 | `.claude/agents/` 에이전트 구조 개편 |
+| 설계서               | 상태                                      | 대상                                 |
+| -------------------- | ----------------------------------------- | ------------------------------------ |
+| 테마 전환            | Provider 구현 완료, ThemeToggle UI 미구현 | Platform + 전체 솔루션               |
+| Team Leader 에이전트 | 설계 완료, 미구현                         | `.claude/agents/` 에이전트 구조 개편 |

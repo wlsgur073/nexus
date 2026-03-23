@@ -8,7 +8,7 @@
 
 ### 목적
 
-현재 5개 worker 에이전트(platform-developer, solution-developer, package-developer, test-engineer, code-reviewer)는 각각 독립적으로 동작하며, 작업 분해/순서 판단/컨텍스트 전달을 사용자가 직접 수행해야 한다. `team-leader`는 이 조율 역할을 자동화한다.
+현재 5개 worker 에이전트(frontend-developer, backend-developer, package-developer, test-engineer, code-reviewer)는 각각 독립적으로 동작하며, 작업 분해/순서 판단/컨텍스트 전달을 사용자가 직접 수행해야 한다. `team-leader`는 이 조율 역할을 자동화한다.
 
 ### 핵심 원칙
 
@@ -97,13 +97,13 @@ Opus를 사용하는 이유: Leader는 요구사항 분석, 작업 분해, Phase
 
 ### Worker 매핑
 
-| 변경 대상                | Worker             | subagent_type        |
-| ------------------------ | ------------------ | -------------------- |
-| `packages/`              | package-developer  | `package-developer`  |
-| `apps/platform/`         | platform-developer | `platform-developer` |
-| `solutions/`             | solution-developer | `solution-developer` |
-| 테스트 파일 (`*.test.*`) | test-engineer      | `test-engineer`      |
-| 리뷰 요청                | code-reviewer      | `code-reviewer`      |
+| 변경 대상                                                  | Worker             | subagent_type        |
+| ---------------------------------------------------------- | ------------------ | -------------------- |
+| `packages/*`, `solutions/*/models/`, `solutions/*/shared/` | package-developer  | `package-developer`  |
+| `apps/platform/`, `solutions/*/web/`                       | frontend-developer | `frontend-developer` |
+| `solutions/*/api/`                                         | backend-developer  | `backend-developer`  |
+| 테스트 파일 (`*.test.*`, `*.spec.*`)                       | test-engineer      | `test-engineer`      |
+| 리뷰 요청                                                  | code-reviewer      | `code-reviewer`      |
 
 ### Dispatch 프롬프트 구조
 

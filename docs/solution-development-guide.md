@@ -46,9 +46,9 @@
 
 | 앱        | 포트  |
 | --------- | ----- |
-| platform  | 3000  |
-| codex     | 3001  |
-| 새 솔루션 | 3002~ |
+| platform  | 5000  |
+| codex     | 5001  |
+| 새 솔루션 | 5002~ |
 
 ---
 
@@ -168,7 +168,6 @@ export {};
     "lint": "eslint"
   },
   "dependencies": {
-    "@nexus/shell": "workspace:*",
     "@nexus/ui": "workspace:*",
     "@nexus/config": "workspace:*",
     "@nexus/types": "workspace:*",

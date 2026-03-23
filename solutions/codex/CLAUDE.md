@@ -2,7 +2,15 @@
 
 데이터 거버넌스 솔루션 — 표준용어·표준도메인·표준단어를 관리하고, 거버넌스 프로세스(신청→승인→반영)를 통해 데이터 품질을 확보한다.
 
-## 명세 문서
+## 빌드
+
+```bash
+pnpm turbo dev --filter=@nexus/codex-web    # 개발 서버 (포트 5001)
+pnpm turbo build --filter=@nexus/codex-web   # 빌드
+pnpm turbo lint --filter=@nexus/codex-web    # 린트
+```
+
+## 명세 문서 (경로는 `solutions/codex/` 기준)
 
 | 문서                | 경로                                  | 내용                                     |
 | ------------------- | ------------------------------------- | ---------------------------------------- |
@@ -34,16 +42,17 @@
 ### Phase 1 (MVP) — 완료 (2026-03-21)
 
 - **models**: 19개 엔티티 타입 + 14개 API 모듈 (Mock 데이터) 구현 완료
-  - entities/: base, enums(17종), standard, governance, validation, common-code, system, db-connection
+  - entities/: base, enums(19종), standard, governance, validation, common-code, system, db-connection
   - api/: auth, dashboard, explorer, standard-words/domains/terms, requests, approvals, inline-governance, drafts, comments, ai
 - **shared**: 상수 4개 + 유틸 4개 구현 완료
   - constants/: routes, menu(역할별 접근 매트릭스), status(3종 라벨+색상), query-keys
   - utils/: physical-name, status-color, role-check, request-no
-- **web**: Phase 1 화면 전체 구현 완료 (46개 파일)
+- **web**: Phase 1 화면 전체 구현 완료 (44개 파일)
   - 기반: providers(Query, Auth), hooks(useAuth, useDebounce, useDraftAutosave), lib(api, validators), middleware
-  - 컴포넌트: dashboard(5), standards(8), approvals(4), ui(7), layout(1) = 25개
+  - 컴포넌트: dashboard(5), standards(8), approvals(4), ui(7), layout(3) = 27개
   - 라우트: login, dashboard(역할분기), standards(탐색기+Sheet), standards/new, approvals, error, not-found = 7개
   - 신규 의존성: @tanstack/react-query, react-hook-form, zod, @hookform/resolvers, sonner, nuqs
+  - 테마: ThemeProvider(@nexus/ui) 적용 완료 (라이트/다크 모드 지원, ThemeToggle UI는 Phase 2)
 
 ### 미구현 (Phase 2~3)
 
@@ -71,10 +80,6 @@
 
 - **구현 시작 전**: `.claude/rules/` 디렉토리의 모든 규칙 문서를 확인하고 따를 것
 - **구현 완료 시**: 이 파일의 "현재 구현 상태" 섹션을 갱신할 것
-
-## 알려진 기술 부채
-
-- `web/src/app/layout.tsx`에서 PlatformShell을 사용 중이나, 목표 아키텍처는 솔루션별 독립 레이아웃. 향후 Codex 자체 레이아웃(Header/Sidebar)으로 교체 필요
 
 ## Codex 기술 스택 (플랫폼 공통 외)
 

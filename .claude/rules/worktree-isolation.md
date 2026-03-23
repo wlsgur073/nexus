@@ -4,24 +4,24 @@ Agent Team으로 병렬 작업 시 충돌을 방지하기 위한 규칙.
 
 ## 에이전트별 파일 담당 영역
 
-| 에이전트              | 주 작업 디렉토리                                  | 참조하는 공유 파일                                               |
-| --------------------- | ------------------------------------------------- | ---------------------------------------------------------------- |
-| `frontend-developer`  | `apps/platform/`, `solutions/*/web/`              | `packages/*` (import), `solutions/*/models/`, `solutions/*/shared/` |
-| `backend-developer`   | `solutions/*/api/`                                | `solutions/*/models/`, `solutions/*/shared/`                     |
-| `package-developer`   | `packages/*`, `solutions/*/models/`, `solutions/*/shared/` | 없음 (최하위)                                           |
-| `test-engineer`       | 전체 (테스트 파일)                                | 테스트 대상 소스 파일                                            |
-| `code-reviewer`       | 전체 (읽기 전용)                                  | 없음                                                             |
+| 에이전트             | 주 작업 디렉토리                                           | 참조하는 공유 파일                                                  |
+| -------------------- | ---------------------------------------------------------- | ------------------------------------------------------------------- |
+| `frontend-developer` | `apps/platform/`, `solutions/*/web/`                       | `packages/*` (import), `solutions/*/models/`, `solutions/*/shared/` |
+| `backend-developer`  | `solutions/*/api/` (현재 미존재, 향후 도입 예정)           | `solutions/*/models/`, `solutions/*/shared/`                        |
+| `package-developer`  | `packages/*`, `solutions/*/models/`, `solutions/*/shared/` | 없음 (최하위)                                                       |
+| `test-engineer`      | 전체 (테스트 파일)                                         | 테스트 대상 소스 파일                                               |
+| `code-reviewer`      | 전체 (읽기 전용)                                           | 없음                                                                |
 
 ## 충돌 매트릭스
 
-| 조합                                           | 충돌 위험 | 이유                                                            |
-| ---------------------------------------------- | --------- | --------------------------------------------------------------- |
-| `frontend-developer` + `backend-developer`     | **낮음**  | web/ vs api/ 서로 다른 디렉토리, 독립적                        |
-| `frontend-developer` + `package-developer`     | **높음**  | frontend가 packages/models/shared를 import — 인터페이스 변경 시 빌드 실패 |
-| `backend-developer` + `package-developer`      | **높음**  | backend가 models/shared를 import — 동일한 이유                 |
-| `frontend-developer` + `backend-developer` + `package-developer` | **높음** | 3자 동시 — worktree 격리 필수            |
-| `test-engineer` + 다른 에이전트                | **중간**  | 테스트 대상 파일이 동시에 수정되면 테스트가 깨질 수 있음        |
-| `code-reviewer` + 다른 에이전트                | **없음**  | 읽기 전용 — 파일 수정 안 함                                     |
+| 조합                                                             | 충돌 위험 | 이유                                                                      |
+| ---------------------------------------------------------------- | --------- | ------------------------------------------------------------------------- |
+| `frontend-developer` + `backend-developer`                       | **낮음**  | web/ vs api/ 서로 다른 디렉토리, 독립적 (api/ 현재 미존재)                |
+| `frontend-developer` + `package-developer`                       | **높음**  | frontend가 packages/models/shared를 import — 인터페이스 변경 시 빌드 실패 |
+| `backend-developer` + `package-developer`                        | **높음**  | backend가 models/shared를 import — 동일한 이유                            |
+| `frontend-developer` + `backend-developer` + `package-developer` | **높음**  | 3자 동시 — worktree 격리 필수                                             |
+| `test-engineer` + 다른 에이전트                                  | **중간**  | 테스트 대상 파일이 동시에 수정되면 테스트가 깨질 수 있음                  |
+| `code-reviewer` + 다른 에이전트                                  | **없음**  | 읽기 전용 — 파일 수정 안 함                                               |
 
 ## 공유 충돌 파일 (동시 수정 금지)
 

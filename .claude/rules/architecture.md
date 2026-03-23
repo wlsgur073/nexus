@@ -2,14 +2,30 @@
 
 ## 패키지 의존 방향
 
+### 플랫폼 패키지
+
 ```
 @nexus/types ← @nexus/config ← @nexus/shell ← @nexus/platform
                     ↑              ↑
 @nexus/ui ──────────┘         @nexus/{id}-web
 ```
 
+### 솔루션 내부 패키지
+
+```
+@nexus/types ← @nexus/{id}-models ← @nexus/{id}-shared ← @nexus/{id}-web
+                                                         ← @nexus/{id}-api (향후)
+```
+
+- 솔루션 web/api는 자신의 models와 shared를 의존
+- models는 @nexus/types만 의존 (최하위)
+- shared는 models + @nexus/types를 의존
+
+### 규칙
+
 - `packages/` → `solutions/` 방향 의존 금지
-- 솔루션 패키지(`@nexus/{id}-*`)는 플랫폼 패키지(`@nexus/ui`, `@nexus/shell`, `@nexus/config`, `@nexus/types`)를 의존할 수 있음
+- 솔루션 패키지(`@nexus/{id}-*`)는 플랫폼 패키지(`@nexus/ui`, `@nexus/config`, `@nexus/types`)를 의존할 수 있음
+- `@nexus/shell`은 Platform 앱 전용 — 솔루션에서 의존 금지
 - 솔루션 간 교차 의존 금지 (예: `@nexus/codex-web` → `@nexus/llm-gateway-models` 금지)
 
 ## Internal Packages 패턴

@@ -9,15 +9,18 @@ model: sonnet
 
 ## 담당 영역
 
-- `solutions/*/api/` — 각 솔루션의 NestJS 백엔드 앱
+- `solutions/*/api/` — 각 솔루션의 백엔드 앱
 
-## 기술 컨텍스트
+> **현재 상태**: 백엔드 인프라 미도입. `solutions/*/api/` 디렉토리 및 pnpm-workspace.yaml 등록이 아직 없음.
+> 향후 백엔드 기술 도입 시 프레임워크, ORM, DB 등 인프라 참조 방식을 결정할 예정.
 
-- NestJS (TypeScript strict)
-- Prisma ORM (예정)
-- PostgreSQL (예정)
-- JWT 인증 (예정)
-- 모듈 기반 아키텍처: Controller → Service → Repository 패턴
+## 기술 컨텍스트 (계획)
+
+- 백엔드 프레임워크: 미정 (NestJS 후보)
+- ORM: 미정 (Prisma 후보)
+- DB: 미정 (PostgreSQL 후보)
+- 인증: 미정 (JWT 후보)
+- 아키텍처 패턴: Controller → Service → Repository (예정)
 
 ## Nexus 아키텍처 원칙
 
@@ -33,15 +36,15 @@ model: sonnet
 
 ## 활용할 Skills
 
-| 상황 | Skill | 사용법 |
-| --- | --- | --- |
-| 새 기능 구현 | `feature-dev:feature-dev` | 7단계 워크플로우로 체계적 구현 |
-| 기능 착수 전 탐색 | `superpowers:brainstorming` | 요구사항과 설계 방향 탐색 |
-| 복잡한 기능 계획 | `superpowers:writing-plans` | 다단계 구현 계획 수립 |
-| 코드 정리/리팩터링 | `simplify` | 복잡한 코드를 간결하게 정리 |
-| 작업 완료 선언 전 | `superpowers:verification-before-completion` | 빌드/린트 통과 확인 |
-| 최신 라이브러리 API 확인 | context7 MCP | NestJS, Prisma 문서 조회 |
-| 보안 가이드 | security-guidance | SQL Injection, 인증 취약점 방지 |
+| 상황                     | Skill                                        | 사용법                          |
+| ------------------------ | -------------------------------------------- | ------------------------------- |
+| 새 기능 구현             | `feature-dev:feature-dev`                    | 7단계 워크플로우로 체계적 구현  |
+| 기능 착수 전 탐색        | `superpowers:brainstorming`                  | 요구사항과 설계 방향 탐색       |
+| 복잡한 기능 계획         | `superpowers:writing-plans`                  | 다단계 구현 계획 수립           |
+| 코드 정리/리팩터링       | `simplify`                                   | 복잡한 코드를 간결하게 정리     |
+| 작업 완료 선언 전        | `superpowers:verification-before-completion` | 빌드/린트 통과 확인             |
+| 최신 라이브러리 API 확인 | context7 MCP                                 | NestJS, Prisma 문서 조회        |
+| 보안 가이드              | security-guidance                            | SQL Injection, 인증 취약점 방지 |
 
 ## 규칙
 
