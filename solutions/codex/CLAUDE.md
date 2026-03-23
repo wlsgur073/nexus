@@ -10,14 +10,47 @@ pnpm turbo build --filter=@nexus/codex-web   # 빌드
 pnpm turbo lint --filter=@nexus/codex-web    # 린트
 ```
 
-## 명세 문서 (경로는 `solutions/codex/` 기준)
+## 명세 문서 (경로는 `solutions/codex/docs/` 기준)
 
-| 문서                | 경로                            | 내용                                     |
-| ------------------- | ------------------------------- | ---------------------------------------- |
-| 제품 스펙           | `docs/codex-product-spec.md`    | 비전, 화면 명세, API, 비즈니스 규칙 전체 |
-| UX 설계             | `docs/specs/ux/README.md`       | 역할별 여정, 사이드바 메뉴, 공유 UX 패턴 |
-| 데이터 아키텍처     | `docs/specs/data/README.md`     | 19개 엔티티, 118개 API, 비즈니스 규칙    |
-| 프론트엔드 아키텍처 | `docs/specs/frontend/README.md` | 컴포넌트 계층, 상태 관리, 구현 순서      |
+### 문서 구조
+
+```
+docs/
+├── codex-product-spec.md              제품 비전, 핵심 가치, 전체 개요
+└── specs/
+    ├── ux/                            UX 설계 명세
+    │   ├── README.md                  인덱스 + 에이전트 참조 가이드
+    │   ├── roles-journeys.md          사용자 역할 5종, 여정 맵 5개
+    │   ├── information-architecture.md 메뉴 구조, 사이드바, Breadcrumb, Command Palette
+    │   ├── screens-core.md            로그인, 대시보드, 탐색기, 표준 상세 (5.1-5.5)
+    │   ├── screens-governance.md      신규신청, 승인, 검증, 감사, 관리자 (5.6-5.17)
+    │   └── patterns.md                AI Data Butler UX, 공유 패턴 9종, 접근성
+    │
+    ├── data/                          데이터 아키텍처 명세
+    │   ├── README.md                  인덱스 + 에이전트 참조 가이드
+    │   ├── entities.md                19개 엔티티 상세, ER 다이어그램, 관계
+    │   ├── api.md                     상태 전이 3종, API 118개 엔드포인트
+    │   └── rules.md                   비즈니스 규칙, 확장·인덱스·마이그레이션 전략
+    │
+    └── frontend/                      프론트엔드 아키텍처 명세
+        ├── README.md                  인덱스 + 에이전트 참조 가이드
+        ├── foundation.md              기술 스택, 의존성, 패키지 구조 (web/models/shared)
+        ├── components.md              라우트 트리, 컴포넌트 계층, AI Butler·인라인 거버넌스
+        ├── state-data.md              TanStack Query, nuqs, Context, API 클라이언트, 캐싱
+        └── integration.md             인증·권한, 성능, Shell 통합, Phase 1-3, 오류·보안
+```
+
+### 에이전트별 문서 참조 매트릭스
+
+각 에이전트가 작업 전에 읽어야 할 파일 목록. README.md를 거치지 않고 필요한 문서에 직접 접근한다.
+
+| 에이전트               | 읽어야 할 문서 (경로: `docs/specs/`)                                                                                                                                                                                                                             |
+| ---------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **package-developer**  | `data/entities.md` (엔티티 타입·enum), `frontend/foundation.md` (패키지 구조), `ux/patterns.md` (Badge 색상)                                                                                                                                                     |
+| **frontend-developer** | `ux/screens-core.md` + `ux/screens-governance.md` (화면 명세), `ux/information-architecture.md` (네비게이션), `frontend/components.md` (라우트·컴포넌트), `frontend/state-data.md` (상태 관리), `frontend/integration.md` (인증·Phase), `data/api.md` (API 사양) |
+| **backend-developer**  | `data/api.md` (API 엔드포인트·상태 전이), `data/rules.md` (비즈니스 규칙)                                                                                                                                                                                        |
+| **code-reviewer**      | `ux/patterns.md` (UX 일관성·접근성), `data/rules.md` (비즈니스 규칙), `frontend/integration.md` (오류·보안)                                                                                                                                                      |
+| **test-engineer**      | 테스트 대상에 따라 위 문서 참조                                                                                                                                                                                                                                  |
 
 ## 도메인 핵심 개념
 
@@ -78,7 +111,10 @@ pnpm turbo lint --filter=@nexus/codex-web    # 린트
 
 ## Claude 워크플로우
 
-- **구현 시작 전**: `.claude/rules/` 디렉토리의 모든 규칙 문서를 확인하고 따를 것
+- **구현 시작 전**:
+  1. `.claude/rules/` 디렉토리의 모든 규칙 문서를 확인하고 따를 것
+  2. 위 "에이전트별 문서 참조 매트릭스"에서 담당 에이전트에 해당하는 명세 문서를 모두 읽을 것
+  3. 작업 대상 Phase에 해당하는 화면 명세(`screens-core.md` 또는 `screens-governance.md`)를 확인할 것
 - **구현 완료 시**: 이 파일의 "현재 구현 상태" 섹션을 갱신할 것
 
 ## Codex 기술 스택 (플랫폼 공통 외)
