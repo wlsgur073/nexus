@@ -21,15 +21,15 @@ disable-model-invocation: true
 인자로 받은 `<solution-id>`를 기반으로 아래 정보를 사용자에게 확인합니다.
 AskUserQuestion 도구를 사용하여 한 번에 수집합니다.
 
-| 필드        | 기본값                          | 설명               |
-| ----------- | ------------------------------- | ------------------ |
-| id          | 인자에서 가져옴                 | 솔루션 고유 식별자 |
-| name        | id를 Title Case로 변환          | 솔루션 표시 이름   |
-| description | 사용자 입력 필수                | 솔루션 설명        |
-| icon        | `BookOpen`                      | lucide-react 아이콘 (PascalCase) |
-| category    | 기존 카테고리 중 선택           | 카테고리 ID        |
-| status      | `active`                        | 솔루션 상태        |
-| port        | 기존 최대 포트 + 1              | 개발 서버 포트     |
+| 필드        | 기본값                 | 설명                             |
+| ----------- | ---------------------- | -------------------------------- |
+| id          | 인자에서 가져옴        | 솔루션 고유 식별자               |
+| name        | id를 Title Case로 변환 | 솔루션 표시 이름                 |
+| description | 사용자 입력 필수       | 솔루션 설명                      |
+| icon        | `BookOpen`             | lucide-react 아이콘 (PascalCase) |
+| category    | 기존 카테고리 중 선택  | 카테고리 ID                      |
+| status      | `active`               | 솔루션 상태                      |
+| port        | 기존 최대 포트 + 1     | 개발 서버 포트                   |
 
 **사용 가능한 카테고리**: `packages/config/src/solutions.ts`의 `categories` 배열을 읽어서 옵션으로 제공합니다.
 
@@ -74,7 +74,7 @@ solutions/{id}/
 `docs/solution-development-guide.md` Step 5에 따라 생성합니다:
 
 - `solutions/{id}/web/src/app/globals.css` — 기존 codex의 globals.css를 참조하여 동일한 테마 변수 사용
-- `solutions/{id}/web/src/app/layout.tsx` — `TooltipProvider > PlatformShell > {children}`
+- `solutions/{id}/web/src/app/layout.tsx` — `TooltipProvider > {children}` (PlatformShell 미사용, 솔루션 자체 레이아웃)
 - `solutions/{id}/web/src/app/page.tsx` — 기본 홈페이지
 
 ### Phase 6: 솔루션 레지스트리 등록

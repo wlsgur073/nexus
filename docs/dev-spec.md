@@ -51,11 +51,15 @@
 
 ### 2.2 Codex (solutions/codex/web)
 
-| 경로               | 페이지명   | 설명           | 상태   |
-| ------------------ | ---------- | -------------- | ------ |
-| `/solutions/codex` | Codex Home | Codex 대시보드 | 미구현 |
+| 경로                             | 페이지명           | 설명                      | 상태   |
+| -------------------------------- | ------------------ | ------------------------- | ------ |
+| `/solutions/codex`               | Dashboard          | 역할별 대시보드           | 구현됨 |
+| `/solutions/codex/login`         | Login              | 로그인 (플레이스홀더)     | 구현됨 |
+| `/solutions/codex/standards`     | Standards Explorer | 표준용어/도메인/단어 탐색 | 구현됨 |
+| `/solutions/codex/standards/new` | New Standard       | 표준 신규 신청 폼         | 구현됨 |
+| `/solutions/codex/approvals`     | Approval Workbench | 승인 워크벤치             | 구현됨 |
 
-<!-- TODO: Codex 페이지 명세 추가 -->
+> 상세 페이지 명세: `solutions/codex/docs/codex-product-spec.md` 참조
 
 ---
 
@@ -64,7 +68,7 @@
 > 현재 Nexus는 프론트엔드 전용 프로젝트로 별도 백엔드 API가 없습니다.
 > 향후 API가 추가될 경우 아래 형식으로 문서화합니다.
 
-<!-- TODO: 필요 시 API 엔드포인트 명세 추가 -->
+> Codex API 명세: `solutions/codex/docs/specs/data-architecture.md` 참조 (118개 API 엔드포인트 정의)
 
 ---
 
@@ -107,13 +111,24 @@
 
 ### 5.2 레이아웃
 
-- PlatformShell: Header + Sidebar + Main Content 구조
-- 솔루션 앱도 PlatformShell로 래핑하여 일관된 네비게이션 제공
+- PlatformShell: Platform 앱(Command Center) 전용 레이아웃 — Header + Sidebar + Main Content 구조
+- 각 솔루션은 독립 레이아웃을 소유 — PlatformShell을 사용하지 않으며, 자체 Header/Sidebar/네비게이션을 구현
 
 <!-- TODO: 와이어프레임 또는 Figma 링크 추가 -->
+
+### 5.3 테마 전환 (설계 완료, 미구현)
+
+> 설계서: `docs/superpowers/specs/2026-03-20-theme-switching-design.md`
+
+- `next-themes` 기반 라이트/다크 모드 전환
+- 시스템 기본값, 사용자 전환 가능, localStorage 지속
+- 적용 범위: Platform + 전체 솔루션
 
 ---
 
 ## 6. 향후 계획
 
-<!-- TODO: 마일스톤 및 우선순위 로드맵 추가 -->
+| 설계서               | 상태              | 대상                                 |
+| -------------------- | ----------------- | ------------------------------------ |
+| 테마 전환            | 설계 완료, 미구현 | Platform + 전체 솔루션               |
+| Team Leader 에이전트 | 설계 완료, 미구현 | `.claude/agents/` 에이전트 구조 개편 |

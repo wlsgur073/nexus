@@ -412,8 +412,10 @@ export default eslintConfig;
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { TooltipProvider } from "@nexus/ui";
-import { PlatformShell } from "@nexus/shell";
 import "./globals.css";
+
+// PlatformShell은 Platform 앱 전용입니다.
+// 솔루션은 자체 레이아웃(Header, Sidebar 등)을 구현합니다.
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -441,9 +443,7 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
-        <TooltipProvider>
-          <PlatformShell>{children}</PlatformShell>
-        </TooltipProvider>
+        <TooltipProvider>{children}</TooltipProvider>
       </body>
     </html>
   );
@@ -556,8 +556,7 @@ pnpm lint
 - [ ] `pnpm build` 전체 빌드 성공
 - [ ] `pnpm lint` 린트 에러 없음
 - [ ] 브라우저에서 `/solutions/{id}` 접근 시 페이지 렌더링
-- [ ] PlatformShell (Header + Sidebar) 정상 표시
-- [ ] 사이드바에 솔루션 표시 (`active` 또는 `beta`인 경우)
+- [ ] 솔루션 자체 레이아웃 정상 렌더링 (PlatformShell 미사용 확인)
 - [ ] 카탈로그 페이지(`/solutions`)에 솔루션 카드 표시
 
 ---

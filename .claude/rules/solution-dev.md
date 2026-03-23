@@ -30,13 +30,14 @@ solutions/{id}/
 
 ## 레이아웃 패턴
 
-- `web/src/app/layout.tsx`에서 `PlatformShell`로 children을 래핑
-- `TooltipProvider > PlatformShell > {children}` 순서 유지
+- 각 솔루션은 자체 레이아웃을 소유 — PlatformShell은 Platform 앱 전용이므로 사용하지 않음
+- 최소 구조: `TooltipProvider > {children}` (필요 시 자체 Header/Sidebar 추가)
 - metadata의 title 형식: `"{name} — Nexus"`
 
 ## 의존성 규칙
 
-- 플랫폼 패키지: `@nexus/shell`, `@nexus/ui`, `@nexus/config`, `@nexus/types`
+- 플랫폼 패키지: `@nexus/ui`, `@nexus/config`, `@nexus/types`
+- `@nexus/shell`은 Platform 앱 전용 — 솔루션에서는 사용하지 않음
 - 솔루션 내부 패키지: `@nexus/{id}-models`, `@nexus/{id}-shared`
 - 다른 솔루션 패키지 의존 금지
 
