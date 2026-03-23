@@ -66,5 +66,5 @@
 - [ ] `pnpm build && pnpm lint` 전체 통과 확인
 - [ ] code-reviewer dispatch (코드 리뷰)
 - [ ] 해당 솔루션/패키지의 CLAUDE.md "현재 구현 상태" 갱신
-- [ ] 릴리즈 노트 작성 (`solutions/{id}/docs/release/`)
+- [ ] 릴리즈 노트 작성 (`solutions/{id}/docs/release/`, 형식: `.claude/rules/solution-dev.md` 릴리즈 노트 섹션 참조)
 - [ ] 커밋 + PR + main merge (사용자 승인)
