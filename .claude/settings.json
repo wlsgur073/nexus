@@ -44,6 +44,15 @@
             "statusMessage": "Auto-linting edited file"
           }
         ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo \"$CLAUDE_TOOL_INPUT\" | grep -q 'git commit' && echo 'Reminder: 세션 종료 전 /compound 스킬을 실행하여 학습을 축적하세요.' || true"
+          }
+        ]
       }
     ],
     "PreToolUse": [

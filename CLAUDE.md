@@ -119,3 +119,4 @@ factory-ai-team/
 - **구현 완료 시**: 해당 솔루션/패키지의 CLAUDE.md "현재 구현 상태" 섹션을 갱신할 것
 - **작업 착수 전**: `superpowers:brainstorming` 스킬 실행
 - **프론트엔드 UI 컴포넌트/페이지 생성·수정 시**: `frontend-design:frontend-design` 스킬 실행
+- **세션 종료 전**: 반드시 `/compound` 스킬을 실행하여 세션에서 배운 것을 memory에 축적할 것. 사용자가 대화를 마무리하려 할 때 자동으로 실행한다
