@@ -12,12 +12,12 @@ pnpm turbo lint --filter=@nexus/codex-web    # 린트
 
 ## 명세 문서 (경로는 `solutions/codex/` 기준)
 
-| 문서                | 경로                                  | 내용                                     |
-| ------------------- | ------------------------------------- | ---------------------------------------- |
-| 제품 스펙           | `docs/codex-product-spec.md`          | 비전, 화면 명세, API, 비즈니스 규칙 전체 |
-| UX 설계             | `docs/specs/ux-design.md`             | 역할별 여정, 사이드바 메뉴, 공유 UX 패턴 |
-| 데이터 아키텍처     | `docs/specs/data-architecture.md`     | 19개 엔티티, 118개 API, 비즈니스 규칙    |
-| 프론트엔드 아키텍처 | `docs/specs/frontend-architecture.md` | 컴포넌트 계층, 상태 관리, 구현 순서      |
+| 문서                | 경로                            | 내용                                     |
+| ------------------- | ------------------------------- | ---------------------------------------- |
+| 제품 스펙           | `docs/codex-product-spec.md`    | 비전, 화면 명세, API, 비즈니스 규칙 전체 |
+| UX 설계             | `docs/specs/ux/README.md`       | 역할별 여정, 사이드바 메뉴, 공유 UX 패턴 |
+| 데이터 아키텍처     | `docs/specs/data/README.md`     | 19개 엔티티, 118개 API, 비즈니스 규칙    |
+| 프론트엔드 아키텍처 | `docs/specs/frontend/README.md` | 컴포넌트 계층, 상태 관리, 구현 순서      |
 
 ## 도메인 핵심 개념
 

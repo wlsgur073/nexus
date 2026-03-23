@@ -1,9 +1,15 @@
+---
+title: "Codex 제품 스펙"
+description: "Codex 제품 비전, 핵심 가치, 전체 개요"
+version: "1.0"
+---
+
 # Codex 제품 스펙
 
 > **버전**: 1.0
 > **작성일**: 2026-03-20
 > **상태**: Agent Team으로 작성 완료, 리뷰 통과 (93/100)
-> **상세 명세**: [`specs/ux-design.md`](specs/ux-design.md) | [`specs/data-architecture.md`](specs/data-architecture.md) | [`specs/frontend-architecture.md`](specs/frontend-architecture.md)
+> **상세 명세**: [`specs/ux/`](specs/ux/README.md) | [`specs/data/`](specs/data/README.md) | [`specs/frontend/`](specs/frontend/README.md)
 
 ---
 
