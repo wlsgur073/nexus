@@ -165,3 +165,88 @@ export type {
   PhysicalNameResult,
   NamingValidation,
 } from "./ai";
+
+// Governance
+export {
+  getGovernanceCompliance,
+  getGovernanceKpi,
+  getGovernanceTrend,
+  getGovernanceDeptRanking,
+  getGovernanceNonCompliant,
+  downloadGovernanceReportPdf,
+} from "./governance";
+export type {
+  ComplianceByType,
+  ComplianceData,
+  GovernanceKpi,
+  GovernanceTrendItem,
+  DeptRankingItem,
+  NonCompliantItem,
+} from "./governance";
+
+// Validations
+export {
+  getValidationSummary,
+  getValidationTrend,
+  getValidationRules,
+  getValidationHistory,
+  executeValidation,
+  getViolationList,
+  batchCorrectViolations,
+} from "./validations";
+export type {
+  ValidationSummary,
+  ValidationTrendItem,
+  ValidationRule,
+  ValidationHistoryItem,
+  ExecuteValidationInput,
+  ExecuteValidationResponse,
+  ViolationItem,
+  ViolationListParams,
+  BatchCorrectInput,
+  BatchCorrectResponse,
+} from "./validations";
+
+// Audit
+export { getAuditList, getAuditTimeline } from "./audit";
+export type {
+  AuditListParams,
+  AuditLogItem,
+  AuditTimelineItem,
+  AuditTimelineResponse,
+} from "./audit";
+
+// Notifications
+export {
+  getNotificationList,
+  getUnreadCount,
+  markNotificationRead,
+  markAllNotificationsRead,
+  deleteNotification,
+  getNotificationStreamUrl,
+} from "./notifications";
+export type {
+  NotificationItem,
+  UnreadCountResponse,
+  NotificationListParams,
+} from "./notifications";
+
+// Common Codes
+export {
+  getCommonCodeGroups,
+  getCommonCodeGroupDetail,
+  getCommonCodesByGroup,
+  createCommonCodeGroup,
+  updateCommonCodeGroup,
+  addCommonCode,
+  searchCommonCodes,
+} from "./common-codes";
+export type {
+  CommonCodeGroupItem,
+  CommonCodeItem,
+  CommonCodeSearchResult,
+  CommonCodeGroupListParams,
+  CreateCommonCodeGroupInput,
+  UpdateCommonCodeGroupInput,
+  CreateCommonCodeInput,
+} from "./common-codes";

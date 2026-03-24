@@ -45,11 +45,11 @@ Nexus 전체 공유 타입 정의. 의존성 계층의 최하위.
 
 shadcn/ui 기반 공유 컴포넌트 라이브러리. **모든 앱과 솔루션이 참조.**
 
-- 19개 컴포넌트: Button, Input, Badge, Card, Label, Separator, Skeleton, Textarea, Dialog, Sheet, Tooltip, Select, Table, Tabs, Checkbox, ScrollArea, Alert, ThemeProvider, cn()
+- 24개 컴포넌트: Button, Input, Badge, Card, Label, Separator, Skeleton, Textarea, Dialog, Sheet, Tooltip, Select, Table, Tabs, Checkbox, ScrollArea, Alert, ThemeProvider, Command, Popover, Switch, Progress, InputGroup, cn()
 - 스타일: `base-nova` (@base-ui/react 기반)
 - `asChild` 사용 금지 → `render` prop + `nativeButton={false}` 패턴
 - 컴포넌트 추가: `add-ui-component` 스킬 사용
-- 의존성: `@base-ui/react`, `class-variance-authority`, `clsx`, `lucide-react`, `next-themes`, `tailwind-merge`
+- 의존성: `@base-ui/react`, `class-variance-authority`, `clsx`, `cmdk`, `lucide-react`, `next-themes`, `tailwind-merge`
 
 ### @nexus/shell
 

@@ -4,7 +4,11 @@ import { useEffect, useState, useTransition } from "react";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@nexus/ui";
 import { searchExplorer } from "@nexus/codex-models";
-import type { ExplorerItem, StandardStatus, TargetType } from "@nexus/codex-models";
+import type {
+  ExplorerItem,
+  StandardStatus,
+  TargetType,
+} from "@nexus/codex-models";
 
 import { ExplorerFilters } from "@/components/standards/explorer-filters";
 import { ExplorerTable } from "@/components/standards/explorer-table";

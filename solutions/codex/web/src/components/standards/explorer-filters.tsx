@@ -8,10 +8,26 @@ import {
   SelectContent,
   SelectItem,
   SelectTrigger,
-  SelectValue,
 } from "@nexus/ui";
 
 import type { TargetType } from "@nexus/codex-models";
+
+const STATUS_OPTIONS = [
+  { value: "all", label: "전체 상태" },
+  { value: "BASELINE", label: "기존" },
+  { value: "PENDING", label: "신청" },
+  { value: "APPROVED", label: "승인" },
+  { value: "REJECTED", label: "반려" },
+];
+
+const DOMAIN_TYPE_OPTIONS = [
+  { value: "all", label: "전체 유형" },
+  { value: "명칭", label: "명칭" },
+  { value: "금액", label: "금액" },
+  { value: "번호", label: "번호" },
+  { value: "코드", label: "코드" },
+  { value: "일자", label: "일자" },
+];
 
 interface ExplorerFiltersProps {
   keyword: string;
@@ -31,6 +47,12 @@ export function ExplorerFilters({
   domainType,
   onDomainTypeChange,
 }: ExplorerFiltersProps) {
+  const statusLabel =
+    STATUS_OPTIONS.find((o) => o.value === status)?.label ?? "상태";
+  const domainTypeLabel =
+    DOMAIN_TYPE_OPTIONS.find((o) => o.value === domainType)?.label ??
+    "도메인유형";
+
   return (
     <div className="flex flex-wrap items-center gap-3">
       <div className="relative flex-1">
@@ -44,27 +66,29 @@ export function ExplorerFilters({
       </div>
       <Select value={status} onValueChange={(v) => onStatusChange(v ?? "all")}>
         <SelectTrigger className="w-[140px]">
-          <SelectValue placeholder="상태" />
+          <span className="flex flex-1 text-left">{statusLabel}</span>
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value="all">전체 상태</SelectItem>
-          <SelectItem value="BASELINE">기존</SelectItem>
-          <SelectItem value="PENDING">신청</SelectItem>
-          <SelectItem value="APPROVED">승인</SelectItem>
-          <SelectItem value="REJECTED">반려</SelectItem>
+          {STATUS_OPTIONS.map((opt) => (
+            <SelectItem key={opt.value} value={opt.value}>
+              {opt.label}
+            </SelectItem>
+          ))}
         </SelectContent>
       </Select>
-      <Select value={domainType} onValueChange={(v) => onDomainTypeChange(v ?? "all")}>
+      <Select
+        value={domainType}
+        onValueChange={(v) => onDomainTypeChange(v ?? "all")}
+      >
         <SelectTrigger className="w-[140px]">
-          <SelectValue placeholder="도메인유형" />
+          <span className="flex flex-1 text-left">{domainTypeLabel}</span>
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value="all">전체 유형</SelectItem>
-          <SelectItem value="명칭">명칭</SelectItem>
-          <SelectItem value="금액">금액</SelectItem>
-          <SelectItem value="번호">번호</SelectItem>
-          <SelectItem value="코드">코드</SelectItem>
-          <SelectItem value="일자">일자</SelectItem>
+          {DOMAIN_TYPE_OPTIONS.map((opt) => (
+            <SelectItem key={opt.value} value={opt.value}>
+              {opt.label}
+            </SelectItem>
+          ))}
         </SelectContent>
       </Select>
     </div>

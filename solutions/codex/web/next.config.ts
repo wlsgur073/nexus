@@ -8,6 +8,16 @@ const nextConfig: NextConfig = {
   turbopack: {
     root: resolve(__dirname, "../../.."),
   },
+  async redirects() {
+    return [
+      {
+        source: "/",
+        destination: "/solutions/codex",
+        permanent: false,
+        basePath: false as const,
+      },
+    ];
+  },
 };
 
 export default nextConfig;

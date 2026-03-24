@@ -30,7 +30,13 @@ export {
   TooltipProvider,
 } from "./tooltip";
 export { ThemeProvider } from "./theme-provider";
-export { Tabs, TabsList, TabsTrigger, TabsContent, tabsListVariants } from "./tabs";
+export {
+  Tabs,
+  TabsList,
+  TabsTrigger,
+  TabsContent,
+  tabsListVariants,
+} from "./tabs";
 export {
   Select,
   SelectContent,
@@ -70,3 +76,38 @@ export {
 } from "./table";
 export { Label } from "./label";
 export { Skeleton } from "./skeleton";
+export {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupButton,
+  InputGroupText,
+  InputGroupInput,
+  InputGroupTextarea,
+} from "./input-group";
+export {
+  Command,
+  CommandDialog,
+  CommandInput,
+  CommandList,
+  CommandEmpty,
+  CommandGroup,
+  CommandItem,
+  CommandShortcut,
+  CommandSeparator,
+} from "./command";
+export {
+  Popover,
+  PopoverContent,
+  PopoverDescription,
+  PopoverHeader,
+  PopoverTitle,
+  PopoverTrigger,
+} from "./popover";
+export { Switch } from "./switch";
+export {
+  Progress,
+  ProgressTrack,
+  ProgressIndicator,
+  ProgressLabel,
+  ProgressValue,
+} from "./progress";
