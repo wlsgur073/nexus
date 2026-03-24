@@ -22,7 +22,8 @@ export const QUERY_KEYS = {
     wordTerms: (id: number) => ["standards", "word", id, "terms"] as const,
     domain: (id: number) => ["standards", "domain", id] as const,
     domainList: (params: object) => ["standards", "domains", params] as const,
-    domainHistory: (id: number) => ["standards", "domain", id, "history"] as const,
+    domainHistory: (id: number) =>
+      ["standards", "domain", id, "history"] as const,
     domainTerms: (id: number) => ["standards", "domain", id, "terms"] as const,
     term: (id: number) => ["standards", "term", id] as const,
     termList: (params: object) => ["standards", "terms", params] as const,
@@ -72,7 +73,8 @@ export const QUERY_KEYS = {
     trend: ["validations", "trend"] as const,
     rules: ["validations", "rules"] as const,
     history: (params: object) => ["validations", "history", params] as const,
-    violations: (params: object) => ["validations", "violations", params] as const,
+    violations: (params: object) =>
+      ["validations", "violations", params] as const,
   },
   governance: {
     compliance: ["governance", "compliance"] as const,
@@ -80,5 +82,18 @@ export const QUERY_KEYS = {
     trend: ["governance", "trend"] as const,
     deptRanking: ["governance", "dept-ranking"] as const,
     nonCompliant: ["governance", "non-compliant"] as const,
+  },
+  audit: {
+    list: (params: object) => ["audit", params] as const,
+    timeline: (targetType: string, targetId: number) =>
+      ["audit", "timeline", targetType, targetId] as const,
+  },
+  commonCodes: {
+    groups: (params: object) => ["common-codes", "groups", params] as const,
+    groupDetail: (groupId: number) =>
+      ["common-codes", "groups", groupId] as const,
+    codes: (groupId: number) =>
+      ["common-codes", "groups", groupId, "codes"] as const,
+    search: (keyword: string) => ["common-codes", "search", keyword] as const,
   },
 } as const;
