@@ -7,12 +7,12 @@ paths:
 
 ## 패키지 목록과 역할
 
-| 패키지          | 역할                                        | 의존 대상                                                        |
-| --------------- | ------------------------------------------- | ---------------------------------------------------------------- |
-| `@nexus/types`  | Solution, Category 등 공유 타입             | 없음 (최하위)                                                    |
-| `@nexus/config` | 솔루션 레지스트리, DynamicIcon              | `@nexus/types`                                                   |
-| `@nexus/ui`     | shadcn/ui 공유 컴포넌트, cn()               | `@nexus/config` (peer: react)                                    |
-| `@nexus/shell`  | PlatformShell, Header, Sidebar, Breadcrumbs | `@nexus/ui`, `@nexus/config`, `@nexus/types` (peer: react, next) |
+| 패키지          | 역할                                                                    | 의존 대상                                                        |
+| --------------- | ----------------------------------------------------------------------- | ---------------------------------------------------------------- |
+| `@nexus/types`  | Solution, Category 등 공유 타입                                         | 없음 (최하위)                                                    |
+| `@nexus/config` | 솔루션 레지스트리, DynamicIcon                                          | `@nexus/types`                                                   |
+| `@nexus/ui`     | shadcn/ui 공유 컴포넌트, cn()                                           | 없음 (peer: react, react-dom)                                    |
+| `@nexus/shell`  | PlatformShell, Header, Sidebar, MobileSidebar, Breadcrumbs, ThemeToggle | `@nexus/ui`, `@nexus/config`, `@nexus/types` (peer: react, next) |
 
 ## 의존 방향 제한
 

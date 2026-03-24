@@ -6,8 +6,8 @@
 
 ```
 @nexus/types ← @nexus/config ← @nexus/shell ← @nexus/platform
-                    ↑              ↑
-@nexus/ui ──────────┘         @nexus/{id}-web
+                                    ↑              ↑
+@nexus/ui ──────────────────────────┘         @nexus/{id}-web
 ```
 
 ### 솔루션 내부 패키지

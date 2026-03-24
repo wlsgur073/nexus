@@ -66,7 +66,7 @@
 > 현재 Nexus는 프론트엔드 전용 프로젝트로 별도 백엔드 API가 없습니다.
 > 향후 API가 추가될 경우 아래 형식으로 문서화합니다.
 
-> Codex API 명세: `solutions/codex/docs/specs/data-architecture.md` 참조 (118개 API 엔드포인트 정의)
+> Codex API 명세: `solutions/codex/docs/specs/data/api.md` 참조 (118개 API 엔드포인트 정의)
 
 ---
 
@@ -112,7 +112,7 @@
 - PlatformShell: Platform 앱(Command Center) 전용 레이아웃 — Header + Sidebar + Main Content 구조
 - 각 솔루션은 독립 레이아웃을 소유 — PlatformShell을 사용하지 않으며, 자체 Header/Sidebar/네비게이션을 구현
 
-### 5.3 테마 전환 (Provider 구현 완료, ThemeToggle UI 미구현)
+### 5.3 테마 전환 (Platform 구현 완료)
 
 > 설계서: `docs/superpowers/specs/2026-03-20-theme-switching-design.md`
 
@@ -124,7 +124,7 @@
 
 ## 6. 향후 계획
 
-| 설계서               | 상태                                      | 대상                                 |
-| -------------------- | ----------------------------------------- | ------------------------------------ |
-| 테마 전환            | Provider 구현 완료, ThemeToggle UI 미구현 | Platform + 전체 솔루션               |
-| Team Leader 에이전트 | 설계 완료, 미구현                         | `.claude/agents/` 에이전트 구조 개편 |
+| 설계서               | 상태                                                    | 대상                   |
+| -------------------- | ------------------------------------------------------- | ---------------------- |
+| 테마 전환            | Platform 구현 완료, 솔루션별 ThemeToggle 미구현         | 솔루션 레이아웃별 적용 |
+| Team Leader 에이전트 | 워크플로우 규칙으로 구현 완료 (`team-lead-workflow.md`) | `.claude/rules/`       |
