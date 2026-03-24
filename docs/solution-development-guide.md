@@ -66,7 +66,9 @@ solutions/{id}/
 ├── shared/
 │   └── src/
 └── docs/
-    └── release/
+    ├── specs/    # 명세서 — 확정된 설계 사항 (UX, 데이터, 프론트엔드)
+    ├── plans/    # 실행 계획 — Phase별 task 리스트 (phase{N}-plan.md)
+    └── release/  # 릴리즈 기록 — 릴리즈된 결과만 문서화 (yyyy-MM-dd-topic.md)
 ```
 
 > `pnpm-workspace.yaml`에 `solutions/*/web`, `solutions/*/models`, `solutions/*/shared` 패턴이 이미 등록되어 있으므로 디렉토리 구조만 맞추면 워크스페이스에 자동 인식됩니다.

@@ -44,7 +44,10 @@ solutions/{id}/
 ├── web/src/app/
 ├── models/src/
 ├── shared/src/
-└── docs/release/
+└── docs/
+    ├── specs/
+    ├── plans/
+    └── release/
 ```
 
 ### Phase 3: Internal Packages 설정

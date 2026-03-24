@@ -19,7 +19,9 @@ solutions/{id}/
 ├── models/       # 데이터 모델 (@nexus/{id}-models)
 ├── shared/       # 내부 공유 유틸 (@nexus/{id}-shared)
 └── docs/
-    └── release/  # 릴리즈 노트 (yyyy-MM-dd-topic.md)
+    ├── specs/    # 명세서 — 확정된 설계 사항 (UX, 데이터, 프론트엔드)
+    ├── plans/    # 실행 계획 — Phase별 task 리스트 및 실행 전략 (phase{N}-plan.md)
+    └── release/  # 릴리즈 기록 — 실제 릴리즈된 결과만 문서화 (yyyy-MM-dd-topic.md)
 ```
 
 ## 솔루션 등록
@@ -46,9 +48,17 @@ solutions/{id}/
 - platform: 5000, codex: 5001, 이후 솔루션: 5002~
 - `web/package.json`의 `dev` 스크립트에 `--port {port}` 지정
 
-## 릴리즈 노트
+## 문서 관리 체계
 
-기능 추가, 버그 수정 등 의미 있는 변경을 완료하면 릴리즈 노트를 작성한다.
+모든 솔루션은 `docs/` 하위에 동일한 3단 구조를 따릅니다:
+
+| 디렉토리        | 용도        | 설명                                                                                                           |
+| --------------- | ----------- | -------------------------------------------------------------------------------------------------------------- |
+| `docs/specs/`   | 명세서      | 확정된 설계 사항을 문서화 (UX, 데이터, 프론트엔드 등). 변경 시 해당 섹션 업데이트                              |
+| `docs/plans/`   | 실행 계획   | Phase별 task 리스트와 실행 전략. 무엇을 할지, 어떤 순서로 진행할지 정의 (`phase{N}-plan.md`)                   |
+| `docs/release/` | 릴리즈 기록 | 실제 개발 완료 후 릴리즈한 사항만 문서화. plans의 task를 수행하고 릴리즈된 결과를 기록 (`yyyy-MM-dd-topic.md`) |
+
+### 릴리즈 노트 형식
 
 - **위치**: `solutions/{id}/docs/release/yyyy-MM-dd-topic.md`
 - **파일명 예시**: `2026-03-20-standard-term-crud.md`

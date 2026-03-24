@@ -66,7 +66,11 @@ factory-ai-team/
 │ └── codex/ # Codex 솔루션 그룹
 │ ├── web/ # Codex 프론트엔드 (@nexus/codex-web, basePath: /solutions/codex)
 │ ├── models/ # Codex 데이터 모델 (@nexus/codex-models)
-│ └── shared/ # Codex 내부 공유 유틸 (@nexus/codex-shared)
+│ ├── shared/ # Codex 내부 공유 유틸 (@nexus/codex-shared)
+│ └── docs/ # 솔루션 문서
+│ ├── specs/ # 명세서 (확정된 설계)
+│ ├── plans/ # 실행 계획 (Phase별 task)
+│ └── release/ # 릴리즈 기록 (완료된 결과)
 │
 ├── packages/
 │ ├── ui/ # shadcn/ui 공유 컴포넌트 + cn() (@nexus/ui)

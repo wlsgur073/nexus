@@ -16,8 +16,9 @@
 ### 2. 대상 솔루션/패키지 문서 확인
 
 - [ ] 해당 솔루션의 `CLAUDE.md`를 읽는다 (예: `solutions/codex/CLAUDE.md`)
-- [ ] 해당 솔루션의 **스펙 문서 전체**를 읽는다 (예: `solutions/codex/docs/`)
+- [ ] 해당 솔루션의 **명세 문서 전체**를 읽는다 (예: `solutions/codex/docs/specs/`)
   - 제품 스펙, UX 설계, 데이터 아키텍처, 프론트엔드 아키텍처
+- [ ] 해당 Phase의 **실행 계획**을 읽는다 (예: `solutions/codex/docs/plans/phase3-plan.md`)
 - [ ] `docs/` 디렉토리의 관련 가이드를 읽는다
   - dev-spec.md, solution-development-guide.md 등
 
