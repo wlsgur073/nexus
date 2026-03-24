@@ -33,6 +33,7 @@ import {
 import { CODEX_ROUTES } from "@nexus/codex-shared";
 
 import { useRole } from "@/hooks/use-auth";
+import { useNotifications } from "@/components/providers/notification-provider";
 
 import type { LucideIcon } from "lucide-react";
 
@@ -40,7 +41,14 @@ interface MenuItem {
   label: string;
   href: string;
   icon: LucideIcon;
-  requiredRole?: "admin" | "approver" | "requester";
+  requiredRole?:
+    | "admin"
+    | "approver"
+    | "requester"
+    | "governance"
+    | "validation"
+    | "notReadOnly";
+  badge?: number;
 }
 
 interface MenuSection {
@@ -48,106 +56,110 @@ interface MenuSection {
   items: MenuItem[];
 }
 
-const MENU_SECTIONS: MenuSection[] = [
-  {
-    title: "",
-    items: [
-      {
-        label: "대시보드",
-        href: CODEX_ROUTES.dashboard,
-        icon: LayoutDashboard,
-      },
-    ],
-  },
-  {
-    title: "표준 관리",
-    items: [
-      {
-        label: "표준 탐색기",
-        href: CODEX_ROUTES.standards,
-        icon: BookOpen,
-      },
-      {
-        label: "신규 신청",
-        href: CODEX_ROUTES.standardsNew,
-        icon: Plus,
-        requiredRole: "requester",
-      },
-      {
-        label: "공통코드 조회",
-        href: CODEX_ROUTES.commonCodes,
-        icon: FileText,
-      },
-    ],
-  },
-  {
-    title: "거버넌스",
-    items: [
-      {
-        label: "승인 워크벤치",
-        href: CODEX_ROUTES.approvals,
-        icon: CheckSquare,
-        requiredRole: "approver",
-      },
-      {
-        label: "거버넌스 포털",
-        href: CODEX_ROUTES.governance,
-        icon: BarChart3,
-        requiredRole: "approver",
-      },
-      {
-        label: "감사 추적",
-        href: CODEX_ROUTES.audit,
-        icon: ScrollText,
-      },
-    ],
-  },
-  {
-    title: "품질 관리",
-    items: [
-      {
-        label: "검증 대시보드",
-        href: CODEX_ROUTES.validations,
-        icon: Microscope,
-      },
-    ],
-  },
-  {
-    title: "관리",
-    items: [
-      {
-        label: "공통코드 관리",
-        href: CODEX_ROUTES.admin.commonCodes,
-        icon: FileText,
-        requiredRole: "admin",
-      },
-      {
-        label: "사용자 관리",
-        href: CODEX_ROUTES.admin.users,
-        icon: Users,
-        requiredRole: "admin",
-      },
-      {
-        label: "권한 관리",
-        href: CODEX_ROUTES.admin.permissions,
-        icon: Shield,
-        requiredRole: "admin",
-      },
-      {
-        label: "코드 관리",
-        href: CODEX_ROUTES.admin.systemCodes,
-        icon: Settings,
-        requiredRole: "admin",
-      },
-      {
-        label: "DB 연결 설정",
-        href: CODEX_ROUTES.admin.dbSettings,
-        icon: Database,
-        requiredRole: "admin",
-      },
-    ],
-  },
-];
+function buildMenuSections(unreadCount: number): MenuSection[] {
+  return [
+    {
+      title: "",
+      items: [
+        {
+          label: "대시보드",
+          href: CODEX_ROUTES.dashboard,
+          icon: LayoutDashboard,
+        },
+      ],
+    },
+    {
+      title: "표준 관리",
+      items: [
+        {
+          label: "표준 탐색기",
+          href: CODEX_ROUTES.standards,
+          icon: BookOpen,
+        },
+        {
+          label: "신규 신청",
+          href: CODEX_ROUTES.standardsNew,
+          icon: Plus,
+          requiredRole: "requester",
+        },
+        {
+          label: "공통코드 조회",
+          href: CODEX_ROUTES.commonCodes,
+          icon: FileText,
+        },
+      ],
+    },
+    {
+      title: "거버넌스",
+      items: [
+        {
+          label: "승인 워크벤치",
+          href: CODEX_ROUTES.approvals,
+          icon: CheckSquare,
+          requiredRole: "approver",
+          badge: unreadCount > 0 ? unreadCount : undefined,
+        },
+        {
+          label: "거버넌스 포털",
+          href: CODEX_ROUTES.governance,
+          icon: BarChart3,
+          requiredRole: "governance",
+        },
+        {
+          label: "감사 추적",
+          href: CODEX_ROUTES.audit,
+          icon: ScrollText,
+          requiredRole: "notReadOnly",
+        },
+      ],
+    },
+    {
+      title: "품질 관리",
+      items: [
+        {
+          label: "검증 대시보드",
+          href: CODEX_ROUTES.validations,
+          icon: Microscope,
+        },
+      ],
+    },
+    {
+      title: "관리",
+      items: [
+        {
+          label: "공통코드 관리",
+          href: CODEX_ROUTES.admin.commonCodes,
+          icon: FileText,
+          requiredRole: "admin",
+        },
+        {
+          label: "사용자 관리",
+          href: CODEX_ROUTES.admin.users,
+          icon: Users,
+          requiredRole: "admin",
+        },
+        {
+          label: "권한 관리",
+          href: CODEX_ROUTES.admin.permissions,
+          icon: Shield,
+          requiredRole: "admin",
+        },
+        {
+          label: "코드 관리",
+          href: CODEX_ROUTES.admin.systemCodes,
+          icon: Settings,
+          requiredRole: "admin",
+        },
+        {
+          label: "DB 연결 설정",
+          href: CODEX_ROUTES.admin.dbSettings,
+          icon: Database,
+          requiredRole: "admin",
+        },
+      ],
+    },
+  ];
+}
 
 /* ─── Desktop Sidebar ─── */
 
@@ -157,13 +169,18 @@ type CodexSidebarProps = {
 
 export function CodexSidebar({ collapsed }: CodexSidebarProps) {
   const pathname = usePathname();
-  const { isAdmin, canApprove, canRequest } = useRole();
+  const { isAdmin, canApprove, canRequest, canViewGovernance, isReadOnly } =
+    useRole();
+  const { unreadCount } = useNotifications();
+  const menuSections = buildMenuSections(unreadCount);
 
   const isVisible = (item: MenuItem) => {
     if (!item.requiredRole) return true;
     if (item.requiredRole === "admin") return isAdmin;
     if (item.requiredRole === "approver") return canApprove;
     if (item.requiredRole === "requester") return canRequest;
+    if (item.requiredRole === "governance") return canViewGovernance;
+    if (item.requiredRole === "notReadOnly") return !isReadOnly;
     return true;
   };
 
@@ -179,6 +196,7 @@ export function CodexSidebar({ collapsed }: CodexSidebarProps) {
           collapsed={collapsed}
           pathname={pathname}
           isVisible={isVisible}
+          sections={menuSections}
         />
       </ScrollArea>
 
@@ -212,13 +230,18 @@ export function CodexMobileSidebar({
   onOpenChange,
 }: CodexMobileSidebarProps) {
   const pathname = usePathname();
-  const { isAdmin, canApprove, canRequest } = useRole();
+  const { isAdmin, canApprove, canRequest, canViewGovernance, isReadOnly } =
+    useRole();
+  const { unreadCount } = useNotifications();
+  const menuSections = buildMenuSections(unreadCount);
 
   const isVisible = (item: MenuItem) => {
     if (!item.requiredRole) return true;
     if (item.requiredRole === "admin") return isAdmin;
     if (item.requiredRole === "approver") return canApprove;
     if (item.requiredRole === "requester") return canRequest;
+    if (item.requiredRole === "governance") return canViewGovernance;
+    if (item.requiredRole === "notReadOnly") return !isReadOnly;
     return true;
   };
 
@@ -237,6 +260,7 @@ export function CodexMobileSidebar({
             pathname={pathname}
             isVisible={isVisible}
             onNavigate={() => onOpenChange(false)}
+            sections={menuSections}
           />
           <Separator className="my-2" />
           <div className="p-2">
@@ -264,15 +288,17 @@ function SidebarNav({
   pathname,
   isVisible,
   onNavigate,
+  sections,
 }: {
   collapsed: boolean;
   pathname: string;
   isVisible: (item: MenuItem) => boolean;
   onNavigate?: () => void;
+  sections: MenuSection[];
 }) {
   return (
     <nav className="flex flex-col gap-1 px-2">
-      {MENU_SECTIONS.map((section) => {
+      {sections.map((section) => {
         const visibleItems = section.items.filter(isVisible);
         if (visibleItems.length === 0) return null;
 
@@ -305,7 +331,16 @@ function SidebarNav({
                   )}
                 >
                   <Icon className="h-4 w-4 shrink-0" />
-                  {!collapsed && <span>{item.label}</span>}
+                  {!collapsed && (
+                    <span className="flex flex-1 items-center justify-between">
+                      {item.label}
+                      {item.badge !== undefined && (
+                        <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-destructive px-1.5 text-[10px] font-bold text-white">
+                          {item.badge > 99 ? "99+" : item.badge}
+                        </span>
+                      )}
+                    </span>
+                  )}
                 </Link>
               );
 
@@ -328,9 +363,7 @@ function SidebarNav({
                     >
                       <Icon className="h-4 w-4 shrink-0" />
                     </TooltipTrigger>
-                    <TooltipContent side="right">
-                      {item.label}
-                    </TooltipContent>
+                    <TooltipContent side="right">{item.label}</TooltipContent>
                   </Tooltip>
                 );
               }

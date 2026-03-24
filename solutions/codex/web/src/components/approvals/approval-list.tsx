@@ -2,7 +2,13 @@
 
 import { useEffect, useState, useTransition } from "react";
 
-import { Input, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@nexus/ui";
+import {
+  Input,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+} from "@nexus/ui";
 import { getApprovalList } from "@nexus/codex-models";
 import type { Request, RequestStatus, TargetType } from "@nexus/codex-models";
 
@@ -39,6 +45,19 @@ const COLUMNS: Column<Request>[] = [
   },
 ];
 
+const STATUS_LABELS: Record<string, string> = {
+  ALL: "전체 상태",
+  PENDING: "대기",
+  REVIEW: "검토",
+};
+
+const TYPE_LABELS: Record<string, string> = {
+  ALL: "전체 유형",
+  WORD: "표준단어",
+  DOMAIN: "표준도메인",
+  TERM: "표준용어",
+};
+
 export function ApprovalList({
   onSelect,
   selectedIds,
@@ -50,8 +69,12 @@ export function ApprovalList({
   const [page, setPage] = useState(1);
   const [isPending, startTransition] = useTransition();
   const [keyword, setKeyword] = useState("");
-  const [statusFilter, setStatusFilter] = useState<RequestStatus | "ALL">("ALL");
-  const [targetTypeFilter, setTargetTypeFilter] = useState<TargetType | "ALL">("ALL");
+  const [statusFilter, setStatusFilter] = useState<RequestStatus | "ALL">(
+    "ALL",
+  );
+  const [targetTypeFilter, setTargetTypeFilter] = useState<TargetType | "ALL">(
+    "ALL",
+  );
 
   useEffect(() => {
     startTransition(async () => {
@@ -87,12 +110,16 @@ export function ApprovalList({
           }}
         >
           <SelectTrigger className="w-32">
-            <SelectValue placeholder="상태" />
+            <span className="flex flex-1 text-left">
+              {STATUS_LABELS[statusFilter]}
+            </span>
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="ALL">전체 상태</SelectItem>
-            <SelectItem value="PENDING">대기</SelectItem>
-            <SelectItem value="REVIEW">검토</SelectItem>
+            {Object.entries(STATUS_LABELS).map(([value, label]) => (
+              <SelectItem key={value} value={value}>
+                {label}
+              </SelectItem>
+            ))}
           </SelectContent>
         </Select>
         <Select
@@ -103,13 +130,16 @@ export function ApprovalList({
           }}
         >
           <SelectTrigger className="w-32">
-            <SelectValue placeholder="유형" />
+            <span className="flex flex-1 text-left">
+              {TYPE_LABELS[targetTypeFilter]}
+            </span>
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="ALL">전체 유형</SelectItem>
-            <SelectItem value="WORD">표준단어</SelectItem>
-            <SelectItem value="DOMAIN">표준도메인</SelectItem>
-            <SelectItem value="TERM">표준용어</SelectItem>
+            {Object.entries(TYPE_LABELS).map(([value, label]) => (
+              <SelectItem key={value} value={value}>
+                {label}
+              </SelectItem>
+            ))}
           </SelectContent>
         </Select>
       </div>
@@ -134,11 +164,7 @@ export function ApprovalList({
       />
 
       {total > 1 && (
-        <Pagination
-          page={page}
-          totalPages={total}
-          onPageChange={setPage}
-        />
+        <Pagination page={page} totalPages={total} onPageChange={setPage} />
       )}
     </div>
   );

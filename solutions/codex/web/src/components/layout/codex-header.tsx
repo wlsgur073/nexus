@@ -1,10 +1,13 @@
 "use client";
 
+import Link from "next/link";
 import { useTheme } from "next-themes";
-import { BookOpen, Menu, Moon, Sun, User } from "lucide-react";
+import { BookOpen, Menu, Moon, Search, Sun, User } from "lucide-react";
 import { Button } from "@nexus/ui";
+import { CODEX_ROUTES } from "@nexus/codex-shared";
 
 import { useAuth } from "@/hooks/use-auth";
+import { NotificationCenter } from "./notification-center";
 
 type CodexHeaderProps = {
   onToggleSidebar: () => void;
@@ -26,14 +29,33 @@ export function CodexHeader({ onToggleSidebar }: CodexHeaderProps) {
         <span className="sr-only">사이드바 토글</span>
       </Button>
 
-      <div className="flex items-center gap-2">
+      <Link
+        href={CODEX_ROUTES.dashboard}
+        className="flex items-center gap-2 transition-opacity hover:opacity-80"
+      >
         <BookOpen className="h-6 w-6 text-violet-600 dark:text-violet-400" />
         <span className="hidden text-lg font-semibold sm:inline-block">
           Codex
         </span>
-      </div>
+      </Link>
 
       <div className="ml-auto flex items-center gap-2">
+        <Button
+          variant="ghost"
+          size="icon"
+          className="hidden sm:inline-flex"
+          onClick={() => {
+            document.dispatchEvent(
+              new KeyboardEvent("keydown", { key: "k", ctrlKey: true }),
+            );
+          }}
+        >
+          <Search className="h-5 w-5" />
+          <span className="sr-only">검색 (Ctrl+K)</span>
+        </Button>
+
+        <NotificationCenter />
+
         <Button
           variant="ghost"
           size="icon"

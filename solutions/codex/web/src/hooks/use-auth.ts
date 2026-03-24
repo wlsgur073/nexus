@@ -28,8 +28,15 @@ export function useRole() {
     isAdmin: role === "SYSTEM_ADMIN",
     canApprove: role === "SYSTEM_ADMIN" || role === "REVIEWER_APPROVER",
     canRequest:
+      role === "SYSTEM_ADMIN" || role === "STD_MANAGER" || role === "REQUESTER",
+    canManage: role === "SYSTEM_ADMIN",
+    canManageCommonCodes: role === "SYSTEM_ADMIN" || role === "STD_MANAGER",
+    canViewGovernance:
       role === "SYSTEM_ADMIN" ||
-      role === "STD_MANAGER" ||
-      role === "REQUESTER",
+      role === "REVIEWER_APPROVER" ||
+      role === "STD_MANAGER",
+    canExecuteValidation: role === "SYSTEM_ADMIN" || role === "STD_MANAGER",
+    isReadOnly: role === "READ_ONLY",
+    isApproverView: role === "SYSTEM_ADMIN" || role === "REVIEWER_APPROVER",
   };
 }

@@ -1,8 +1,15 @@
 "use client";
 
 import { useState } from "react";
+import dynamic from "next/dynamic";
+
 import { CodexHeader } from "./codex-header";
 import { CodexSidebar, CodexMobileSidebar } from "./codex-sidebar";
+
+const CommandPalette = dynamic(
+  () => import("@/components/layout/command-palette"),
+  { ssr: false },
+);
 
 export function CodexLayout({ children }: { children: React.ReactNode }) {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
@@ -22,10 +29,9 @@ export function CodexLayout({ children }: { children: React.ReactNode }) {
       <div className="flex flex-1">
         <CodexSidebar collapsed={sidebarCollapsed} />
         <CodexMobileSidebar open={mobileOpen} onOpenChange={setMobileOpen} />
-        <main className="flex-1 overflow-auto">
-          {children}
-        </main>
+        <main className="flex-1 overflow-auto">{children}</main>
       </div>
+      <CommandPalette />
     </>
   );
 }

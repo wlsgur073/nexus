@@ -6,6 +6,8 @@ import { TooltipProvider, ThemeProvider } from "@nexus/ui";
 
 import { QueryProvider } from "@/components/providers/query-provider";
 import { AuthProvider } from "@/components/providers/auth-provider";
+import { NotificationProvider } from "@/components/providers/notification-provider";
+import { AIButlerProvider } from "@/components/providers/ai-butler-provider";
 import { CodexLayout } from "@/components/layout/codex-layout";
 import "./globals.css";
 
@@ -40,10 +42,14 @@ export default function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <QueryProvider>
             <AuthProvider>
-              <TooltipProvider>
-                <CodexLayout>{children}</CodexLayout>
-              </TooltipProvider>
-              <Toaster richColors position="top-right" />
+              <NotificationProvider>
+                <AIButlerProvider>
+                  <TooltipProvider>
+                    <CodexLayout>{children}</CodexLayout>
+                  </TooltipProvider>
+                  <Toaster richColors position="top-right" />
+                </AIButlerProvider>
+              </NotificationProvider>
             </AuthProvider>
           </QueryProvider>
         </ThemeProvider>

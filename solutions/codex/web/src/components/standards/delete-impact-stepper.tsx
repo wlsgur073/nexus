@@ -10,7 +10,6 @@ import {
   SelectContent,
   SelectItem,
   SelectTrigger,
-  SelectValue,
   Textarea,
 } from "@nexus/ui";
 import type { TargetType } from "@nexus/codex-models";
@@ -112,13 +111,22 @@ export function DeleteImpactStepper({
             <Select
               value={form.impactLevel}
               onValueChange={(v) =>
-                updateField("impactLevel", (v ?? "LOW") as "HIGH" | "MEDIUM" | "LOW")
+                updateField(
+                  "impactLevel",
+                  (v ?? "LOW") as "HIGH" | "MEDIUM" | "LOW",
+                )
               }
             >
               <SelectTrigger className="mt-1.5">
-                <SelectValue />
+                <span className="flex flex-1 text-left">
+                  {
+                    { HIGH: "높음", MEDIUM: "보통", LOW: "낮음" }[
+                      form.impactLevel
+                    ]
+                  }
+                </span>
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent alignItemWithTrigger={false}>
                 <SelectItem value="HIGH">높음</SelectItem>
                 <SelectItem value="MEDIUM">보통</SelectItem>
                 <SelectItem value="LOW">낮음</SelectItem>
@@ -179,7 +187,10 @@ export function DeleteImpactStepper({
       )}
 
       <div className="flex justify-between">
-        <Button variant="outline" onClick={step === 1 ? onCancel : () => setStep(step - 1)}>
+        <Button
+          variant="outline"
+          onClick={step === 1 ? onCancel : () => setStep(step - 1)}
+        >
           {step === 1 ? "취소" : "이전"}
         </Button>
         <Button
