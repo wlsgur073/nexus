@@ -87,10 +87,27 @@ docs/
   - 신규 의존성: @tanstack/react-query, react-hook-form, zod, @hookform/resolvers, sonner, nuqs
   - 테마: ThemeProvider(@nexus/ui) 적용 완료 (라이트/다크 모드 지원, ThemeToggle UI는 Phase 2)
 
-### 미구현 (Phase 2~3)
+### Phase 2 (AI & 협업 + 거버넌스) — 완료 (2026-03-24)
 
-- Phase 2: 거버넌스 포털, 검증 대시보드/상세, 감사 추적, 공통코드 조회, Command Palette, 알림 센터, AI Data Butler 고도화
-- Phase 3: admin/\* (공통코드 관리, 사용자/권한/코드 관리, DB 연결 설정), Skeleton/Error Boundary 완성도, 반응형, prefetch
+- **models**: 5개 API 모듈 추가 (Mock 데이터)
+  - api/: governance, validations, audit, notifications, common-codes
+  - ViolationListParams에 executionId 필드 추가
+- **shared**: query-keys 확장 (audit, commonCodes 네임스페이스 추가)
+- **web**: Phase 2 화면 전체 구현 완료
+  - 신규 providers: NotificationProvider(SSE), AIButlerProvider = 2개
+  - 신규 layout: command-palette(Ctrl+K), notification-center = 2개
+  - 신규 컴포넌트: governance(4), validations(5), audit(3), common-codes(1), standards(2), ui(2), dashboard(1) = 18개
+  - 수정: codex-layout, codex-header, codex-sidebar, layout.tsx, use-auth(useRole 확장)
+  - 신규 라우트: governance, validations, validations/[executionId], audit, common-codes = 5개
+  - 신규 의존성: recharts
+  - 데이터 패칭: 전체 페이지 TanStack Query(useQuery) 패턴 적용
+  - 접근성: 아이콘 버튼 sr-only 레이블 적용
+  - SSE: NEXT_PUBLIC_ENABLE_SSE 환경 변수로 조건부 활성화
+- **@nexus/ui**: Command, Popover, Switch, Progress, InputGroup 5개 컴포넌트 추가
+
+### 미구현 (Phase 3)
+
+- Phase 3: admin/\* (공통코드 관리, 사용자/권한/코드 관리, DB 연결 설정), Skeleton/Error Boundary 완성도, 반응형, prefetch, ThemeToggle UI
 
 ## 구현 Phase
 
