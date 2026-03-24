@@ -126,13 +126,19 @@ docs/
 4. @nexus/codex-web 라우트 + 컴포넌트
 ```
 
+## 문서 관리 체계
+
+- **실행 계획**: `docs/plans/phase{N}-plan.md` — Phase별 구현 범위, Agent Teams 전략, 체크리스트
+- **릴리즈 노트**: `docs/release/yyyy-MM-dd-topic.md` — 완료된 작업만 기록 (plan의 task가 릴리즈되면 release에 기록)
+- **명세**: `docs/specs/` — UX, 데이터, 프론트엔드 설계 문서 (변경 시 해당 섹션 업데이트)
+
 ## Claude 워크플로우
 
 - **구현 시작 전**:
   1. `.claude/rules/` 디렉토리의 모든 규칙 문서를 확인하고 따를 것
   2. 위 "에이전트별 문서 참조 매트릭스"에서 담당 에이전트에 해당하는 명세 문서를 모두 읽을 것
-  3. 작업 대상 Phase에 해당하는 화면 명세(`screens-core.md` 또는 `screens-governance.md`)를 확인할 것
-- **구현 완료 시**: 이 파일의 "현재 구현 상태" 섹션을 갱신할 것
+  3. 작업 대상 Phase에 해당하는 실행 계획(`docs/plans/`)과 화면 명세(`screens-core.md` 또는 `screens-governance.md`)를 확인할 것
+- **구현 완료 시**: 이 파일의 "현재 구현 상태" 섹션을 갱신하고, 릴리즈 노트(`docs/release/`)를 작성할 것
 
 ## Codex 기술 스택 (플랫폼 공통 외)
 
