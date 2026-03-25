@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import {
   BookOpen,
+  Clock,
   FileText,
   Microscope,
   Plus,
@@ -83,8 +84,32 @@ const QUICK_ACTIONS: CommandAction[] = [
   },
 ];
 
+const RECENT_KEY = "codex-command-recent";
+const MAX_RECENT = 5;
+
+function getRecent(): CommandAction[] {
+  if (typeof window === "undefined") return [];
+  try {
+    const raw = localStorage.getItem(RECENT_KEY);
+    return raw ? (JSON.parse(raw) as CommandAction[]) : [];
+  } catch {
+    return [];
+  }
+}
+
+function saveRecent(action: CommandAction) {
+  try {
+    const prev = getRecent().filter((a) => a.href !== action.href);
+    const next = [action, ...prev].slice(0, MAX_RECENT);
+    localStorage.setItem(RECENT_KEY, JSON.stringify(next));
+  } catch {
+    // localStorage full or unavailable
+  }
+}
+
 export default function CommandPalette() {
   const [open, setOpen] = useState(false);
+  const [recent, setRecent] = useState<CommandAction[]>([]);
   const router = useRouter();
 
   useEffect(() => {
@@ -99,8 +124,29 @@ export default function CommandPalette() {
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, []);
 
+  useEffect(() => {
+    if (open) {
+      setRecent(getRecent());
+    }
+  }, [open]);
+
   const handleSelect = useCallback(
-    (href: string) => {
+    (href: string, label: string) => {
+      const allActions = [...QUICK_NAV, ...QUICK_ACTIONS];
+      const matched = allActions.find((a) => a.href === href);
+      if (matched) {
+        saveRecent({
+          label: matched.label,
+          href: matched.href,
+          icon: undefined as unknown as React.ReactNode,
+        });
+      } else {
+        saveRecent({
+          label,
+          href,
+          icon: undefined as unknown as React.ReactNode,
+        });
+      }
       setOpen(false);
       router.push(href);
     },
@@ -112,11 +158,27 @@ export default function CommandPalette() {
       <CommandInput placeholder="메뉴, 표준, 액션 검색..." />
       <CommandList>
         <CommandEmpty>검색 결과가 없습니다.</CommandEmpty>
+        {recent.length > 0 && (
+          <>
+            <CommandGroup heading="최근 방문">
+              {recent.map((item) => (
+                <CommandItem
+                  key={`recent-${item.href}`}
+                  onSelect={() => handleSelect(item.href, item.label)}
+                >
+                  <Clock className="h-4 w-4" />
+                  <span>{item.label}</span>
+                </CommandItem>
+              ))}
+            </CommandGroup>
+            <CommandSeparator />
+          </>
+        )}
         <CommandGroup heading="빠른 이동">
           {QUICK_NAV.map((item) => (
             <CommandItem
               key={item.href}
-              onSelect={() => handleSelect(item.href)}
+              onSelect={() => handleSelect(item.href, item.label)}
               keywords={item.keywords}
             >
               {item.icon}
@@ -129,7 +191,7 @@ export default function CommandPalette() {
           {QUICK_ACTIONS.map((item) => (
             <CommandItem
               key={item.href}
-              onSelect={() => handleSelect(item.href)}
+              onSelect={() => handleSelect(item.href, item.label)}
               keywords={item.keywords}
             >
               {item.icon}
