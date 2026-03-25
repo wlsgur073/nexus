@@ -1,5 +1,5 @@
 import type { UserRole, UserStatus } from "../entities";
-import { baseFields, delay, paginate } from "./helpers";
+import { delay, paginate } from "./helpers";
 import type { PaginatedResponse, PaginationParams } from "./helpers";
 
 export interface UserItem {

@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import {
   BookOpen,
@@ -84,23 +84,28 @@ const QUICK_ACTIONS: CommandAction[] = [
   },
 ];
 
+interface RecentItem {
+  label: string;
+  href: string;
+}
+
 const RECENT_KEY = "codex-command-recent";
 const MAX_RECENT = 5;
 
-function getRecent(): CommandAction[] {
+function getRecent(): RecentItem[] {
   if (typeof window === "undefined") return [];
   try {
     const raw = localStorage.getItem(RECENT_KEY);
-    return raw ? (JSON.parse(raw) as CommandAction[]) : [];
+    return raw ? (JSON.parse(raw) as RecentItem[]) : [];
   } catch {
     return [];
   }
 }
 
-function saveRecent(action: CommandAction) {
+function saveRecent(item: RecentItem) {
   try {
-    const prev = getRecent().filter((a) => a.href !== action.href);
-    const next = [action, ...prev].slice(0, MAX_RECENT);
+    const prev = getRecent().filter((a) => a.href !== item.href);
+    const next = [item, ...prev].slice(0, MAX_RECENT);
     localStorage.setItem(RECENT_KEY, JSON.stringify(next));
   } catch {
     // localStorage full or unavailable
@@ -109,8 +114,10 @@ function saveRecent(action: CommandAction) {
 
 export default function CommandPalette() {
   const [open, setOpen] = useState(false);
-  const [recent, setRecent] = useState<CommandAction[]>([]);
+  const [recentKey, setRecentKey] = useState(0);
   const router = useRouter();
+
+  const recent = useMemo(() => (open ? getRecent() : []), [open, recentKey]);
 
   useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {
@@ -124,29 +131,10 @@ export default function CommandPalette() {
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, []);
 
-  useEffect(() => {
-    if (open) {
-      setRecent(getRecent());
-    }
-  }, [open]);
-
   const handleSelect = useCallback(
     (href: string, label: string) => {
-      const allActions = [...QUICK_NAV, ...QUICK_ACTIONS];
-      const matched = allActions.find((a) => a.href === href);
-      if (matched) {
-        saveRecent({
-          label: matched.label,
-          href: matched.href,
-          icon: undefined as unknown as React.ReactNode,
-        });
-      } else {
-        saveRecent({
-          label,
-          href,
-          icon: undefined as unknown as React.ReactNode,
-        });
-      }
+      saveRecent({ label, href });
+      setRecentKey((k) => k + 1);
       setOpen(false);
       router.push(href);
     },

@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { ChevronDown, ChevronRight } from "lucide-react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
@@ -81,10 +81,10 @@ export function PermissionTree() {
 
 function RolePermissionPanel({ role }: { role: UserRole }) {
   const queryClient = useQueryClient();
-  const [localPerms, setLocalPerms] = useState<Map<string, MenuPermissionItem>>(
-    new Map(),
-  );
-  const [expandedNodes, setExpandedNodes] = useState<Set<string>>(new Set());
+  const [editedPerms, setEditedPerms] = useState<
+    Map<string, MenuPermissionItem>
+  >(new Map());
+  const [expandedNodes, setExpandedNodes] = useState<Set<string> | null>(null);
   const [dirty, setDirty] = useState(false);
 
   const { data: permissions } = useQuery({
@@ -97,34 +97,38 @@ function RolePermissionPanel({ role }: { role: UserRole }) {
     queryFn: getMenuTree,
   });
 
-  useEffect(() => {
-    if (permissions) {
-      const map = new Map<string, MenuPermissionItem>();
-      for (const p of permissions) {
-        map.set(p.menuCode, p);
-      }
-      setLocalPerms(map);
-      setDirty(false);
+  const basePerms = useMemo(() => {
+    const map = new Map<string, MenuPermissionItem>();
+    for (const p of permissions ?? []) {
+      map.set(p.menuCode, p);
     }
+    return map;
   }, [permissions]);
 
-  useEffect(() => {
-    if (menuTree) {
-      setExpandedNodes(new Set(menuTree.map((n) => n.menuCode)));
+  const localPerms = useMemo(() => {
+    if (!dirty) return basePerms;
+    const merged = new Map(basePerms);
+    for (const [k, v] of editedPerms) {
+      merged.set(k, v);
     }
-  }, [menuTree]);
+    return merged;
+  }, [basePerms, editedPerms, dirty]);
+
+  const resolvedExpanded = useMemo(() => {
+    if (expandedNodes) return expandedNodes;
+    return new Set((menuTree ?? []).map((n) => n.menuCode));
+  }, [expandedNodes, menuTree]);
 
   const toggleExpand = (code: string) => {
-    setExpandedNodes((prev) => {
-      const next = new Set(prev);
-      if (next.has(code)) next.delete(code);
-      else next.add(code);
-      return next;
-    });
+    const prev = resolvedExpanded;
+    const next = new Set(prev);
+    if (next.has(code)) next.delete(code);
+    else next.add(code);
+    setExpandedNodes(next);
   };
 
   const toggleField = useCallback((menuCode: string, field: CrudField) => {
-    setLocalPerms((prev) => {
+    setEditedPerms((prev) => {
       const next = new Map(prev);
       const perm = next.get(menuCode);
       if (perm) {
@@ -137,7 +141,7 @@ function RolePermissionPanel({ role }: { role: UserRole }) {
 
   const toggleAllChildren = useCallback(
     (node: MenuTreeNode, field: CrudField, value: boolean) => {
-      setLocalPerms((prev) => {
+      setEditedPerms((prev) => {
         const next = new Map(prev);
         for (const child of node.children) {
           const perm = next.get(child.menuCode);
@@ -191,7 +195,11 @@ function RolePermissionPanel({ role }: { role: UserRole }) {
   return (
     <div className="mt-4 space-y-4">
       <div className="overflow-x-auto rounded-md border">
-        <table className="w-full text-sm" role="tree">
+        <table
+          className="w-full text-sm"
+          role="treegrid"
+          aria-label="메뉴 권한 설정"
+        >
           <thead>
             <tr className="border-b bg-muted/50">
               <th className="px-4 py-2 text-left font-medium">메뉴</th>
@@ -210,7 +218,7 @@ function RolePermissionPanel({ role }: { role: UserRole }) {
               <TreeCategory
                 key={parent.menuCode}
                 node={parent}
-                expanded={expandedNodes.has(parent.menuCode)}
+                expanded={resolvedExpanded.has(parent.menuCode)}
                 onToggleExpand={toggleExpand}
                 localPerms={localPerms}
                 toggleField={toggleField}
@@ -265,8 +273,9 @@ function TreeCategory({
   return (
     <>
       <tr
-        role="treeitem"
+        role="row"
         aria-expanded={expanded}
+        aria-level={1}
         className="border-b bg-muted/25 font-medium"
       >
         <td className="px-4 py-2">
@@ -304,7 +313,12 @@ function TreeCategory({
         node.children.map((child) => {
           const perm = localPerms.get(child.menuCode);
           return (
-            <tr key={child.menuCode} role="treeitem" className="border-b">
+            <tr
+              key={child.menuCode}
+              role="row"
+              aria-level={2}
+              className="border-b"
+            >
               <td className="py-2 pl-10 pr-4">{child.menuName}</td>
               {CRUD_LABELS.map((c) => (
                 <td key={c.field} className="px-2 py-2 text-center">

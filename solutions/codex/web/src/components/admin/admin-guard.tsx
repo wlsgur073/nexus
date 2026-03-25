@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { ShieldAlert } from "lucide-react";
 
@@ -11,8 +11,12 @@ import { useRole } from "@/hooks/use-auth";
 export function AdminGuard({ children }: { children: React.ReactNode }) {
   const { isAdmin, canManageCommonCodes } = useRole();
   const router = useRouter();
+  const pathname = usePathname();
 
-  const hasAccess = isAdmin || canManageCommonCodes;
+  // STD_MANAGER는 /admin/common-codes만 접근 가능, 나머지 admin은 SYSTEM_ADMIN만
+  const hasAccess =
+    isAdmin ||
+    (canManageCommonCodes && pathname.startsWith("/admin/common-codes"));
 
   useEffect(() => {
     if (!hasAccess) {

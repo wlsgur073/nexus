@@ -12,11 +12,14 @@ export function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  // Mock auth: admin routes require SYSTEM_ADMIN role
+  // Mock auth: admin routes require SYSTEM_ADMIN or STD_MANAGER role
   // TODO: Replace with real auth token check when backend is ready
   if (pathname.startsWith("/admin")) {
     const mockRole = request.cookies.get("codex-role")?.value;
-    if (mockRole && mockRole !== "SYSTEM_ADMIN" && mockRole !== "STD_MANAGER") {
+    if (
+      !mockRole ||
+      (mockRole !== "SYSTEM_ADMIN" && mockRole !== "STD_MANAGER")
+    ) {
       return NextResponse.redirect(new URL("/", request.url));
     }
   }
