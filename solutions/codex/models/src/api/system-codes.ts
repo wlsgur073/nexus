@@ -177,14 +177,20 @@ export async function updateSystemCode(
   input: UpdateSystemCodeInput,
 ): Promise<SystemCodeItem> {
   await delay(400);
-  const code = MOCK_SYSTEM_CODES.find((c) => c.sysCodeId === sysCodeId);
-  if (!code) throw new Error(`SystemCode ${sysCodeId} not found`);
-  if (code.isProtected)
+  const idx = MOCK_SYSTEM_CODES.findIndex((c) => c.sysCodeId === sysCodeId);
+  if (idx === -1) throw new Error(`SystemCode ${sysCodeId} not found`);
+  if (MOCK_SYSTEM_CODES[idx].isProtected)
     throw new Error("Protected system codes cannot be modified");
-  if (input.codeName) code.codeName = input.codeName;
-  if (input.description !== undefined)
-    code.description = input.description ?? null;
-  return code;
+  const updated = {
+    ...MOCK_SYSTEM_CODES[idx],
+    codeName: input.codeName ?? MOCK_SYSTEM_CODES[idx].codeName,
+    description:
+      input.description !== undefined
+        ? (input.description ?? null)
+        : MOCK_SYSTEM_CODES[idx].description,
+  };
+  MOCK_SYSTEM_CODES[idx] = updated;
+  return updated;
 }
 
 export async function deleteSystemCode(sysCodeId: number): Promise<void> {
@@ -195,6 +201,20 @@ export async function deleteSystemCode(sysCodeId: number): Promise<void> {
     throw new Error("Protected system codes cannot be deleted");
   }
   MOCK_SYSTEM_CODES.splice(idx, 1);
+}
+
+export async function toggleSystemCodeProtection(
+  sysCodeId: number,
+): Promise<SystemCodeItem> {
+  await delay(400);
+  const idx = MOCK_SYSTEM_CODES.findIndex((c) => c.sysCodeId === sysCodeId);
+  if (idx === -1) throw new Error(`SystemCode ${sysCodeId} not found`);
+  const updated = {
+    ...MOCK_SYSTEM_CODES[idx],
+    isProtected: !MOCK_SYSTEM_CODES[idx].isProtected,
+  };
+  MOCK_SYSTEM_CODES[idx] = updated;
+  return updated;
 }
 
 export async function getSystemCodeCategories(): Promise<string[]> {

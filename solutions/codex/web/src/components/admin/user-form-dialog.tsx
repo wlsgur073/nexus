@@ -19,7 +19,6 @@ import {
   SelectContent,
   SelectItem,
   SelectTrigger,
-  SelectValue,
 } from "@nexus/ui";
 import { createUser } from "@nexus/codex-models";
 
@@ -60,6 +59,7 @@ export function UserFormDialog({ open, onOpenChange }: UserFormDialogProps) {
     handleSubmit,
     reset,
     setValue,
+    watch,
     formState: { errors, isSubmitting },
   } = useForm<FormValues>({
     resolver: zodResolver(schema),
@@ -132,7 +132,10 @@ export function UserFormDialog({ open, onOpenChange }: UserFormDialogProps) {
               onValueChange={(v) => setValue("role", (v ?? "") as string)}
             >
               <SelectTrigger>
-                <SelectValue placeholder="역할 선택" />
+                <span className="flex flex-1 text-left">
+                  {ROLE_OPTIONS.find((o) => o.value === watch("role"))?.label ??
+                    "역할 선택"}
+                </span>
               </SelectTrigger>
               <SelectContent>
                 {ROLE_OPTIONS.map((opt) => (

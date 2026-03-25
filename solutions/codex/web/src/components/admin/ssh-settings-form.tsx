@@ -21,7 +21,6 @@ import {
   SelectContent,
   SelectItem,
   SelectTrigger,
-  SelectValue,
   Switch,
 } from "@nexus/ui";
 import {
@@ -63,8 +62,8 @@ export function SshSettingsForm() {
     resolver: zodResolver(schema),
   });
 
-  const sshEnabled = watch("sshEnabled");
-  const authType = watch("sshAuthType");
+  const sshEnabled = watch("sshEnabled") ?? false;
+  const authType = watch("sshAuthType") ?? "PASSWORD";
 
   useEffect(() => {
     if (settings) {
@@ -165,7 +164,13 @@ export function SshSettingsForm() {
                   }
                 >
                   <SelectTrigger>
-                    <SelectValue />
+                    <span className="flex flex-1 text-left">
+                      {authType === "PASSWORD"
+                        ? "비밀번호"
+                        : authType === "SSH_KEY"
+                          ? "SSH 키"
+                          : "인증 방식 선택"}
+                    </span>
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="PASSWORD">비밀번호</SelectItem>

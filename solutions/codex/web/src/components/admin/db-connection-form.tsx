@@ -21,7 +21,6 @@ import {
   SelectContent,
   SelectItem,
   SelectTrigger,
-  SelectValue,
 } from "@nexus/ui";
 import {
   getDbConnection,
@@ -64,6 +63,7 @@ export function DbConnectionForm() {
     handleSubmit,
     reset,
     setValue,
+    watch,
     formState: { errors, isSubmitting },
   } = useForm<FormValues>({
     resolver: zodResolver(schema),
@@ -141,11 +141,13 @@ export function DbConnectionForm() {
           <div className="space-y-2">
             <Label>DB 유형</Label>
             <Select
-              defaultValue={conn?.dbType}
               onValueChange={(v) => setValue("dbType", (v ?? "") as string)}
             >
               <SelectTrigger>
-                <SelectValue placeholder="DB 유형 선택" />
+                <span className="flex flex-1 text-left">
+                  {DB_TYPES.find((d) => d.value === watch("dbType"))?.label ??
+                    "DB 유형 선택"}
+                </span>
               </SelectTrigger>
               <SelectContent>
                 {DB_TYPES.map((db) => (

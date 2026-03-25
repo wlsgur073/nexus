@@ -239,6 +239,8 @@ export {
   createCommonCodeGroup,
   updateCommonCodeGroup,
   addCommonCode,
+  updateCommonCode,
+  deleteCommonCode,
   searchCommonCodes,
 } from "./common-codes";
 export type {
@@ -249,6 +251,7 @@ export type {
   CreateCommonCodeGroupInput,
   UpdateCommonCodeGroupInput,
   CreateCommonCodeInput,
+  UpdateCommonCodeInput,
 } from "./common-codes";
 
 // Users
@@ -286,6 +289,7 @@ export {
   createSystemCode,
   updateSystemCode,
   deleteSystemCode,
+  toggleSystemCodeProtection,
   getSystemCodeCategories,
 } from "./system-codes";
 export type {

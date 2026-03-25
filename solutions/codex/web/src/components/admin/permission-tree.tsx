@@ -127,24 +127,28 @@ function RolePermissionPanel({ role }: { role: UserRole }) {
     setExpandedNodes(next);
   };
 
-  const toggleField = useCallback((menuCode: string, field: CrudField) => {
-    setEditedPerms((prev) => {
-      const next = new Map(prev);
-      const perm = next.get(menuCode);
-      if (perm) {
-        next.set(menuCode, { ...perm, [field]: !perm[field] });
-      }
-      return next;
-    });
-    setDirty(true);
-  }, []);
+  const toggleField = useCallback(
+    (menuCode: string, field: CrudField) => {
+      setEditedPerms((prev) => {
+        const next = new Map(prev);
+        const perm = next.get(menuCode) ?? basePerms.get(menuCode);
+        if (perm) {
+          next.set(menuCode, { ...perm, [field]: !perm[field] });
+        }
+        return next;
+      });
+      setDirty(true);
+    },
+    [basePerms],
+  );
 
   const toggleAllChildren = useCallback(
     (node: MenuTreeNode, field: CrudField, value: boolean) => {
       setEditedPerms((prev) => {
         const next = new Map(prev);
         for (const child of node.children) {
-          const perm = next.get(child.menuCode);
+          const perm =
+            next.get(child.menuCode) ?? basePerms.get(child.menuCode);
           if (perm) {
             next.set(child.menuCode, { ...perm, [field]: value });
           }
@@ -153,7 +157,7 @@ function RolePermissionPanel({ role }: { role: UserRole }) {
       });
       setDirty(true);
     },
-    [],
+    [basePerms],
   );
 
   const getParentCheckState = useCallback(

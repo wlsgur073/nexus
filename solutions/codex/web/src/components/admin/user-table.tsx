@@ -17,7 +17,6 @@ import {
   SelectContent,
   SelectItem,
   SelectTrigger,
-  SelectValue,
   Table,
   TableBody,
   TableCell,
@@ -93,10 +92,14 @@ export function UserTable() {
           />
           <Select
             value={roleFilter}
-            onValueChange={(v) => setRoleFilter(v ?? "all")}
+            onValueChange={(v) => setRoleFilter((v ?? "all") as string)}
           >
             <SelectTrigger className="w-40">
-              <SelectValue placeholder="역할 필터" />
+              <span className="flex flex-1 text-left">
+                {roleFilter === "all"
+                  ? "전체 역할"
+                  : (ROLE_LABELS[roleFilter as UserRole] ?? roleFilter)}
+              </span>
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="all">전체 역할</SelectItem>
