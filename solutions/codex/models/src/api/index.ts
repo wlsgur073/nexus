@@ -239,6 +239,8 @@ export {
   createCommonCodeGroup,
   updateCommonCodeGroup,
   addCommonCode,
+  updateCommonCode,
+  deleteCommonCode,
   searchCommonCodes,
 } from "./common-codes";
 export type {
@@ -249,4 +251,68 @@ export type {
   CreateCommonCodeGroupInput,
   UpdateCommonCodeGroupInput,
   CreateCommonCodeInput,
+  UpdateCommonCodeInput,
 } from "./common-codes";
+
+// Users
+export {
+  getUserList,
+  getUserById,
+  createUser,
+  updateUser,
+  toggleUserStatus,
+  deleteUser,
+} from "./users";
+export type {
+  UserItem,
+  UserListParams,
+  CreateUserInput,
+  UpdateUserInput,
+} from "./users";
+
+// Permissions
+export {
+  getPermissionsByRole,
+  updatePermissions,
+  getMenuTree,
+} from "./permissions";
+export type {
+  MenuPermissionItem,
+  MenuTreeNode,
+  UpdatePermissionsInput,
+} from "./permissions";
+
+// System Codes
+export {
+  getSystemCodeList,
+  getSystemCodeById,
+  createSystemCode,
+  updateSystemCode,
+  deleteSystemCode,
+  toggleSystemCodeProtection,
+  getSystemCodeCategories,
+} from "./system-codes";
+export type {
+  SystemCodeItem,
+  SystemCodeListParams,
+  CreateSystemCodeInput,
+  UpdateSystemCodeInput,
+} from "./system-codes";
+
+// Settings
+export {
+  getDbConnection,
+  updateDbConnection,
+  testDbConnection,
+  getSshSettings,
+  updateSshSettings,
+  testSshConnection,
+} from "./settings";
+export type {
+  DbConnectionInfo,
+  UpdateDbConnectionInput,
+  DbTestResult,
+  SshSettingsInfo,
+  UpdateSshSettingsInput,
+  SshTestResult,
+} from "./settings";

@@ -55,6 +55,12 @@ export interface CreateCommonCodeInput {
   sortOrder?: number;
 }
 
+export interface UpdateCommonCodeInput {
+  codeName?: string;
+  description?: string;
+  useYn?: "Y" | "N";
+}
+
 const MOCK_GROUPS: CommonCodeGroupItem[] = [
   {
     groupId: 1,
@@ -388,6 +394,38 @@ export async function addCommonCode(
   const group = MOCK_GROUPS.find((g) => g.groupId === groupId);
   if (group) group.codeCount += 1;
   return newCode;
+}
+
+export async function updateCommonCode(
+  codeId: number,
+  input: UpdateCommonCodeInput,
+): Promise<CommonCodeItem> {
+  await delay(400);
+  for (const codes of Object.values(MOCK_CODES)) {
+    const code = codes.find((c) => c.codeId === codeId);
+    if (code) {
+      if (input.codeName !== undefined) code.codeName = input.codeName;
+      if (input.description !== undefined)
+        code.description = input.description ?? null;
+      if (input.useYn !== undefined) code.useYn = input.useYn;
+      return code;
+    }
+  }
+  throw new Error(`CommonCode ${codeId} not found`);
+}
+
+export async function deleteCommonCode(
+  groupId: number,
+  codeId: number,
+): Promise<void> {
+  await delay(400);
+  const codes = MOCK_CODES[groupId];
+  if (!codes) throw new Error(`Group ${groupId} not found`);
+  const idx = codes.findIndex((c) => c.codeId === codeId);
+  if (idx === -1) throw new Error(`CommonCode ${codeId} not found`);
+  codes.splice(idx, 1);
+  const group = MOCK_GROUPS.find((g) => g.groupId === groupId);
+  if (group) group.codeCount -= 1;
 }
 
 export async function searchCommonCodes(

@@ -96,4 +96,22 @@ export const QUERY_KEYS = {
       ["common-codes", "groups", groupId, "codes"] as const,
     search: (keyword: string) => ["common-codes", "search", keyword] as const,
   },
+  users: {
+    list: (params: object) => ["users", params] as const,
+    detail: (id: number) => ["users", id] as const,
+  },
+  permissions: {
+    byRole: (role: string) => ["permissions", role] as const,
+    menuTree: ["permissions", "menu-tree"] as const,
+  },
+  systemCodes: {
+    list: (params: object) => ["system-codes", params] as const,
+    detail: (id: number) => ["system-codes", id] as const,
+    categories: ["system-codes", "categories"] as const,
+  },
+  settings: {
+    db: ["settings", "db"] as const,
+    ssh: ["settings", "ssh"] as const,
+    testResult: ["settings", "test-result"] as const,
+  },
 } as const;

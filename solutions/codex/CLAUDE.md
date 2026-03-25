@@ -105,9 +105,33 @@ docs/
   - SSE: NEXT_PUBLIC_ENABLE_SSE 환경 변수로 조건부 활성화
 - **@nexus/ui**: Command, Popover, Switch, Progress, InputGroup 5개 컴포넌트 추가
 
-### 미구현 (Phase 3)
+### Phase 3 (관리자 기능 + UX 완성도) — 완료 (2026-03-25)
 
-- Phase 3: admin/\* (공통코드 관리, 사용자/권한/코드 관리, DB 연결 설정), Skeleton/Error Boundary 완성도, 반응형, prefetch, ThemeToggle UI
+- **models**: 4개 API 모듈 추가 (Mock 데이터)
+  - api/: users(6함수), permissions(3함수), system-codes(7함수), settings(6함수)
+  - common-codes: updateCommonCode, deleteCommonCode 추가
+- **shared**: query-keys 확장 (users, permissions, systemCodes, settings 네임스페이스 추가)
+- **web**: Phase 3 관리자 화면 구현 완료
+  - 신규 라우트: admin/common-codes, admin/users, admin/permissions, admin/system-codes, admin/db-settings = 5개
+  - 신규 컴포넌트: admin(admin-guard, user-table, user-form-dialog, permission-tree, system-code-table, db-connection-form, ssh-settings-form) = 7개
+  - 리팩토링: CommonCodeSearchTable editable prop 추가 (읽기전용/CRUD 모드 분리), CRUD Dialog 패턴 적용
+  - middleware: /admin/\* 역할 가드 (SYSTEM_ADMIN, STD_MANAGER)
+  - AdminGuard: 라우트별 세분화 (STD_MANAGER는 /admin/common-codes만 접근)
+  - Skeleton: 12개 라우트 loading.tsx 추가 (4종 패턴: Dashboard, Table, SplitPane, Form)
+  - Error Boundary 강화: 오류 코드, 대시보드 링크, 콘솔 로깅
+  - 차트 다크모드: useChartColors() 훅 — 3개 Recharts 차트에 JS 테마 색상 적용
+  - Command Palette: localStorage 최근 방문 5건 기록
+  - 시스템 코드 보호 토글: Switch UI + toggleSystemCodeProtection API
+- **@nexus/ui**: SelectContent alignItemWithTrigger 기본값 false 변경
+
+### 미구현 (향후 보강)
+
+- 반응형 레이아웃 모바일 최종 점검
+- generateMetadata 동적 타이틀 (전 라우트)
+- 탐색기 prefetch 최적화
+- Toast/알림 센터 통합 마무리 (뮤테이션 결과 연동)
+- 표준용어 신청 폼 고도화 (구성 단어 선택, 도메인 연결)
+- 권한 트리 키보드 내비게이션 (Arrow/Space)
 
 ## 구현 Phase
 
