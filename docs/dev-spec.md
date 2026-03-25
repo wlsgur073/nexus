@@ -49,13 +49,18 @@
 
 ### 2.2 Codex (solutions/codex/web)
 
-| 경로                             | 페이지명           | 설명                      | 상태   |
-| -------------------------------- | ------------------ | ------------------------- | ------ |
-| `/solutions/codex`               | Dashboard          | 역할별 대시보드           | 구현됨 |
-| `/solutions/codex/login`         | Login              | 로그인 (플레이스홀더)     | 구현됨 |
-| `/solutions/codex/standards`     | Standards Explorer | 표준용어/도메인/단어 탐색 | 구현됨 |
-| `/solutions/codex/standards/new` | New Standard       | 표준 신규 신청 폼         | 구현됨 |
-| `/solutions/codex/approvals`     | Approval Workbench | 승인 워크벤치             | 구현됨 |
+| 경로                                         | 페이지명             | 설명                           | 상태   |
+| -------------------------------------------- | -------------------- | ------------------------------ | ------ |
+| `/solutions/codex`                           | Dashboard            | 역할별 대시보드                | 구현됨 |
+| `/solutions/codex/login`                     | Login                | 로그인 (플레이스홀더)          | 구현됨 |
+| `/solutions/codex/standards`                 | Standards Explorer   | 표준용어/도메인/단어 탐색      | 구현됨 |
+| `/solutions/codex/standards/new`             | New Standard         | 표준 신규 신청 폼              | 구현됨 |
+| `/solutions/codex/approvals`                 | Approval Workbench   | 승인 워크벤치                  | 구현됨 |
+| `/solutions/codex/governance`                | Governance Portal    | 거버넌스 포털 (정책/규칙 관리) | 구현됨 |
+| `/solutions/codex/validations`               | Validation Dashboard | 검증 대시보드 (실행 이력)      | 구현됨 |
+| `/solutions/codex/validations/[executionId]` | Validation Detail    | 검증 실행 상세 (위반 항목)     | 구현됨 |
+| `/solutions/codex/audit`                     | Audit Trail          | 감사 추적 (변경 이력 타임라인) | 구현됨 |
+| `/solutions/codex/common-codes`              | Common Codes         | 공통코드 조회                  | 구현됨 |
 
 > 상세 페이지 명세: `solutions/codex/docs/codex-product-spec.md` 참조
 
