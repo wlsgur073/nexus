@@ -35,6 +35,9 @@ import { CODEX_ROUTES } from "@nexus/codex-shared";
 import { useRole } from "@/hooks/use-auth";
 import { useNotifications } from "@/components/providers/notification-provider";
 
+const PLATFORM_URL =
+  process.env.NODE_ENV === "development" ? "http://localhost:5000" : "/";
+
 import type { LucideIcon } from "lucide-react";
 
 interface MenuItem {
@@ -204,7 +207,7 @@ export function CodexSidebar({ collapsed }: CodexSidebarProps) {
         {/* Full page navigation to Platform root — <a> is intentional (cross-app) */}
         {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
         <a
-          href="/"
+          href={PLATFORM_URL}
           className={cn(
             "flex items-center gap-2 rounded-md px-3 py-2 text-sm text-muted-foreground transition-colors hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
             collapsed && "justify-center px-2",
@@ -267,7 +270,7 @@ export function CodexMobileSidebar({
             {/* Full page navigation to Platform root — <a> is intentional (cross-app) */}
             {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
             <a
-              href="/"
+              href={PLATFORM_URL}
               onClick={() => onOpenChange(false)}
               className="flex items-center gap-2 rounded-md px-3 py-2 text-sm text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
             >
