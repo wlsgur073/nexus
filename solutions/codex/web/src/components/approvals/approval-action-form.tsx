@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CheckCircle2, MessageSquare, XCircle } from "lucide-react";
+import { toast } from "sonner";
 
 import { Button, Label, Textarea } from "@nexus/ui";
 import { processApproval } from "@nexus/codex-models";
@@ -11,12 +12,21 @@ import { processApproval } from "@nexus/codex-models";
 import { approvalActionSchema } from "@/lib/validators";
 import type { ApprovalActionFormData } from "@/lib/validators";
 
+const ACTION_LABELS: Record<string, string> = {
+  APPROVE: "승인",
+  REJECT: "반려",
+  FEEDBACK: "피드백 전달",
+};
+
 interface ApprovalActionFormProps {
   requestId: number;
   onProcessed: () => void;
 }
 
-export function ApprovalActionForm({ requestId, onProcessed }: ApprovalActionFormProps) {
+export function ApprovalActionForm({
+  requestId,
+  onProcessed,
+}: ApprovalActionFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const {
@@ -36,7 +46,10 @@ export function ApprovalActionForm({ requestId, onProcessed }: ApprovalActionFor
     setIsSubmitting(true);
     try {
       await processApproval(requestId, data);
+      toast.success(`${ACTION_LABELS[data.action]}이(가) 완료되었습니다.`);
       onProcessed();
+    } catch {
+      toast.error("처리에 실패했습니다.");
     } finally {
       setIsSubmitting(false);
     }
@@ -91,7 +104,9 @@ export function ApprovalActionForm({ requestId, onProcessed }: ApprovalActionFor
           }
         />
         {errors.comment && (
-          <p className="mt-1 text-xs text-destructive">{errors.comment.message}</p>
+          <p className="mt-1 text-xs text-destructive">
+            {errors.comment.message}
+          </p>
         )}
       </div>
 

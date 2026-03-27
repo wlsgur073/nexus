@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { toast } from "sonner";
 
 import {
   Button,
@@ -21,7 +22,10 @@ interface BatchActionDialogProps {
   onProcessed: () => void;
 }
 
-export function BatchActionDialog({ selectedIds, onProcessed }: BatchActionDialogProps) {
+export function BatchActionDialog({
+  selectedIds,
+  onProcessed,
+}: BatchActionDialogProps) {
   const [open, setOpen] = useState(false);
   const [comment, setComment] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -34,9 +38,12 @@ export function BatchActionDialog({ selectedIds, onProcessed }: BatchActionDialo
         requestIds: Array.from(selectedIds),
         comment,
       });
+      toast.success(`${selectedIds.size}건이 일괄 승인되었습니다.`);
       setOpen(false);
       setComment("");
       onProcessed();
+    } catch {
+      toast.error("일괄 승인에 실패했습니다.");
     } finally {
       setIsSubmitting(false);
     }
