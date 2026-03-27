@@ -15,6 +15,7 @@ import {
   getCategoryById,
   solutions,
 } from "@nexus/config";
+import { SolutionLaunchButton } from "@/components/solutions/solution-launch-button";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -71,6 +72,10 @@ export default async function SolutionDetailPage({ params }: Props) {
             <Badge variant={statusVariant[solution.status]}>
               {statusLabel[solution.status]}
             </Badge>
+            <SolutionLaunchButton
+              slug={solution.slug}
+              status={solution.status}
+            />
           </div>
           <p className="mt-1 text-muted-foreground">{solution.description}</p>
           {category && (
