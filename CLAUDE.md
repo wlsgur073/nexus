@@ -60,14 +60,15 @@ factory-ai-team/
 ├── apps/
 │ └── platform/ # 플랫폼 셸 + Command Center (@nexus/platform)
 │ ├── src/app/ # 대시보드(/), 카탈로그(/solutions), 설정
-│ └── src/components/ # 플랫폼 전용 컴포넌트 (솔루션 카드 등)
+│ ├── src/components/ # 플랫폼 전용 컴포넌트 (솔루션 카드 등)
+│ └── docs/ # 플랫폼 문서 (specs/plans/release 3단 구조)
 │
 ├── solutions/
 │ └── codex/ # Codex 솔루션 그룹
 │ ├── web/ # Codex 프론트엔드 (@nexus/codex-web, basePath: /solutions/codex)
 │ ├── models/ # Codex 데이터 모델 (@nexus/codex-models)
 │ ├── shared/ # Codex 내부 공유 유틸 (@nexus/codex-shared)
-│ └── docs/ # 솔루션 문서
+│ └── docs/ # 솔루션 문서 (specs/plans/release 3단 구조)
 │ ├── specs/ # 명세서 (확정된 설계)
 │ ├── plans/ # 실행 계획 (Phase별 task)
 │ └── release/ # 릴리즈 기록 (완료된 결과)
@@ -108,6 +109,33 @@ factory-ai-team/
 - **경로 별칭**: 앱 내부에서만 `@/*` → `./src/*` (tsconfig paths). 패키지 간 참조는 `@nexus/*`
 - **패키지 의존성, 아키텍처 규칙**: `.claude/rules/architecture.md` 참조
 - **향후 구조**: 각 솔루션을 별도 GitHub repo로 분리 (polyrepo). 공유 패키지는 npm 레지스트리 발행
+
+## 문서 관리 체계
+
+모든 앱과 솔루션은 동일한 **3단 문서 구조** (`specs/` → `plans/` → `release/`)를 따른다.
+
+| 대상              | 문서 위치              | 비고                            |
+| ----------------- | ---------------------- | ------------------------------- |
+| Platform (Nexus)  | `apps/platform/docs/`  | 플랫폼 기능 설계·계획·릴리즈    |
+| 솔루션 (Codex 등) | `solutions/{id}/docs/` | 솔루션별 독립 문서              |
+| 프로젝트 전체     | `docs/`                | dev-spec, 가이드 등 공통 문서만 |
+
+### 3단 구조
+
+| 디렉토리        | 용도        | 설명                                         |
+| --------------- | ----------- | -------------------------------------------- |
+| `docs/specs/`   | 명세서      | 확정된 설계 사항 (UX, 데이터, 프론트엔드 등) |
+| `docs/plans/`   | 실행 계획   | Phase별 task 리스트와 실행 전략              |
+| `docs/release/` | 릴리즈 기록 | 완료된 결과만 문서화 (`yyyy-MM-dd-topic.md`) |
+
+### Superpowers 스킬 경로 오버라이드
+
+brainstorming · writing-plans 스킬이 문서를 생성할 때, `docs/superpowers/` 기본 경로를 사용하지 않는다. 대상 앱/솔루션의 docs 경로에 저장한다:
+
+- 플랫폼 스펙: `apps/platform/docs/specs/YYYY-MM-DD-<topic>.md`
+- 플랫폼 플랜: `apps/platform/docs/plans/YYYY-MM-DD-<topic>.md`
+- Codex 스펙: `solutions/codex/docs/specs/YYYY-MM-DD-<topic>.md`
+- Codex 플랜: `solutions/codex/docs/plans/YYYY-MM-DD-<topic>.md`
 
 ## Git 워크플로우
 

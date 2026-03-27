@@ -5,7 +5,7 @@ Nexus Command Center — 솔루션 포탈 및 런처. 모든 솔루션의 진입
 ## 현재 구현 상태
 
 - **라우트**: `/` (대시보드), `/solutions` (카탈로그), `/solutions/[slug]` (상세+전용 레이아웃), `/settings` (플레이스홀더), `not-found` (커스텀 404)
-- **컴포넌트**: solution-card, solution-grid, category-filter (3개)
+- **컴포넌트**: solution-card, solution-grid, category-filter, solution-launch-button, solution-splash (5개)
 - **레이아웃**: PlatformShell (@nexus/shell) — Header + Sidebar + Main Content
 - **테마**: ThemeProvider + ThemeToggle 적용 완료 (라이트/다크 모드)
 - **포트**: 5000
@@ -13,24 +13,37 @@ Nexus Command Center — 솔루션 포탈 및 런처. 모든 솔루션의 진입
 ## 디렉토리 구조
 
 ```
-src/
-├── app/
-│ ├── page.tsx              # 대시보드 (Command Center 메인)
-│ ├── layout.tsx            # PlatformShell 적용
-│ ├── not-found.tsx         # 커스텀 404
-│ ├── solutions/
-│ │ ├── page.tsx            # 솔루션 카탈로그
-│ │ └── [slug]/
-│ │   ├── layout.tsx        # 솔루션 상세 전용 레이아웃
-│ │   └── page.tsx          # 솔루션 상세 페이지
-│ └── settings/
-│   └── page.tsx            # 설정 (플레이스홀더)
-└── components/
-  └── solutions/            # 솔루션 카탈로그 전용 컴포넌트
-    ├── solution-card.tsx
-    ├── solution-grid.tsx
-    └── category-filter.tsx
+├── docs/                        # 플랫폼 문서 (3단 구조)
+│ ├── specs/                     # 명세서 (확정된 설계)
+│ ├── plans/                     # 실행 계획 (Phase별 task)
+│ └── release/                   # 릴리즈 기록 (완료된 결과)
+└── src/
+  ├── app/
+  │ ├── page.tsx                 # 대시보드 (Command Center 메인)
+  │ ├── layout.tsx               # PlatformShell 적용
+  │ ├── not-found.tsx            # 커스텀 404
+  │ ├── launch/
+  │ │ └── [slug]/
+  │ │   └── page.tsx             # 솔루션 런치 스플래시
+  │ ├── solutions/
+  │ │ ├── page.tsx               # 솔루션 카탈로그
+  │ │ └── [slug]/
+  │ │   ├── layout.tsx           # 솔루션 상세 전용 레이아웃
+  │ │   └── page.tsx             # 솔루션 상세 페이지
+  │ └── settings/
+  │   └── page.tsx               # 설정 (플레이스홀더)
+  └── components/
+    └── solutions/               # 솔루션 관련 컴포넌트
+      ├── solution-card.tsx
+      ├── solution-grid.tsx
+      ├── category-filter.tsx
+      ├── solution-launch-button.tsx  # 솔루션 열기 버튼 (Client)
+      └── solution-splash.tsx         # 런치 스플래시 화면 (Client)
 ```
+
+## 문서 관리
+
+`docs/` 디렉토리는 Codex와 동일한 3단 구조를 따른다. 상세 규칙은 루트 `CLAUDE.md` "문서 관리 체계" 참조.
 
 ## 아키텍처
 
