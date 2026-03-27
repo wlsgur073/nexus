@@ -20,10 +20,10 @@ export function SolutionSplash({ name, icon, route }: SolutionSplashProps) {
     // 프로그레스 바 시작 (다음 프레임에서 100%로 전환 → CSS transition이 애니메이션)
     const progressTimer = setTimeout(() => setProgress(100), 100);
 
-    // 2.5초 후 솔루션 앱으로 이동
+    // 1.5초 후 솔루션 앱으로 이동
     const redirectTimer = setTimeout(() => {
       window.location.replace(route);
-    }, 2500);
+    }, 1500);
 
     return () => {
       cancelAnimationFrame(fadeIn);
@@ -48,7 +48,7 @@ export function SolutionSplash({ name, icon, route }: SolutionSplashProps) {
 
       <div className="h-1.5 w-64 overflow-hidden rounded-full bg-muted">
         <div
-          className="h-full bg-primary transition-all duration-[2400ms] ease-linear"
+          className="h-full bg-primary transition-all duration-[1400ms] ease-linear"
           style={{ width: `${progress}%` }}
         />
       </div>
