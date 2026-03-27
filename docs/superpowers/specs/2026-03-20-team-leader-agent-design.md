@@ -1,5 +1,7 @@
 # Team Leader Agent 설계 스펙
 
+> **구현 상태**: 별도 에이전트 파일(`.claude/agents/team-leader.md`) 대신 `.claude/rules/team-lead-workflow.md`로 구현됨. 현재 세션이 직접 team-lead 역할을 수행하는 방식으로 운영 중.
+
 > Agent Team의 리더 역할을 수행하는 `team-leader` 에이전트 설계
 
 ---

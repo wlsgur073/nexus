@@ -1,5 +1,6 @@
 # Codex Phase 3 실행 계획
 
+> **상태**: ✅ 완료 (2026-03-25) — 릴리즈: `docs/release/2026-03-25-phase3-admin.md`
 > **목표**: 관리자 기능 + 전체 UX 완성도 + 성능 최적화
 > **선행 조건**: Phase 2 완료 (2026-03-24)
 > **명세 참조**: `specs/ux/screens-governance.md` §5.12~5.17, `specs/frontend/integration.md` §12 Phase 3
