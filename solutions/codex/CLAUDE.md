@@ -124,14 +124,22 @@ docs/
   - 시스템 코드 보호 토글: Switch UI + toggleSystemCodeProtection API
 - **@nexus/ui**: SelectContent alignItemWithTrigger 기본값 false 변경
 
+### Phase 4 (프론트엔드 품질 완성) — 완료 (2026-03-27)
+
+- **web**: Phase 4 전체 구현 완료 (신규 화면 없음, 기존 17개 화면 품질 보강)
+  - generateMetadata: 루트 layout에 title.template 적용, 13개 라우트에 metadata layout 추가 → 브라우저 탭 동적 타이틀
+  - Skeleton: 8개 파일의 "로딩 중..." 텍스트를 Skeleton UI로 교체 (인라인 로딩 일관성)
+  - Toast: Phase 1-2 mutation에 toast.success/error 추가 (new-standard-form 3건, approval-action-form, batch-action-dialog)
+  - 다크모드: dark: variant 누락 색상 수정 (violation-list, audit-table, user-table, common-code-search-table)
+  - Explorer 프리페치: standards/page.tsx를 useTransition → useQuery + prefetchQuery로 전환 (다음 페이지 미리 로드)
+  - 표준 용어 폼 강화: WordTagInput 신규 컴포넌트 (debounce 검색 + 태그 선택), 물리명 자동생성 (buildPhysicalName), 도메인유형 Select, 인포타입 6종 Select
+  - 권한 트리 키보드: permission-tree.tsx에 Arrow Up/Down/Left/Right + Space 내비게이션, aria-activedescendant, 포커스 링
+  - 접근성: pagination.tsx prev/next aria-label, permission-tree expand 버튼 라벨, word-tag-input aria-controls
+  - 신규 파일: word-tag-input.tsx (1개), metadata layout.tsx (13개)
+
 ### 미구현 (향후 보강)
 
 - 데스크톱 반응형(1024px~1920px+) 점검
-- generateMetadata 동적 타이틀 (전 라우트)
-- 탐색기 prefetch 최적화
-- Toast/알림 센터 통합 마무리 (뮤테이션 결과 연동)
-- 표준용어 신청 폼 고도화 (구성 단어 선택, 도메인 연결)
-- 권한 트리 키보드 내비게이션 (Arrow/Space)
 
 ## 구현 Phase
 
