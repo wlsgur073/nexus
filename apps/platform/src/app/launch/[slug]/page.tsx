@@ -20,11 +20,16 @@ export default async function LaunchPage({ params }: Props) {
     redirect("/solutions");
   }
 
+  const targetUrl =
+    process.env.NODE_ENV === "development"
+      ? `http://localhost:${solution.port}${solution.route}`
+      : solution.route;
+
   return (
     <SolutionSplash
       name={solution.name}
       icon={solution.icon}
-      route={solution.route}
+      route={targetUrl}
     />
   );
 }

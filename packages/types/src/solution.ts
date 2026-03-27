@@ -15,4 +15,5 @@ export type Solution = {
   category: string;
   status: SolutionStatus;
   route: string;
+  port: number;
 };

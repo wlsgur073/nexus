@@ -17,6 +17,7 @@ export const solutions: Solution[] = [
     category: "ai-ml",
     status: "coming-soon",
     route: "/solutions/ai-factory",
+    port: 5003,
   },
   {
     id: "data-pipeline",
@@ -27,6 +28,7 @@ export const solutions: Solution[] = [
     category: "data",
     status: "coming-soon",
     route: "/solutions/data-pipeline",
+    port: 5004,
   },
   {
     id: "ci-cd-hub",
@@ -37,6 +39,7 @@ export const solutions: Solution[] = [
     category: "devops",
     status: "coming-soon",
     route: "/solutions/ci-cd-hub",
+    port: 5005,
   },
   {
     id: "insight-dashboard",
@@ -47,6 +50,7 @@ export const solutions: Solution[] = [
     category: "analytics",
     status: "coming-soon",
     route: "/solutions/insight-dashboard",
+    port: 5006,
   },
   {
     id: "codex",
@@ -58,6 +62,7 @@ export const solutions: Solution[] = [
     category: "data",
     status: "active",
     route: "/solutions/codex",
+    port: 5001,
   },
   {
     id: "llm-gateway",
@@ -68,6 +73,7 @@ export const solutions: Solution[] = [
     category: "ai-ml",
     status: "beta",
     route: "/solutions/llm-gateway",
+    port: 5002,
   },
 ];
 
