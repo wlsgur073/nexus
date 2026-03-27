@@ -1,6 +1,11 @@
 "use client";
 
-import { useEffect, useState, useTransition } from "react";
+import { useEffect, useMemo, useState } from "react";
+import {
+  useQuery,
+  useQueryClient,
+  keepPreviousData,
+} from "@tanstack/react-query";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@nexus/ui";
 import { searchExplorer } from "@nexus/codex-models";
@@ -9,6 +14,7 @@ import type {
   StandardStatus,
   TargetType,
 } from "@nexus/codex-models";
+import { QUERY_KEYS } from "@nexus/codex-shared";
 
 import { ExplorerFilters } from "@/components/standards/explorer-filters";
 import { ExplorerTable } from "@/components/standards/explorer-table";
@@ -21,30 +27,45 @@ export default function StandardsPage() {
   const [keyword, setKeyword] = useState("");
   const [status, setStatus] = useState("all");
   const [domainType, setDomainType] = useState("all");
-  const [items, setItems] = useState<ExplorerItem[]>([]);
-  const [isPending, startTransition] = useTransition();
   const [page, setPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
 
   const [sheetOpen, setSheetOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState<ExplorerItem | null>(null);
 
   const debouncedKeyword = useDebounce(keyword, 300);
+  const queryClient = useQueryClient();
 
+  const queryParams = useMemo(
+    () => ({
+      type: activeTab,
+      keyword: debouncedKeyword || undefined,
+      status: status === "all" ? undefined : (status as StandardStatus),
+      domainType: domainType === "all" ? undefined : domainType,
+      page,
+      pageSize: 20,
+    }),
+    [activeTab, debouncedKeyword, status, domainType, page],
+  );
+
+  const { data, isPending } = useQuery({
+    queryKey: QUERY_KEYS.explorer.search(queryParams),
+    queryFn: () => searchExplorer(queryParams),
+    placeholderData: keepPreviousData,
+  });
+
+  const items = data?.items ?? [];
+  const totalPages = data?.totalPages ?? 1;
+
+  // Prefetch next page
   useEffect(() => {
-    startTransition(async () => {
-      const res = await searchExplorer({
-        type: activeTab,
-        keyword: debouncedKeyword || undefined,
-        status: status === "all" ? undefined : (status as StandardStatus),
-        domainType: domainType === "all" ? undefined : domainType,
-        page,
-        pageSize: 20,
+    if (page < totalPages) {
+      const nextParams = { ...queryParams, page: page + 1 };
+      queryClient.prefetchQuery({
+        queryKey: QUERY_KEYS.explorer.search(nextParams),
+        queryFn: () => searchExplorer(nextParams),
       });
-      setItems(res.items);
-      setTotalPages(res.totalPages);
-    });
-  }, [activeTab, debouncedKeyword, status, domainType, page]);
+    }
+  }, [page, totalPages, queryParams, queryClient]);
 
   const handleRowClick = (item: ExplorerItem) => {
     setSelectedItem(item);
