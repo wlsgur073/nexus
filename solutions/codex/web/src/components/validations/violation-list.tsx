@@ -20,9 +20,9 @@ const SEVERITY_COLORS: Record<string, string> = {
 };
 
 const RESOLVE_COLORS: Record<string, string> = {
-  UNRESOLVED: "border-gray-400 text-gray-500",
-  IN_PROGRESS: "border-blue-500 text-blue-600",
-  RESOLVED: "border-green-500 text-green-600",
+  UNRESOLVED: "border-gray-400 text-gray-500 dark:text-gray-400",
+  IN_PROGRESS: "border-blue-500 text-blue-600 dark:text-blue-400",
+  RESOLVED: "border-green-500 text-green-600 dark:text-green-400",
 };
 
 const SEVERITY_LABELS: Record<string, string> = {
