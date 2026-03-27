@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { Waypoints, Menu, Search, User } from "lucide-react";
 import { Button, Input } from "@nexus/ui";
 import { ThemeToggle } from "./theme-toggle";
@@ -21,12 +22,15 @@ export function Header({ onToggleSidebar }: HeaderProps) {
         <span className="sr-only">사이드바 토글</span>
       </Button>
 
-      <div className="flex items-center gap-2">
+      <Link
+        href="/"
+        className="flex items-center gap-2 hover:opacity-80 transition-opacity"
+      >
         <Waypoints className="h-6 w-6 text-primary" />
         <span className="hidden text-lg font-semibold sm:inline-block">
           Nexus
         </span>
-      </div>
+      </Link>
 
       <div className="ml-auto flex items-center gap-4">
         <div className="relative hidden md:block">
