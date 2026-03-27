@@ -22,7 +22,10 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Codex — Nexus",
+  title: {
+    default: "Codex — Nexus",
+    template: "%s — Codex — Nexus",
+  },
   description:
     "데이터 표준용어, 도메인, 단어 사전을 등록·관리하는 데이터 거버넌스 솔루션",
 };

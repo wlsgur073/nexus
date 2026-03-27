@@ -86,6 +86,7 @@ function RolePermissionPanel({ role }: { role: UserRole }) {
   >(new Map());
   const [expandedNodes, setExpandedNodes] = useState<Set<string> | null>(null);
   const [dirty, setDirty] = useState(false);
+  const [activeRowId, setActiveRowId] = useState<string | null>(null);
 
   const { data: permissions } = useQuery({
     queryKey: QUERY_KEYS.permissions.byRole(role),
@@ -176,6 +177,83 @@ function RolePermissionPanel({ role }: { role: UserRole }) {
     [localPerms],
   );
 
+  const flatRows = useMemo(() => {
+    const rows: string[] = [];
+    for (const parent of menuTree ?? []) {
+      rows.push(parent.menuCode);
+      if (resolvedExpanded.has(parent.menuCode)) {
+        for (const child of parent.children) {
+          rows.push(child.menuCode);
+        }
+      }
+    }
+    return rows;
+  }, [menuTree, resolvedExpanded]);
+
+  const handleTreeKeyDown = useCallback(
+    (e: React.KeyboardEvent) => {
+      if (!flatRows.length) return;
+      const idx = activeRowId ? flatRows.indexOf(activeRowId) : -1;
+
+      switch (e.key) {
+        case "ArrowDown": {
+          e.preventDefault();
+          const next = idx < flatRows.length - 1 ? idx + 1 : 0;
+          setActiveRowId(flatRows[next]);
+          break;
+        }
+        case "ArrowUp": {
+          e.preventDefault();
+          const prev = idx > 0 ? idx - 1 : flatRows.length - 1;
+          setActiveRowId(flatRows[prev]);
+          break;
+        }
+        case "ArrowRight": {
+          e.preventDefault();
+          const parentNode = (menuTree ?? []).find(
+            (n) => n.menuCode === activeRowId,
+          );
+          if (parentNode && !resolvedExpanded.has(parentNode.menuCode)) {
+            toggleExpand(parentNode.menuCode);
+          } else if (parentNode && parentNode.children.length > 0) {
+            setActiveRowId(parentNode.children[0].menuCode);
+          }
+          break;
+        }
+        case "ArrowLeft": {
+          e.preventDefault();
+          const isParent = (menuTree ?? []).some(
+            (n) => n.menuCode === activeRowId,
+          );
+          if (isParent && resolvedExpanded.has(activeRowId!)) {
+            toggleExpand(activeRowId!);
+          } else if (!isParent) {
+            const parent = (menuTree ?? []).find((n) =>
+              n.children.some((c) => c.menuCode === activeRowId),
+            );
+            if (parent) setActiveRowId(parent.menuCode);
+          }
+          break;
+        }
+        case " ": {
+          e.preventDefault();
+          if (activeRowId) {
+            toggleField(activeRowId, "canRead");
+          }
+          break;
+        }
+      }
+    },
+    [
+      flatRows,
+      activeRowId,
+      menuTree,
+      resolvedExpanded,
+      toggleExpand,
+      toggleField,
+    ],
+  );
+
   const handleSave = async () => {
     const permsArray = Array.from(localPerms.values()).map((p) => ({
       menuCode: p.menuCode,
@@ -200,9 +278,14 @@ function RolePermissionPanel({ role }: { role: UserRole }) {
     <div className="mt-4 space-y-4">
       <div className="overflow-x-auto rounded-md border">
         <table
-          className="w-full text-sm"
+          className="w-full text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring"
           role="treegrid"
           aria-label="메뉴 권한 설정"
+          aria-activedescendant={
+            activeRowId ? `perm-row-${activeRowId}` : undefined
+          }
+          tabIndex={0}
+          onKeyDown={handleTreeKeyDown}
         >
           <thead>
             <tr className="border-b bg-muted/50">
@@ -228,6 +311,7 @@ function RolePermissionPanel({ role }: { role: UserRole }) {
                 toggleField={toggleField}
                 toggleAllChildren={toggleAllChildren}
                 getParentCheckState={getParentCheckState}
+                activeRowId={activeRowId}
               />
             ))}
           </tbody>
@@ -236,7 +320,10 @@ function RolePermissionPanel({ role }: { role: UserRole }) {
 
       <div className="flex items-center justify-between">
         {dirty && (
-          <Badge variant="outline" className="text-amber-600">
+          <Badge
+            variant="outline"
+            className="text-amber-600 dark:text-amber-400"
+          >
             저장되지 않은 변경사항
           </Badge>
         )}
@@ -258,6 +345,7 @@ function TreeCategory({
   toggleField,
   toggleAllChildren,
   getParentCheckState,
+  activeRowId,
 }: {
   node: MenuTreeNode;
   expanded: boolean;
@@ -273,25 +361,30 @@ function TreeCategory({
     node: MenuTreeNode,
     field: CrudField,
   ) => "checked" | "unchecked" | "indeterminate";
+  activeRowId: string | null;
 }) {
   return (
     <>
       <tr
+        id={`perm-row-${node.menuCode}`}
         role="row"
         aria-expanded={expanded}
         aria-level={1}
-        className="border-b bg-muted/25 font-medium"
+        className={`border-b bg-muted/25 font-medium ${activeRowId === node.menuCode ? "ring-2 ring-inset ring-ring" : ""}`}
       >
         <td className="px-4 py-2">
           <button
             type="button"
             onClick={() => onToggleExpand(node.menuCode)}
             className="flex items-center gap-1"
+            aria-label={
+              expanded ? `${node.menuName} 축소` : `${node.menuName} 확장`
+            }
           >
             {expanded ? (
-              <ChevronDown className="h-4 w-4" />
+              <ChevronDown className="h-4 w-4" aria-hidden="true" />
             ) : (
-              <ChevronRight className="h-4 w-4" />
+              <ChevronRight className="h-4 w-4" aria-hidden="true" />
             )}
             {node.menuName}
           </button>
@@ -318,10 +411,11 @@ function TreeCategory({
           const perm = localPerms.get(child.menuCode);
           return (
             <tr
+              id={`perm-row-${child.menuCode}`}
               key={child.menuCode}
               role="row"
               aria-level={2}
-              className="border-b"
+              className={`border-b ${activeRowId === child.menuCode ? "ring-2 ring-inset ring-ring" : ""}`}
             >
               <td className="py-2 pl-10 pr-4">{child.menuName}</td>
               {CRUD_LABELS.map((c) => (

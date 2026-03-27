@@ -24,6 +24,7 @@ import {
   SelectContent,
   SelectItem,
   SelectTrigger,
+  Skeleton,
   Switch,
   Table,
   TableBody,
@@ -208,8 +209,11 @@ export function SystemCodeTable() {
         </CardHeader>
         <CardContent>
           {isLoading ? (
-            <div className="flex h-40 items-center justify-center text-sm text-muted-foreground">
-              로딩 중...
+            <div className="space-y-3">
+              <Skeleton className="h-10 w-full" />
+              {Array.from({ length: 5 }).map((_, i) => (
+                <Skeleton key={i} className="h-12 w-full" />
+              ))}
             </div>
           ) : codes.length === 0 ? (
             <div className="flex h-40 items-center justify-center text-sm text-muted-foreground">

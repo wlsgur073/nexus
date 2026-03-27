@@ -8,13 +8,15 @@ import {
   SheetContent,
   SheetHeader,
   SheetTitle,
+  Skeleton,
 } from "@nexus/ui";
-import {
-  getWordById,
-  getDomainById,
-  getTermById,
+import { getWordById, getDomainById, getTermById } from "@nexus/codex-models";
+import type {
+  StandardWord,
+  StandardDomain,
+  StandardTerm,
+  TargetType,
 } from "@nexus/codex-models";
-import type { StandardWord, StandardDomain, StandardTerm, TargetType } from "@nexus/codex-models";
 import { StatusBadge } from "@/components/ui/status-badge";
 import { TargetTypeBadge } from "@/components/ui/target-type-badge";
 
@@ -57,7 +59,11 @@ export function StandardDetailSheet({
           <div className="flex items-center gap-2">
             <TargetTypeBadge type={targetType} />
             <SheetTitle>
-              {isPending ? "로딩 중..." : getTitle(data, targetType)}
+              {isPending ? (
+                <Skeleton className="inline-block h-5 w-32" />
+              ) : (
+                getTitle(data, targetType)
+              )}
             </SheetTitle>
           </div>
         </SheetHeader>
@@ -67,15 +73,16 @@ export function StandardDetailSheet({
             <div className="flex items-center gap-2">
               <StatusBadge status={getStatus(data)} />
               <span className="text-sm text-muted-foreground">
-                등록일: {new Date(getRegDate(data, targetType)).toLocaleDateString("ko-KR")}
+                등록일:{" "}
+                {new Date(getRegDate(data, targetType)).toLocaleDateString(
+                  "ko-KR",
+                )}
               </span>
             </div>
 
             <Separator />
 
-            <div className="space-y-4">
-              {renderFields(data, targetType)}
-            </div>
+            <div className="space-y-4">{renderFields(data, targetType)}</div>
           </div>
         )}
       </SheetContent>

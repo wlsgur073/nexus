@@ -10,7 +10,11 @@ interface PaginationProps {
   onPageChange: (page: number) => void;
 }
 
-export function Pagination({ page, totalPages, onPageChange }: PaginationProps) {
+export function Pagination({
+  page,
+  totalPages,
+  onPageChange,
+}: PaginationProps) {
   if (totalPages <= 1) return null;
 
   const pages: number[] = [];
@@ -28,6 +32,7 @@ export function Pagination({ page, totalPages, onPageChange }: PaginationProps) 
         size="icon"
         disabled={page <= 1}
         onClick={() => onPageChange(page - 1)}
+        aria-label="이전 페이지"
       >
         <ChevronLeft className="h-4 w-4" />
       </Button>
@@ -37,9 +42,7 @@ export function Pagination({ page, totalPages, onPageChange }: PaginationProps) 
           <Button variant="outline" size="sm" onClick={() => onPageChange(1)}>
             1
           </Button>
-          {start > 2 && (
-            <span className="px-1 text-muted-foreground">...</span>
-          )}
+          {start > 2 && <span className="px-1 text-muted-foreground">...</span>}
         </>
       )}
 
@@ -74,6 +77,7 @@ export function Pagination({ page, totalPages, onPageChange }: PaginationProps) 
         size="icon"
         disabled={page >= totalPages}
         onClick={() => onPageChange(page + 1)}
+        aria-label="다음 페이지"
       >
         <ChevronRight className="h-4 w-4" />
       </Button>

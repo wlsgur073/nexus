@@ -10,6 +10,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
+  Skeleton,
 } from "@nexus/ui";
 import { getAuditTimeline } from "@nexus/codex-models";
 
@@ -35,9 +36,9 @@ const ACTION_BADGE_COLORS: Record<string, string> = {
   APPROVE: "border-green-500 text-green-600 dark:text-green-400",
   REJECT: "border-red-500 text-red-600 dark:text-red-400",
   REQUEST: "border-blue-500 text-blue-600 dark:text-blue-400",
-  CREATE: "border-green-400 text-green-500",
-  UPDATE: "border-blue-400 text-blue-500",
-  DELETE: "border-red-400 text-red-500",
+  CREATE: "border-green-400 text-green-500 dark:text-green-400",
+  UPDATE: "border-blue-400 text-blue-500 dark:text-blue-400",
+  DELETE: "border-red-400 text-red-500 dark:text-red-400",
 };
 
 interface AuditTableProps {
@@ -75,8 +76,11 @@ export function AuditTable({
 
   if (isLoading) {
     return (
-      <div className="flex h-40 items-center justify-center text-sm text-muted-foreground">
-        로딩 중...
+      <div className="space-y-3">
+        <Skeleton className="h-10 w-full" />
+        {Array.from({ length: 5 }).map((_, i) => (
+          <Skeleton key={i} className="h-12 w-full" />
+        ))}
       </div>
     );
   }

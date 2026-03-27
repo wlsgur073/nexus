@@ -22,6 +22,7 @@ import {
   Label,
   ScrollArea,
   Separator,
+  Skeleton,
   Table,
   TableBody,
   TableCell,
@@ -210,8 +211,10 @@ export function CommonCodeSearchTable({
 
   if (groups.length === 0 && groupsLoading) {
     return (
-      <div className="flex h-40 items-center justify-center text-sm text-muted-foreground">
-        로딩 중...
+      <div className="space-y-3 p-4">
+        {Array.from({ length: 5 }).map((_, i) => (
+          <Skeleton key={i} className="h-10 w-full" />
+        ))}
       </div>
     );
   }
@@ -348,8 +351,8 @@ export function CommonCodeSearchTable({
                           variant="outline"
                           className={
                             code.useYn === "Y"
-                              ? "border-green-500 text-green-600"
-                              : "border-gray-400 text-gray-500"
+                              ? "border-green-500 text-green-600 dark:text-green-400"
+                              : "border-gray-400 text-gray-500 dark:text-gray-400"
                           }
                         >
                           {code.useYn === "Y" ? "사용" : "미사용"}
