@@ -3,7 +3,14 @@
 import { useEffect, useState, useTransition } from "react";
 import { Clock, User } from "lucide-react";
 
-import { Card, CardContent, CardHeader, CardTitle, Separator } from "@nexus/ui";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  Separator,
+  Skeleton,
+} from "@nexus/ui";
 import {
   getApprovalDetail,
   getApprovalChanges,
@@ -22,7 +29,10 @@ interface ApprovalDetailPanelProps {
   onProcessed: () => void;
 }
 
-export function ApprovalDetailPanel({ requestId, onProcessed }: ApprovalDetailPanelProps) {
+export function ApprovalDetailPanel({
+  requestId,
+  onProcessed,
+}: ApprovalDetailPanelProps) {
   const [request, setRequest] = useState<Request | null>(null);
   const [changes, setChanges] = useState<RequestChange[]>([]);
   const [history, setHistory] = useState<AuditLog[]>([]);
@@ -44,8 +54,16 @@ export function ApprovalDetailPanel({ requestId, onProcessed }: ApprovalDetailPa
   if (isPending) {
     return (
       <Card>
-        <CardContent className="p-6">
-          <p className="text-sm text-muted-foreground">로딩 중...</p>
+        <CardContent className="space-y-4 p-6">
+          <Skeleton className="h-5 w-48" />
+          <div className="space-y-3">
+            {Array.from({ length: 4 }).map((_, i) => (
+              <div key={i} className="space-y-1">
+                <Skeleton className="h-3 w-20" />
+                <Skeleton className="h-5 w-full" />
+              </div>
+            ))}
+          </div>
         </CardContent>
       </Card>
     );
@@ -55,7 +73,9 @@ export function ApprovalDetailPanel({ requestId, onProcessed }: ApprovalDetailPa
     return (
       <Card>
         <CardContent className="p-6">
-          <p className="text-sm text-muted-foreground">신청 정보를 찾을 수 없습니다.</p>
+          <p className="text-sm text-muted-foreground">
+            신청 정보를 찾을 수 없습니다.
+          </p>
         </CardContent>
       </Card>
     );
@@ -121,10 +141,7 @@ export function ApprovalDetailPanel({ requestId, onProcessed }: ApprovalDetailPa
           <CardContent>
             <div className="space-y-3">
               {history.map((log) => (
-                <div
-                  key={log.logId}
-                  className="flex items-start gap-3 text-sm"
-                >
+                <div key={log.logId} className="flex items-start gap-3 text-sm">
                   <Clock className="mt-0.5 h-4 w-4 text-muted-foreground" />
                   <div>
                     <p>
@@ -132,9 +149,13 @@ export function ApprovalDetailPanel({ requestId, onProcessed }: ApprovalDetailPa
                       {log.stateFrom && log.stateTo && (
                         <span className="text-muted-foreground">
                           {" "}
-                          {REQUEST_STATUS_LABELS[log.stateFrom as keyof typeof REQUEST_STATUS_LABELS] ?? log.stateFrom}
+                          {REQUEST_STATUS_LABELS[
+                            log.stateFrom as keyof typeof REQUEST_STATUS_LABELS
+                          ] ?? log.stateFrom}
                           {" → "}
-                          {REQUEST_STATUS_LABELS[log.stateTo as keyof typeof REQUEST_STATUS_LABELS] ?? log.stateTo}
+                          {REQUEST_STATUS_LABELS[
+                            log.stateTo as keyof typeof REQUEST_STATUS_LABELS
+                          ] ?? log.stateTo}
                         </span>
                       )}
                     </p>
@@ -147,9 +168,7 @@ export function ApprovalDetailPanel({ requestId, onProcessed }: ApprovalDetailPa
                       <User className="h-3 w-3" />
                       <span>{log.actorRole}</span>
                       <span>·</span>
-                      <span>
-                        {log.logDatetime.toLocaleDateString("ko-KR")}
-                      </span>
+                      <span>{log.logDatetime.toLocaleDateString("ko-KR")}</span>
                     </div>
                   </div>
                 </div>

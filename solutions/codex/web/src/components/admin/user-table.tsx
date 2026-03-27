@@ -17,6 +17,7 @@ import {
   SelectContent,
   SelectItem,
   SelectTrigger,
+  Skeleton,
   Table,
   TableBody,
   TableCell,
@@ -114,8 +115,11 @@ export function UserTable() {
       </CardHeader>
       <CardContent>
         {isLoading ? (
-          <div className="flex h-40 items-center justify-center text-sm text-muted-foreground">
-            로딩 중...
+          <div className="space-y-3">
+            <Skeleton className="h-10 w-full" />
+            {Array.from({ length: 5 }).map((_, i) => (
+              <Skeleton key={i} className="h-12 w-full" />
+            ))}
           </div>
         ) : users.length === 0 ? (
           <div className="flex h-40 items-center justify-center text-sm text-muted-foreground">
@@ -157,8 +161,8 @@ export function UserTable() {
                       variant="outline"
                       className={
                         user.status === "ACTIVE"
-                          ? "border-green-500 text-green-600"
-                          : "border-gray-400 text-gray-500"
+                          ? "border-green-500 text-green-600 dark:text-green-400"
+                          : "border-gray-400 text-gray-500 dark:text-gray-400"
                       }
                     >
                       {user.status === "ACTIVE" ? "활성" : "비활성"}
