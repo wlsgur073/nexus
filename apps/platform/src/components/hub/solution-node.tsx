@@ -23,7 +23,8 @@ const statusStyles = {
     dot: "bg-yellow-500 shadow-[0_0_6px_rgba(234,179,8,0.4)]",
   },
   "coming-soon": {
-    container: "bg-canvas border-dashed border-border opacity-60",
+    container:
+      "bg-canvas border-dashed border-border opacity-60 text-text-disabled",
     icon: "bg-muted grayscale",
     dot: "",
   },
@@ -53,10 +54,24 @@ export function SolutionNode({ data }: NodeProps) {
         <DynamicIcon name={solution.icon} className="h-3.5 w-3.5" />
       </div>
       <div>
-        <div className="text-[11px] font-semibold text-foreground">
+        <div
+          className={cn(
+            "text-[11px] font-semibold",
+            solution.status === "coming-soon"
+              ? "text-text-disabled"
+              : "text-foreground",
+          )}
+        >
           {solution.name}
         </div>
-        <div className="text-[9px] text-text-muted">
+        <div
+          className={cn(
+            "text-[9px]",
+            solution.status === "coming-soon"
+              ? "text-text-disabled"
+              : "text-text-muted",
+          )}
+        >
           {getCategoryById(solution.category)?.name ?? solution.category}
         </div>
       </div>
