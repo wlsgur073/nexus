@@ -1,14 +1,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft, Clock, CheckCircle2 } from "lucide-react";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-  Badge,
-  Button,
-} from "@nexus/ui";
+import { Card, CardContent, CardHeader, CardTitle, Button } from "@nexus/ui";
 import {
   DynamicIcon,
   getSolutionBySlug,
@@ -16,6 +9,7 @@ import {
   solutions,
 } from "@nexus/config";
 import { SolutionLaunchButton } from "@/components/solutions/solution-launch-button";
+import { PageTransition } from "@/components/motion/page-transition";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -35,67 +29,60 @@ export default async function SolutionDetailPage({ params }: Props) {
 
   const category = getCategoryById(solution.category);
 
-  const statusLabel: Record<string, string> = {
-    active: "활성",
-    beta: "베타",
-    "coming-soon": "준비 중",
-  };
-
-  const statusVariant: Record<string, "default" | "secondary" | "outline"> = {
-    active: "default",
-    beta: "secondary",
-    "coming-soon": "outline",
-  };
-
   return (
-    <div className="p-6">
+    <PageTransition className="px-10 py-7">
       <Button
         variant="ghost"
         size="sm"
-        className="mb-4"
+        className="mb-6"
         nativeButton={false}
         render={<Link href="/solutions" />}
       >
         <ArrowLeft className="mr-1 h-4 w-4" />
-        솔루션 목록
+        Solutions
       </Button>
 
-      <div className="mb-8 flex items-start gap-4">
-        <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-primary/10">
-          <DynamicIcon name={solution.icon} className="h-7 w-7 text-primary" />
+      <div className="mb-8 flex items-start gap-5">
+        <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-50 to-indigo-100 dark:from-indigo-500/20 dark:to-indigo-500/10">
+          <DynamicIcon name={solution.icon} className="h-7 w-7" />
         </div>
         <div className="flex-1">
           <div className="flex items-center gap-3">
-            <h1 className="text-2xl font-bold tracking-tight">
+            <h1 className="font-display text-2xl tracking-tight">
               {solution.name}
             </h1>
-            <Badge variant={statusVariant[solution.status]}>
-              {statusLabel[solution.status]}
-            </Badge>
             <SolutionLaunchButton
               slug={solution.slug}
               status={solution.status}
             />
           </div>
-          <p className="mt-1 text-muted-foreground">{solution.description}</p>
+          <p className="mt-1 text-text-secondary">{solution.description}</p>
           {category && (
-            <p className="mt-2 text-sm text-muted-foreground">
-              카테고리: {category.name}
+            <p className="mt-2 text-[10px] uppercase tracking-widest text-text-muted">
+              {category.name}
             </p>
           )}
         </div>
       </div>
 
+      <div
+        className="mb-8 h-px w-full"
+        style={{
+          background:
+            "linear-gradient(90deg, transparent, var(--border) 15%, var(--border) 85%, transparent)",
+        }}
+      />
+
       {solution.status === "coming-soon" && (
-        <Card className="border-dashed">
+        <Card className="border-dashed border-border bg-canvas">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-base">
-              <Clock className="h-5 w-5 text-muted-foreground" />
+              <Clock className="h-5 w-5 text-text-muted" />
               준비 중입니다
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-sm text-muted-foreground">
+            <p className="text-sm text-text-secondary">
               이 솔루션은 현재 개발 중입니다. 곧 출시될 예정이니 기대해 주세요!
             </p>
           </CardContent>
@@ -103,34 +90,33 @@ export default async function SolutionDetailPage({ params }: Props) {
       )}
 
       {solution.status === "active" && (
-        <Card className="border-green-200 bg-green-50 dark:border-green-800 dark:bg-green-950/20">
+        <Card className="border-green-200 bg-green-50 dark:border-green-500/30 dark:bg-green-500/5">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-base">
-              <CheckCircle2 className="h-5 w-5 text-green-600" />
+              <CheckCircle2 className="h-5 w-5 text-green-600 dark:text-green-400" />
               운영 중
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-sm text-muted-foreground">
-              이 솔루션은 현재 정상 운영 중입니다. 아래에서 기능을 사용할 수
-              있습니다.
+            <p className="text-sm text-text-secondary">
+              이 솔루션은 현재 정상 운영 중입니다.
             </p>
           </CardContent>
         </Card>
       )}
 
       {solution.status === "beta" && (
-        <Card className="border-yellow-200 bg-yellow-50 dark:border-yellow-800 dark:bg-yellow-950/20">
+        <Card className="border-yellow-200 bg-yellow-50 dark:border-yellow-500/30 dark:bg-yellow-500/5">
           <CardHeader>
             <CardTitle className="text-base">베타 버전</CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-sm text-muted-foreground">
+            <p className="text-sm text-text-secondary">
               이 솔루션은 베타 단계입니다. 일부 기능이 변경될 수 있습니다.
             </p>
           </CardContent>
         </Card>
       )}
-    </div>
+    </PageTransition>
   );
 }

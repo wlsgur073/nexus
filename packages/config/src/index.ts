@@ -6,3 +6,9 @@ export {
   getCategoryById,
 } from "./solutions";
 export { DynamicIcon } from "./icons";
+export {
+  type HubConnection,
+  hubConnections,
+  getConnectionsByNode,
+  getActiveConnections,
+} from "./hub-connections";

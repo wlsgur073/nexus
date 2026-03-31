@@ -76,6 +76,9 @@ $RECYCLE.BIN/
 .claude/settings.local.json
 .claude.local.md
 
+# Superpowers brainstorming artifacts
+.superpowers/
+
 # Obsidian editor
 .obsidian/
 
