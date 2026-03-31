@@ -30,7 +30,7 @@ version: 0.1.0
 | icon        | lucide-react 아이콘 이름 (PascalCase) | `BookOpen`    | 아이콘             |
 | category    | 기존 카테고리 ID                      | `data`        | 카테고리 참조      |
 | status      | `active` / `beta` / `coming-soon`     | `active`      | 솔루션 상태        |
-| port        | 숫자                                  | `3002`        | 개발 서버 포트     |
+| port        | 숫자                                  | `5002`        | 개발 서버 포트     |
 
 ### 사용 가능한 카테고리
 
@@ -514,6 +514,7 @@ export const solutions: Solution[] = [
     category: "{category}",
     status: "{status}",
     route: "/solutions/{id}",
+    port: { port },
   },
 ];
 ```
@@ -635,4 +636,4 @@ packages:
 | `{icon}`        | lucide-react 아이콘 이름 (PascalCase) | `BookOpen`    |
 | `{category}`    | 카테고리 ID                           | `data`        |
 | `{status}`      | 솔루션 상태                           | `active`      |
-| `{port}`        | 개발 서버 포트 번호                   | `3002`        |
+| `{port}`        | 개발 서버 포트 번호                   | `5002`        |

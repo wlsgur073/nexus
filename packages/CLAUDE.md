@@ -28,7 +28,7 @@ Nexus 전체 공유 타입 정의. 의존성 계층의 최하위.
 
 - `SolutionStatus`: `"active" | "beta" | "coming-soon"`
 - `Category`: `{ id, name, icon }`
-- `Solution`: `{ id, slug, name, description, icon, category, status, route }`
+- `Solution`: `{ id, slug, name, description, icon, category, status, route, port }`
 - **의존성 없음** — 다른 `@nexus/*` 패키지를 의존하지 않음
 
 ### @nexus/config

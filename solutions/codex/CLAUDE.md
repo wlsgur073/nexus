@@ -37,7 +37,8 @@ docs/
         ├── foundation.md              기술 스택, 의존성, 패키지 구조 (web/models/shared)
         ├── components.md              라우트 트리, 컴포넌트 계층, AI Butler·인라인 거버넌스
         ├── state-data.md              TanStack Query, nuqs, Context, API 클라이언트, 캐싱
-        └── integration.md             인증·권한, 성능, Shell 통합, Phase 1-3, 오류·보안
+        ├── integration.md             인증·권한, 성능, Shell 통합, Phase 1-3, 오류·보안
+        └── phase4-enhancement.md      Phase 4 품질 보강 (메타데이터, Skeleton, Toast, 접근성)
 ```
 
 ### 에이전트별 문서 참조 매트릭스

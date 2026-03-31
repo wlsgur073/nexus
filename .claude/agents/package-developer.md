@@ -13,7 +13,7 @@ effort: high
 ### 플랫폼 공유 패키지
 
 - `packages/ui/` — shadcn/ui 공유 컴포넌트 + `cn()` (@nexus/ui)
-- `packages/shell/` — PlatformShell, Header, Sidebar, Breadcrumbs (@nexus/shell, Platform 앱 전용)
+- `packages/shell/` — PlatformShell, Header, ThemeToggle (@nexus/shell, Platform 앱 전용)
 - `packages/config/` — 솔루션 레지스트리, DynamicIcon (@nexus/config)
 - `packages/types/` — Solution, Category 등 공유 타입 (@nexus/types)
 
@@ -37,9 +37,11 @@ models와 shared는 프론트엔드(web/)와 백엔드(api/) 양쪽이 공유하
 
 ```
 @nexus/types ← @nexus/config ← @nexus/shell ← @nexus/platform
-                    ↑
-@nexus/ui ──────────┘         @nexus/{id}-web ← @nexus/{id}-models
-                              @nexus/{id}-api ← @nexus/{id}-shared
+                                    ↑              ↑
+@nexus/ui ──────────────────────────┘         @nexus/{id}-web
+
+@nexus/types ← @nexus/{id}-models ← @nexus/{id}-shared ← @nexus/{id}-web
+                                                         ← @nexus/{id}-api (향후)
 ```
 
 **규칙: `packages/` → `solutions/` 방향 의존 절대 금지**

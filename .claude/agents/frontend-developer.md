@@ -34,7 +34,7 @@ effort: high
 - `@nexus/ui` — 공유 UI 컴포넌트 + `cn()`
 - `@nexus/types` — Solution, Category 등 공유 타입
 - `@nexus/config` — 솔루션 레지스트리, DynamicIcon
-- `@nexus/shell` — Platform 앱 전용 (PlatformShell, Header, Sidebar)
+- `@nexus/shell` — Platform 앱 전용 (PlatformShell, Header, ThemeToggle)
 - `@nexus/{id}-models` — 솔루션별 공유 타입 (프론트-백 공유)
 - `@nexus/{id}-shared` — 솔루션별 공유 유틸
 

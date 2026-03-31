@@ -64,19 +64,22 @@ factory-ai-team/
 │ └── docs/ # 플랫폼 문서 (specs/plans/release 3단 구조)
 │
 ├── solutions/
-│ └── codex/ # Codex 솔루션 그룹
-│ ├── web/ # Codex 프론트엔드 (@nexus/codex-web, basePath: /solutions/codex)
-│ ├── models/ # Codex 데이터 모델 (@nexus/codex-models)
-│ ├── shared/ # Codex 내부 공유 유틸 (@nexus/codex-shared)
-│ └── docs/ # 솔루션 문서 (specs/plans/release 3단 구조)
-│ ├── specs/ # 명세서 (확정된 설계)
-│ ├── plans/ # 실행 계획 (Phase별 task)
-│ └── release/ # 릴리즈 기록 (완료된 결과)
+│ ├── codex/ # Codex 솔루션 그룹
+│ │ ├── web/ # Codex 프론트엔드 (@nexus/codex-web, basePath: /solutions/codex)
+│ │ ├── models/ # Codex 데이터 모델 (@nexus/codex-models)
+│ │ ├── shared/ # Codex 내부 공유 유틸 (@nexus/codex-shared)
+│ │ └── docs/ # 솔루션 문서 (specs/plans/release 3단 구조)
+│ │ ├── specs/ # 명세서 (확정된 설계)
+│ │ ├── plans/ # 실행 계획 (Phase별 task)
+│ │ └── release/ # 릴리즈 기록 (완료된 결과)
+│ │
+│ └── llm-gateway/ # LLM Gateway (beta, 계획 단계)
+│ └── docs/ # 솔루션 문서 (plans/ only)
 │
 ├── packages/
 │ ├── ui/ # shadcn/ui 공유 컴포넌트 + cn() (@nexus/ui)
-│ ├── shell/ # PlatformShell, Header, Sidebar, Breadcrumbs (@nexus/shell)
-│ ├── types/ # Solution, Category 등 공유 타입 (@nexus/types)
+│ ├── shell/ # PlatformShell, Header, ThemeToggle (@nexus/shell)
+│ ├── types/ # SolutionStatus, Category, Solution 공유 타입 (@nexus/types)
 │ └── config/ # 솔루션 레지스트리, DynamicIcon (@nexus/config)
 │
 ├── docker/ # Nginx 설정, Dockerfile

@@ -94,6 +94,7 @@ solutions/{id}/
   category: "{category}",
   status: "{status}",
   route: "/solutions/{id}",
+  port: {port},
 }
 ```
 
