@@ -1,3 +1,9 @@
+---
+title: 솔루션 런치 스플래시 구현 계획
+description: 솔루션 런치 시 스플래시 화면 구현 task 리스트
+version: 0.1.0
+---
+
 # 솔루션 런치 스플래시 구현 계획
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.

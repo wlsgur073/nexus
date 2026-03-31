@@ -1,3 +1,9 @@
+---
+title: Agent Team 준비 가이드
+description: Claude Code Agent Team 구성에 필요한 문서와 설정 정리 (범용 가이드)
+version: 0.1.0
+---
+
 # Agent Team 준비 가이드
 
 > 이 문서는 Claude Code Agent Team 구성에 앞서 작성해야 할 문서와 설정을 정리한다. 특정 프로젝트에 종속되지 않는 범용 가이드이다.

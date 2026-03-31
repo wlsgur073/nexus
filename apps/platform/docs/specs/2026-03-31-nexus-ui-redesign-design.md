@@ -1,3 +1,9 @@
+---
+title: Nexus 플랫폼 UI/UX 전면 리디자인 설계 명세
+description: Hub-Centric Layout, Refined Minimal 미학, 몰입형 모션 시스템 설계
+version: 2.0.0
+---
+
 # Nexus 플랫폼 UI/UX 전면 리디자인 설계 명세
 
 > **Status**: Approved (brainstorming)

@@ -1,3 +1,9 @@
+---
+title: Nexus 개발 명세서
+description: Agent Team 공유 컨텍스트 — 비즈니스/기술 명세
+version: 0.1.0
+---
+
 # Nexus 개발 명세서
 
 > 이 문서는 Agent Team의 공유 컨텍스트로, 각 에이전트가 참조하는 비즈니스/기술 명세입니다.

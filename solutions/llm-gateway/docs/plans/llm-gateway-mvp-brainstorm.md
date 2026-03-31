@@ -1,3 +1,9 @@
+---
+title: LLM Gateway MVP 브레인스토밍
+description: Gateway Core + Observatory MVP 방향, 기술 결정사항, Codex 시너지 정리
+version: 0.1.0
+---
+
 # LLM Gateway — MVP 브레인스토밍 정리
 
 > **Status**: 초기 브레인스토밍 완료 (2026-03-31). 상세 설계 미진행.

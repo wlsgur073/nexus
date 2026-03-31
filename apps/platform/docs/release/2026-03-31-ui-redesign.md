@@ -1,6 +1,7 @@
 ---
+title: Nexus UI/UX 전면 리디자인 릴리즈
+description: Hub-Centric Layout + Refined Minimal + 몰입형 모션
 version: 2.0.0
-summary: Nexus 플랫폼 UI/UX 전면 리디자인 — Hub-Centric Layout + Refined Minimal + 몰입형 모션
 ---
 
 ## 변경 사항

@@ -128,6 +128,26 @@ factory-ai-team/
 | `docs/plans/`   | 실행 계획   | Phase별 task 리스트와 실행 전략              |
 | `docs/release/` | 릴리즈 기록 | 완료된 결과만 문서화 (`yyyy-MM-dd-topic.md`) |
 
+### Frontmatter 규칙
+
+모든 `docs/` 하위 문서(`.md`)는 반드시 YAML frontmatter를 포함한다:
+
+```yaml
+---
+title: 문서 제목
+description: 한 줄 요약
+version: 0.1.0
+---
+```
+
+| 필드          | 필수 | 설명                           |
+| ------------- | ---- | ------------------------------ |
+| `title`       | ✅   | 문서 제목                      |
+| `description` | ✅   | 한 줄 요약                     |
+| `version`     | ✅   | 문서 버전 (SemVer, e.g. 0.1.0) |
+
+예외: `CLAUDE.md`, `.claude/` 하위 파일(agents/rules/skills), `README.md`는 자체 포맷 유지.
+
 ### Superpowers 스킬 경로 오버라이드
 
 brainstorming · writing-plans 스킬이 문서를 생성할 때, `docs/superpowers/` 기본 경로를 사용하지 않는다. 대상 앱/솔루션의 docs 경로에 저장한다:

@@ -1,3 +1,9 @@
+---
+title: Codex Phase 3 실행 계획
+description: 관리자 기능 + UX 완성도 — 5개 관리자 화면 구현
+version: 0.3.0
+---
+
 # Codex Phase 3 실행 계획
 
 > **상태**: ✅ 완료 (2026-03-25) — 릴리즈: `docs/release/2026-03-25-phase3-admin.md`

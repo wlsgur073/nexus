@@ -1,3 +1,9 @@
+---
+title: Codex Phase 4 실행 계획
+description: 프론트엔드 품질 완성 — 메타데이터, 스켈레톤, 토스트, 접근성 보강
+version: 0.4.0
+---
+
 # Codex Phase 4 실행 계획
 
 > **상태**: ✅ 완료 (2026-03-27)

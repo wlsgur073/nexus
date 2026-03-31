@@ -1,3 +1,9 @@
+---
+title: Nexus UI/UX 전면 리디자인 구현 계획
+description: Hub-Centric Layout + Refined Minimal + 몰입형 모션 시스템 8 Phase 구현 계획
+version: 2.0.0
+---
+
 # Nexus Platform UI/UX Full Redesign — Implementation Plan
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
