@@ -13,15 +13,24 @@ export default function SolutionsPage() {
   const [searchQuery, setSearchQuery] = useState("");
 
   const filtered = useMemo(() => {
-    return solutions.filter((s) => {
-      const matchesCategory =
-        !selectedCategory || s.category === selectedCategory;
-      const matchesSearch =
-        !searchQuery ||
-        s.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        s.description.toLowerCase().includes(searchQuery.toLowerCase());
-      return matchesCategory && matchesSearch;
-    });
+    const statusOrder: Record<string, number> = {
+      active: 0,
+      beta: 1,
+      "coming-soon": 2,
+    };
+    return solutions
+      .filter((s) => {
+        const matchesCategory =
+          !selectedCategory || s.category === selectedCategory;
+        const matchesSearch =
+          !searchQuery ||
+          s.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          s.description.toLowerCase().includes(searchQuery.toLowerCase());
+        return matchesCategory && matchesSearch;
+      })
+      .sort(
+        (a, b) => (statusOrder[a.status] ?? 2) - (statusOrder[b.status] ?? 2),
+      );
   }, [selectedCategory, searchQuery]);
 
   return (

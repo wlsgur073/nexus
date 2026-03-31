@@ -11,8 +11,18 @@ export function NexusHubNode({ data }: NodeProps) {
       <span className="mt-0.5 font-display text-[7px] font-semibold uppercase tracking-widest text-foreground">
         Nexus
       </span>
-      <Handle type="source" position={Position.Top} className="!invisible" />
-      <Handle type="target" position={Position.Bottom} className="!invisible" />
+      <Handle
+        type="source"
+        position={Position.Top}
+        className="!invisible"
+        style={{ top: "50%", left: "50%", transform: "translate(-50%, -50%)" }}
+      />
+      <Handle
+        type="target"
+        position={Position.Bottom}
+        className="!invisible"
+        style={{ top: "50%", left: "50%", transform: "translate(-50%, -50%)" }}
+      />
     </div>
   );
 }

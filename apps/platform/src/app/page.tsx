@@ -27,7 +27,7 @@ export default function HubPage() {
       </div>
 
       {/* Hub Canvas + Detail Panel */}
-      <div className="relative min-h-[480px] overflow-hidden rounded-2xl bg-canvas ring-1 ring-border">
+      <div className="relative h-[520px] overflow-hidden rounded-2xl bg-canvas ring-1 ring-border">
         <HubCanvas onNodeClick={setSelectedSolution} />
         <AnimatePresence>
           {selectedSolution && (

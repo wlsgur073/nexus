@@ -3,7 +3,7 @@
 import { Handle, Position } from "@xyflow/react";
 import type { NodeProps } from "@xyflow/react";
 import { cn } from "@nexus/ui";
-import { DynamicIcon } from "@nexus/config";
+import { DynamicIcon, getCategoryById } from "@nexus/config";
 import type { Solution } from "@nexus/types";
 
 type SolutionNodeData = {
@@ -57,19 +57,24 @@ export function SolutionNode({ data }: NodeProps) {
           {solution.name}
         </div>
         <div className="text-[9px] text-text-muted">
-          {solution.description
-            .split(",")[0]
-            .split("을")[0]
-            .split("를")[0]
-            .trim()
-            .slice(0, 16)}
+          {getCategoryById(solution.category)?.name ?? solution.category}
         </div>
       </div>
       {styles.dot && (
         <div className={cn("ml-1 h-1.5 w-1.5 rounded-full", styles.dot)} />
       )}
-      <Handle type="source" position={Position.Right} className="!invisible" />
-      <Handle type="target" position={Position.Left} className="!invisible" />
+      <Handle
+        type="source"
+        position={Position.Right}
+        className="!invisible"
+        style={{ top: "50%", left: "50%", transform: "translate(-50%, -50%)" }}
+      />
+      <Handle
+        type="target"
+        position={Position.Left}
+        className="!invisible"
+        style={{ top: "50%", left: "50%", transform: "translate(-50%, -50%)" }}
+      />
     </div>
   );
 }

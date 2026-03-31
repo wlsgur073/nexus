@@ -1,11 +1,9 @@
 "use client";
 
-import { getBezierPath } from "@xyflow/react";
 import type { EdgeProps } from "@xyflow/react";
 
 type FlowEdgeData = {
   status: "active" | "pending";
-  label?: string;
   dimmed?: boolean;
 };
 
@@ -15,23 +13,22 @@ export function FlowEdge({
   sourceY,
   targetX,
   targetY,
-  sourcePosition,
-  targetPosition,
   data,
 }: EdgeProps) {
-  const { status, label, dimmed } = (data || {}) as FlowEdgeData;
+  const { status, dimmed } = (data || {}) as FlowEdgeData;
 
-  const [edgePath, labelX, labelY] = getBezierPath({
-    sourceX,
-    sourceY,
-    targetX,
-    targetY,
-    sourcePosition,
-    targetPosition,
-  });
+  const dx = targetX - sourceX;
+  const dy = targetY - sourceY;
+  const dist = Math.sqrt(dx * dx + dy * dy) || 1;
+  const curvature = dist * 0.2;
+  const mx = (sourceX + targetX) / 2;
+  const my = (sourceY + targetY) / 2;
+  const nx = (-dy / dist) * curvature;
+  const ny = (dx / dist) * curvature;
+  const edgePath = `M ${sourceX} ${sourceY} Q ${mx + nx} ${my + ny} ${targetX} ${targetY}`;
 
   const isActive = status === "active";
-  const edgeOpacity = dimmed ? 0.15 : isActive ? 0.7 : 0.4;
+  const edgeOpacity = dimmed ? 0.15 : isActive ? 0.7 : 0.6;
 
   return (
     <g>
@@ -39,8 +36,8 @@ export function FlowEdge({
         id={id}
         d={edgePath}
         fill="none"
-        stroke={isActive ? "var(--chart-2)" : "var(--border)"}
-        strokeWidth={isActive ? 2 : 1}
+        stroke={isActive ? "var(--chart-2)" : "var(--text-disabled)"}
+        strokeWidth={isActive ? 2 : 1.5}
         strokeDasharray={isActive ? undefined : "4 4"}
         opacity={edgeOpacity}
         className="transition-opacity duration-200"
@@ -63,18 +60,6 @@ export function FlowEdge({
             />
           </circle>
         </>
-      )}
-      {label && !dimmed && (
-        <text
-          x={labelX}
-          y={labelY - 8}
-          textAnchor="middle"
-          fontSize="9"
-          fill="var(--text-muted)"
-          className="pointer-events-none select-none"
-        >
-          {label}
-        </text>
       )}
     </g>
   );

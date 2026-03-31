@@ -27,10 +27,16 @@ const edgeTypes = {
   flow: FlowEdge,
 };
 
+const STATUS_ORDER: Record<string, number> = {
+  active: 0,
+  beta: 1,
+  "coming-soon": 2,
+};
+
 function buildInitialNodes(): Node[] {
   const centerX = 400;
   const centerY = 250;
-  const radius = 220;
+  const radius = 180;
 
   const hubNode: Node = {
     id: "nexus-hub",
@@ -40,8 +46,13 @@ function buildInitialNodes(): Node[] {
     draggable: false,
   };
 
-  const solutionNodes: Node[] = solutions.map((solution, index) => {
-    const angle = (index / solutions.length) * 2 * Math.PI - Math.PI / 2;
+  // Active/Beta를 상단에 배치하도록 status 순 정렬
+  const sorted = [...solutions].sort(
+    (a, b) => (STATUS_ORDER[a.status] ?? 2) - (STATUS_ORDER[b.status] ?? 2),
+  );
+
+  const solutionNodes: Node[] = sorted.map((solution, index) => {
+    const angle = (index / sorted.length) * 2 * Math.PI - Math.PI / 2;
     const x = centerX + radius * Math.cos(angle) - 60;
     const y = centerY + radius * Math.sin(angle) - 20;
 
@@ -62,7 +73,7 @@ function buildInitialEdges(): Edge[] {
     source: conn.source,
     target: conn.target,
     type: "flow",
-    data: { status: conn.status, label: conn.label, dimmed: false },
+    data: { status: conn.status, dimmed: false },
   }));
 }
 
@@ -129,48 +140,50 @@ export function HubCanvas({ onNodeClick }: HubCanvasProps) {
   }, []);
 
   return (
-    <ReactFlow
-      nodes={displayNodes}
-      edges={displayEdges}
-      onNodesChange={onNodesChange}
-      onEdgesChange={onEdgesChange}
-      onNodeClick={handleNodeClick}
-      onNodeMouseEnter={handleNodeMouseEnter}
-      onNodeMouseLeave={handleNodeMouseLeave}
-      nodeTypes={nodeTypes}
-      edgeTypes={edgeTypes}
-      fitView
-      minZoom={0.5}
-      maxZoom={1.5}
-      proOptions={{ hideAttribution: true }}
-      className="!bg-transparent"
-    >
-      <Background
-        variant={"dots" as any}
-        gap={20}
-        size={1}
-        color="var(--border)"
-        style={{ opacity: 0.35 }}
-      />
-      <Controls
-        showInteractive={false}
-        position="bottom-right"
-        className="!rounded-lg !border !border-border !bg-background !shadow-sm [&>button]:!border-border [&>button]:!bg-background [&>button]:!fill-foreground"
-      />
-      <div className="absolute bottom-3 left-3 z-10 flex gap-3 text-[9px] text-text-muted">
-        <span className="flex items-center gap-1.5">
-          <span className="h-1.5 w-1.5 rounded-full bg-green-500" />
-          Active
-        </span>
-        <span className="flex items-center gap-1.5">
-          <span className="h-1.5 w-1.5 rounded-full bg-yellow-500" />
-          Beta
-        </span>
-        <span className="flex items-center gap-1.5">
-          <span className="w-3 border-t border-dashed border-border" />
-          Coming Soon
-        </span>
-      </div>
-    </ReactFlow>
+    <div className="h-full w-full">
+      <ReactFlow
+        nodes={displayNodes}
+        edges={displayEdges}
+        onNodesChange={onNodesChange}
+        onEdgesChange={onEdgesChange}
+        onNodeClick={handleNodeClick}
+        onNodeMouseEnter={handleNodeMouseEnter}
+        onNodeMouseLeave={handleNodeMouseLeave}
+        nodeTypes={nodeTypes}
+        edgeTypes={edgeTypes}
+        fitView
+        minZoom={0.5}
+        maxZoom={1.5}
+        proOptions={{ hideAttribution: true }}
+        className="!bg-transparent"
+      >
+        <Background
+          variant={"dots" as any}
+          gap={20}
+          size={1}
+          color="var(--border)"
+          style={{ opacity: 0.35 }}
+        />
+        <Controls
+          showInteractive={false}
+          position="bottom-right"
+          className="!rounded-lg !border !border-border !bg-background !shadow-sm [&>button]:!border-border [&>button]:!bg-background [&>button]:!fill-foreground"
+        />
+        <div className="absolute bottom-3 left-3 z-10 flex gap-3 text-[9px] text-text-muted">
+          <span className="flex items-center gap-1.5">
+            <span className="h-1.5 w-1.5 rounded-full bg-green-500" />
+            Active
+          </span>
+          <span className="flex items-center gap-1.5">
+            <span className="h-1.5 w-1.5 rounded-full bg-yellow-500" />
+            Beta
+          </span>
+          <span className="flex items-center gap-1.5">
+            <span className="w-3 border-t border-dashed border-border" />
+            Coming Soon
+          </span>
+        </div>
+      </ReactFlow>
+    </div>
   );
 }

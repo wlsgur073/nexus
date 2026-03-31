@@ -14,10 +14,7 @@ export function SummaryBar() {
   );
 
   return (
-    <StaggerContainer
-      className="grid grid-cols-2 gap-3 lg:grid-cols-5"
-      delay={0.3}
-    >
+    <StaggerContainer className="grid grid-cols-3 gap-3" delay={0.3}>
       <StaggerItem>
         <MetricCard
           title="Active Connections"
@@ -38,9 +35,6 @@ export function SummaryBar() {
         />
       </StaggerItem>
       <StaggerItem>
-        <MetricCard title="Data Flow" value="12.4K" subtitle="req/day" />
-      </StaggerItem>
-      <StaggerItem>
         <MetricCard
           title="System Status"
           value={
@@ -50,9 +44,6 @@ export function SummaryBar() {
             </span>
           }
         />
-      </StaggerItem>
-      <StaggerItem>
-        <MetricCard title="Last Activity" value="2m ago" />
       </StaggerItem>
     </StaggerContainer>
   );
